@@ -28,6 +28,7 @@ en:
       password_change:
         subject: "Password Changed"
     omniauth_callbacks:
+      not_a_wagon_student: "We couldn't identify you as a Le Wagon student."
       failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
       success: "Successfully authenticated from %{kind} account."
     passwords:
