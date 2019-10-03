@@ -1,2 +1,12 @@
 <h1>Experiences#new</h1>
 <p>Find me in app/views/experiences/new.html.erb</p>
+<%= simple_form_for @experience do |f| %>
+
+  <%= f.association :category, label_method: :name %>
+  <%= f.input :name %>
+  <%= f.input :address %>
+  <%= f.input :price, input_html: {value: 0} %>
+  <%= f.input :details %>
+
+  <%= f.submit "Submit", class: "btn btn-primary" %>
+<% end %>

@@ -1,3 +1,4 @@
 class Category < ApplicationRecord
-  enum name: ["food", "stays", "nature", "arts", "nightlife", "sports", "workshops"]
+  has_many :experiences
+  validates :name, presence: true
 end
