@@ -2,6 +2,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :redirect
+
+  def redirect # Force the user to stay on edit_profile if profile info not completed
+    redirect_to edit_profile_path if current_user && current_user.first_login
+  end
 
   def after_sign_in_path_for(resource)
     stored_location_for(resource) ||

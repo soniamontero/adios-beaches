@@ -1,3 +1,11 @@
 <h1>Users#edit</h1>
 <p>A few more info to complete your profile...</p>
 
+<%= simple_form_for @user, url: patch_profile_path, method: :patch do |f| %>
+  <%= f.input :batch_number %>
+  <%= f.input :batch_location, collection: @lw_cities %>
+  <%= f.input :slack_username %>
+  <%= f.input :visited_bali %>
+
+  <%= f.submit "update profile", class: "btn btn-primary" %>
+<% end %>

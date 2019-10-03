@@ -5,6 +5,24 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   devise :omniauthable, omniauth_providers: [:github]
 
+  lw_cities = [
+    "bordeaux", "lille", "lyon", "marseille", "nantes", "paris", "rennes",
+    "amsterdam", "barcelona", "berlin", "brussels", "copenhagen", "lausanne",
+    "lisbon", "london", "madrid", "milan", "oslo", "rome", "bali", "chengdu",
+    "kyoto", "melbourne", "shanghai", "shenzhen", "singapore", "tokyo",
+    "belo horizonte", "buenos aires", "mexico", "montreal", "rio de janeiro",
+    "são paulo", "casablanca", "tel aviv"
+  ]
+  before_validation :batch_location_to_lowercase, on: :update
+
+  validates :batch_number, presence: true, numericality: { only_integer: true }, on: :update
+  validates :batch_location, presence: true, inclusion: lw_cities, on: :update
+  validates :visited_bali, inclusion: [ true, false ], on: :update
+
+  def batch_location_to_lowercase
+    self.batch_location = self.batch_location.downcase
+  end
+
   def self.find_for_github_oauth(auth)
     user_params = auth.slice("provider", "uid")
     user_params.merge! auth.info.slice("email", "first_name")

@@ -16,7 +16,6 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
 gem 'omniauth-github'
-# gem "github_api"
 
 group :development do
   gem 'web-console', '>= 3.3.0'
