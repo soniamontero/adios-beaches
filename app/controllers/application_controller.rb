@@ -3,6 +3,15 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) ||
+      if resource.is_a?(User) && resource.first_login
+        edit_profile_path
+      else
+        super
+      end
+  end
+
   def configure_permitted_parameters
     # For additional fields in app/views/devise/registrations/new.html.erb
     devise_parameter_sanitizer.permit(:sign_up, keys:
@@ -10,6 +19,6 @@ class ApplicationController < ActionController::Base
     )
 
     # For additional in app/views/devise/registrations/edit.html.erb
-    # devise_parameter_sanitizer.permit(:account_update, keys: [:username])
+    # devise_parameter_sanitizer.permit(:account_update, keys: [:batch_number, :batch_location, :visited_bali, :slack_username])
   end
 end

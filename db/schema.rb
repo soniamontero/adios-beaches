@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2019_10_01_101556) do
     t.string "uid"
     t.string "github_picture_url"
     t.string "token"
+    t.boolean "first_login", default: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
