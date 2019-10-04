@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :experiences
+  has_many :dones
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -18,6 +20,14 @@ class User < ApplicationRecord
   validates :batch_number, presence: true, numericality: { only_integer: true }, on: :update
   validates :batch_location, presence: true, inclusion: lw_cities, on: :update
   validates :visited_bali, inclusion: [ true, false ], on: :update
+
+  def has_done?(experience)
+    Done.where(experience_id: experience.id, user_id: self.id).first
+  end
+
+  def has_favorite?(experience)
+    Favorite.where(experience_id: experience.id, user_id: self.id).first
+  end
 
   def batch_location_to_lowercase
     self.batch_location = self.batch_location.downcase

@@ -10,5 +10,11 @@ Rails.application.routes.draw do
   match 'edit_profile' => 'users#edit', via: [:get], as: 'edit_profile'
   match 'patch_profile' => 'users#update', via: [:patch]
 
-  resources :experiences
+  resources :experiences do
+    resources :dones, only: [:create]
+    resources :favorites, only: [:create]
+  end
+  resources :dones, only: [:destroy]
+  resources :favorites, only: [:destroy]
+  # post "dones", to: "dones#create", as: "dones"
 end
