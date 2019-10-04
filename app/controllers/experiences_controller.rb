@@ -1,6 +1,10 @@
 class ExperiencesController < ApplicationController
   def index
-    @experiences = Experience.all
+    if params[:category].present?
+      @experiences = Experience.joins(:category).where(categories: {name: params[:category]})
+    else
+      @experiences = Experience.all
+    end
   end
 
   def show

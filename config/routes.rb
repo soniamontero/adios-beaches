@@ -13,8 +13,11 @@ Rails.application.routes.draw do
   resources :experiences do
     resources :dones, only: [:create]
     resources :favorites, only: [:create]
+    resources :votes, only: [:create]
   end
+
   resources :dones, only: [:destroy]
   resources :favorites, only: [:destroy]
+  resources :votes, only: [:update, :destroy]
   # post "dones", to: "dones#create", as: "dones"
 end

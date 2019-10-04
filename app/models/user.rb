@@ -29,6 +29,18 @@ class User < ApplicationRecord
     Favorite.where(experience_id: experience.id, user_id: self.id).first
   end
 
+  def has_voted?(experience)
+    Vote.where(experience_id: experience.id, user_id: self.id).first
+  end
+
+  def has_upvoted?(experience)
+    Vote.where(experience_id: experience.id, user_id: self.id).first.value == 1
+  end
+
+  def has_downvoted?(experience)
+    Vote.where(experience_id: experience.id, user_id: self.id).first.value == -1
+  end
+
   def batch_location_to_lowercase
     self.batch_location = self.batch_location.downcase
   end
