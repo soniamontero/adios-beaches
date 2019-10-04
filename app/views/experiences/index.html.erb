@@ -6,27 +6,27 @@
   <%= experience.user.github_username %>
   <%= experience.price %>
   <%= link_to 'show', experience_path(experience.id) %>
+  <br>
 
   <!-- Statement for done button on experience -->
   <% if current_user.has_done?(experience) %>
     <%= link_to "Undo", done_path(Done.where(experience_id: experience.id, user_id: current_user.id).first), method: :delete  %>
-    <br>
   <% else %>
     <%= simple_form_for [experience, Done.new] do |f| %>
       <%= f.button :button, 'Done', type: 'submit', name: "redirect_to", value: "index" %>
     <% end %>
   <% end %>
   <!-- End statement done button on experience -->
-
-  <!-- Statement for done button on experience -->
+  <br>
+  <!-- Statement for favorite button on experience -->
   <% if current_user.has_favorite?(experience) %>
-    <%= link_to "Undo", favorite_path(Favorite.where(experience_id: experience.id, user_id: current_user.id).first), method: :delete  %>
+    <%= link_to "Unfavorite", favorite_path(Favorite.where(experience_id: experience.id, user_id: current_user.id).first), method: :delete  %>
     <br>
   <% else %>
     <%= simple_form_for [experience, Favorite.new] do |f| %>
       <%= f.button :button, 'favorite', type: 'submit', name: "redirect_to", value: "index" %>
     <% end %>
   <% end %>
-  <!-- End statement done button on experience -->
+  <!-- End statement favorite button on experience -->
 
 <% end %>

@@ -4,6 +4,7 @@
 
 <%= link_to 'Back', experiences_path %>
 
+<!-- Statement for done button on experience -->
 <% if current_user.has_done?(@experience) %>
   <%= link_to "Undo", done_path(Done.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: "show"), method: :delete  %>
   <br>
@@ -12,12 +13,15 @@
     <%= f.button :button, 'Done', type: 'submit', name: "redirect_to", value: "show" %>
   <% end %>
 <% end %>
+<!-- End of statement for done button on experience -->
 
+<!-- Statement for favorite button on experience -->
 <% if current_user.has_favorite?(@experience) %>
-  <%= link_to "Undo", favorite_path(Favorite.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: "show"), method: :delete  %>
+  <%= link_to "Unfavorite", favorite_path(Favorite.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: "show"), method: :delete  %>
   <br>
 <% else %>
   <%= simple_form_for [@experience, @favorite] do |f| %>
     <%= f.button :button, 'Favorite', type: 'submit', name: "redirect_to", value: "show" %>
   <% end %>
 <% end %>
+<!-- End of statement for favorite button on experience -->
