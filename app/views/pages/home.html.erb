@@ -1,3 +1,41 @@
 <h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
 <%= link_to "Add experience", new_experience_path %>
+
+<%= form_tag experiences_path, method: :get do %>
+  <%= text_field_tag :query,
+    params[:query],
+    class: "form-control",
+    placeholder: "Try to type 'temple' or 'Tulamben'"
+  %>
+  <%= submit_tag "Search", class: "btn btn-primary" %>
+<% end %>
+
+<%= form_tag experiences_path, method: :get do %>
+  <%= select_tag "category", options_for_select(["Filter"] + Category.pluck(:name).uniq), onchange: "this.form.submit();", class: "custom-select" %>
+<% end %>
+
+
+<%= form_tag experiences_path, method: :get do %>
+  <%= hidden_field_tag :query,
+    params[:query], value: "Canggu",
+    class: "form-control"
+  %>
+  <%= submit_tag "Canggu", class: "btn btn-primary" %>
+<% end %>
+
+<%= form_tag experiences_path, method: :get do %>
+  <%= hidden_field_tag :query,
+    params[:query], value: "Ubud",
+    class: "form-control"
+  %>
+  <%= submit_tag "Ubud", class: "btn btn-primary" %>
+<% end %>
+
+<%= form_tag experiences_path, method: :get do %>
+  <%= hidden_field_tag :query,
+    params[:query], value: "Seminyak",
+    class: "form-control"
+  %>
+  <%= submit_tag "Seminyak", class: "btn btn-primary" %>
+<% end %>

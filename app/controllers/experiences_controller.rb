@@ -2,6 +2,10 @@ class ExperiencesController < ApplicationController
   def index
     if params[:category].present?
       @experiences = Experience.joins(:category).where(categories: {name: params[:category]})
+    elsif params[:query].present?
+      @experiences = Experience.search_by_name_and_address(params[:query])
+      # keyword = params[:query]
+      # Experience.where("experiences.title LIKE ? OR experiences.details LIKE ?", "%#{keyword}%", "%#{keyword}%")
     else
       @experiences = Experience.all
     end

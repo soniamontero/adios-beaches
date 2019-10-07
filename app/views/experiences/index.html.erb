@@ -1,5 +1,4 @@
 <h1>Experiences#index</h1>
-<p>Find me in app/views/experiences/index.html.erb</p>
 <%#= form_tag experiences_path, method: :get do %>
   <%#= collection_select :category, params[:category], Category.all, :id, :name, class: "form-control",
     placeholder: "Find experiences" %>
@@ -12,8 +11,8 @@
 
 <% @experiences.each do |experience| %>
   <%= experience.category.name %>
-  <%#= experience.name %>
-  <%#= experience.address %>
+  <%= experience.name %>
+  <%= experience.address %>
   <%#= experience.user.github_username %>
   <%#= experience.price %>
   <%= link_to 'show', experience_path(experience.id) %>

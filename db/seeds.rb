@@ -17,8 +17,10 @@ lw_cities = [
   "são paulo", "casablanca", "tel aviv"
 ]
 
-addresses = %w(Canggu Kuta Nusa-Dua Ubud Lovina Amed Tulamben Bingin Uluwatu
-Dreamland-beach Denpasar Jimbaran Pererenan Penida Lombok Sulawesi)
+# addresses = %w(Canggu Kuta Nusa-Dua Ubud Lovina Amed Tulamben Bingin Uluwatu
+# Dreamland-beach Denpasar Jimbaran Pererenan Penida Lombok Sulawesi)
+
+addresses = ["Canggu", "Canggu North", "next to Canggu", "Kuta", "Amed"]
 
 10.times do
   faker_name = Faker::Name.first_name
