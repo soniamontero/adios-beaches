@@ -1,41 +1,83 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
-<%= link_to "Add experience", new_experience_path %>
+<div class="banner">
+  <div class="home-content">
 
-<%= form_tag experiences_path, method: :get do %>
-  <%= text_field_tag :query,
-    params[:query],
-    class: "form-control",
-    placeholder: "Try to type 'temple' or 'Tulamben'"
-  %>
-  <%= submit_tag "Search", class: "btn btn-primary" %>
-<% end %>
-
-<%= form_tag experiences_path, method: :get do %>
-  <%= select_tag "category", options_for_select(["Filter"] + Category.pluck(:name).uniq), onchange: "this.form.submit();", class: "custom-select" %>
-<% end %>
+    <h1 class="main-white-title my-2 pt-5 pb-5">Long days coding? <br>Good weekends traveling.</h1>
 
 
-<%= form_tag experiences_path, method: :get do %>
-  <%= hidden_field_tag :query,
-    params[:query], value: "Canggu",
-    class: "form-control"
-  %>
-  <%= submit_tag "Canggu", class: "btn btn-primary" %>
-<% end %>
+    <div class="white-transparent-button mt-3 mb-3">
+      <%= link_to "Share an experience", new_experience_path %>
+    </div>
 
-<%= form_tag experiences_path, method: :get do %>
-  <%= hidden_field_tag :query,
-    params[:query], value: "Ubud",
-    class: "form-control"
-  %>
-  <%= submit_tag "Ubud", class: "btn btn-primary" %>
-<% end %>
+    <p class="white-paragraphe-upcased">or</p>
 
-<%= form_tag experiences_path, method: :get do %>
-  <%= hidden_field_tag :query,
-    params[:query], value: "Seminyak",
-    class: "form-control"
-  %>
-  <%= submit_tag "Seminyak", class: "btn btn-primary" %>
-<% end %>
+    <!-- <h3 class="second-white-title">Search for an activity or a city:</h3> -->
+
+    <div class="home-search-form mt-3 mb-3">
+      <%= form_tag experiences_path, method: :get do %>
+        <%= text_field_tag :query,
+          params[:query],
+          class: "search-bar-home",
+          placeholder: "Try to type 'temple' or 'Ubud'"
+        %>
+        <button class="btn">
+          <i class="fas fa-search white-color"></i>
+        </button>
+        <%#= submit_tag "Search", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+
+  <div class="category-icons">
+    <%= form_tag experiences_path, method: :get do %>
+      <%= hidden_field_tag :category,
+        params[:category], value: "food"
+      %>
+      <%= image_submit_tag("food.png", class: 'category-icon food', alt: 'Food') %>
+    <% end %>
+
+    <%= form_tag experiences_path, method: :get do %>
+      <%= hidden_field_tag :category,
+        params[:category], value: "arts"
+      %>
+      <%= image_submit_tag("arts.png", class: 'category-icon arts', alt: 'Food') %>
+    <% end %>
+
+    <%= form_tag experiences_path, method: :get do %>
+      <%= hidden_field_tag :category,
+        params[:category], value: "nature"
+      %>
+      <%= image_submit_tag("monkey.png", class: 'category-icon nature', alt: 'Food') %>
+    <% end %>
+
+  </div>
+
+  <div class="category-icons">
+    <%= form_tag experiences_path, method: :get do %>
+      <%= hidden_field_tag :category,
+        params[:category], value: "nightlife"
+      %>
+      <%= image_submit_tag("nightlife.png", class: 'category-icon nightlife', alt: 'Food') %>
+    <% end %>
+
+    <%= form_tag experiences_path, method: :get do %>
+      <%= hidden_field_tag :category,
+        params[:category], value: "stays"
+      %>
+      <%= image_submit_tag("stays.png", class: 'category-icon stays', alt: 'Food') %>
+    <% end %>
+
+    <%= form_tag experiences_path, method: :get do %>
+      <%= hidden_field_tag :category,
+        params[:category], value: "sports"
+      %>
+      <%= image_submit_tag("sports.png", class: 'category-icon sports', alt: 'Food') %>
+    <% end %>
+  </div>
+
+    <!-- Filter select dropdown for filters -->
+    <!-- <div class="home-categories-form">
+      <%#= form_tag experiences_path, method: :get do %>
+        <%#= select_tag "category", options_for_select(["Search by categories"] + @categories), onchange: "this.form.submit();", class: "custom-select" %>
+      <%# end %>
+    </div> -->
+  </div>
+</div>

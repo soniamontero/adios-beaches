@@ -49,7 +49,7 @@ Category.create(name: "nature")
 Category.create(name: "arts")
 Category.create(name: "nightlife")
 Category.create(name: "sports")
-Category.create(name: "workshops")
+# Category.create(name: "workshops")
 puts "Categories generated!"
 
 

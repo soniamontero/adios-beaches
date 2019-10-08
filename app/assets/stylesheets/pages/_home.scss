@@ -1,1 +1,66 @@
 // Specific CSS for your home-page
+
+// Add a background image only on home page (see application.html.erb for body line)
+body.home-page {
+  background: no-repeat center center fixed;
+  background-image: linear-gradient(rgba(125, 125, 125, 0.4), rgba(0, 0, 0, 0.4)), url(home-banner2.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.main-white-title {
+  font-weight: bold;
+  color: white;
+  font-size: 32px;
+}
+
+.second-white-title {
+  font-weight: 400;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+}
+
+.white-paragraphe-upcased {
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 15px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.search-bar-home {
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid white;
+}
+
+input.search-bar-home {
+  color: white; // Color of the user input
+  width: 80%;
+}
+
+input.search-bar-home::-webkit-input-placeholder {
+  color: #ffffff8a; // Color of the placeholder input
+}
+
+.home-search-form {
+  text-align: center;
+}
+
+select#category {
+  border-color: white;
+  border-radius: 23px;
+  padding-left: 19px;
+  border-width: 1px;
+  border-style: solid;
+  text-align: center;
+  color: white;
+  background-color: #ffffff26;
+}
+
+.select-items {
+  font-size: 30px;
+    color: blue !important;
+  }

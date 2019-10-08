@@ -1,0 +1,30 @@
+.white-transparent-button {
+  border-color: white;
+  border-radius: 23px;
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+  text-align: center;
+  color: white;
+  background-color: #ffffff26;
+  max-width: 350px;
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.white-color {
+  color: white;
+}
+
+.github-button {
+  background-color: #333333;
+  padding: 15px;
+  color: white;
+  border-radius: 5px;
+  &:hover {
+    text-decoration: none;
+    color: white;
+  }
+}
