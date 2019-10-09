@@ -5,6 +5,7 @@
       <%= f.input :name, placeholder: "ex: Diving at Penida with Dive Concepts" %>
       <%= f.input :address, placeholder: "ex: Canggu" %>
       <%= f.input :price, input_html: { value: 0 }, label: "Average Price" %>
+      <%= f.input :price_range, as: :radio_buttons, collection: Experience.price_ranges.keys.map {|key| [key.humanize, key]} %>
       <%= f.input :details, input_html: {rows: 5}, placeholder: "How was your experience? What did you most enjoy? Would you recommend it? Summarize your visit or highlight an interesting detail." %>
       <%= f.submit "Submit", class: "btn btn-primary" %>
     <% end %>

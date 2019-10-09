@@ -3,14 +3,16 @@ class Experience < ApplicationRecord
   belongs_to :user
   has_many :dones
 
+  enum price_range: [:low, :medium, :high]
+
   validates :name, presence: true, length: { minimum: 5 }
   validates :address, presence: true
   validates :price, numericality: { only_integer: true }
+  validates :price_range, presence: true, inclusion: { in: price_ranges.keys }
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
 
-  enum price_range: [:low, :medium, :high]
 
   # PGSEARCH
   include PgSearch::Model

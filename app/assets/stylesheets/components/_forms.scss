@@ -28,7 +28,7 @@
   border-bottom: 1px solid #179b8f4d;
 }
 
-.new-experience-form label {
+.new-experience-form label, .new-experience-form legend {
   font-size: 12px;
   font-weight: 400;
   color: #8eb6b5;
@@ -36,6 +36,10 @@
 
 .form-control.is-valid {
   border-color: #179b8f4d;
+}
+
+.form-check-input.is-valid ~ .form-check-label {
+  color: #047b71;
 }
 
 .form-control.is-valid:hover,  {
