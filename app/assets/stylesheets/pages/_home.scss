@@ -8,6 +8,10 @@ body.home-page {
   background-position: center;
 }
 
+.body-color {
+  background-color: #f0f6f6
+}
+
 .main-white-title {
   font-weight: bold;
   color: white;
@@ -34,6 +38,9 @@ body.home-page {
   border: none;
   background-color: transparent;
   border-bottom: 1px solid white;
+  input:focus {
+    outline: none;
+  }
 }
 
 input.search-bar-home {
@@ -47,6 +54,8 @@ input.search-bar-home::-webkit-input-placeholder {
 
 .home-search-form {
   text-align: center;
+  max-width: 380px;
+  margin: auto;
 }
 
 select#category {

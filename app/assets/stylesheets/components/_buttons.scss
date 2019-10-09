@@ -1,4 +1,5 @@
 .white-transparent-button {
+  margin: auto;
   border-color: white;
   border-radius: 23px;
   padding: 10px;
@@ -23,6 +24,7 @@
   padding: 15px;
   color: white;
   border-radius: 5px;
+  height: 57px;
   &:hover {
     text-decoration: none;
     color: white;

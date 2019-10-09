@@ -1,0 +1,49 @@
+.form-container {
+  padding: 2vh 10vw;
+}
+
+.new-experience-form {
+  *:focus, *:hover {
+    outline: none;
+    background-color: transparent;
+    box-shadow: none;
+    border-color: #00a497;
+  }
+  input:focus, input, select:focus, select, textarea:focus, textarea {
+    color: #007a6f;
+  }
+  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color: #c6dfdc;
+  }
+
+  input[type=submit] {
+    background-color: #d3e7e7;
+    border: none;
+  }
+}
+
+.new-experience-form input, .new-experience-form select, .new-experience-form textarea {
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid #179b8f4d;
+}
+
+.new-experience-form label {
+  font-size: 12px;
+  font-weight: 400;
+  color: #8eb6b5;
+}
+
+.form-control.is-valid {
+  border-color: #179b8f4d;
+}
+
+.form-control.is-valid:hover,  {
+  border-color: #00a497;
+}
+
+.form-control.is-valid:focus {
+  border-color: none;
+  box-shadow: none;
+}
+
