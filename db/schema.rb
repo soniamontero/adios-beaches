@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2019_10_04_071949) do
     t.float "latitude"
     t.float "longitude"
     t.integer "price", default: 0
+    t.integer "price_range"
     t.text "details"
     t.bigint "category_id"
     t.bigint "user_id"

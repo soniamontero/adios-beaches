@@ -16,7 +16,7 @@ gem 'sassc-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
-gem "algoliasearch-rails"
+gem 'geocoder'
 
 gem 'omniauth-github'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'

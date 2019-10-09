@@ -60,6 +60,7 @@ puts "Starting experiences..."
     name: Faker::Hipster.sentence,
     address: addresses.sample,
     price: rand(0..150),
+    price_range: rand(0..2),
     details: Faker::Hipster.paragraph(sentence_count: 6),
     category_id: Category.all.pluck(:id).sample,
     user_id: User.all.pluck(:id).sample

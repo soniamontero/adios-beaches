@@ -7,6 +7,11 @@ class Experience < ApplicationRecord
   validates :address, presence: true
   validates :price, numericality: { only_integer: true }
 
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
+
+  enum price_range: [:low, :medium, :high]
+
   # PGSEARCH
   include PgSearch::Model
   pg_search_scope :search_by_name_and_address,
