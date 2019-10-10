@@ -4,7 +4,7 @@ const openFile = (event) => {
   reader.onload = function (){
       const output = document.getElementById('DefaultImagePreview');
       output.style.backgroundImage = 'url(' + reader.result + ')';
-      output.style.display = 'block';
+      // output.style.display = 'block';
       // output.src = reader.result;
   };
   reader.readAsDataURL(input.files[0]);
@@ -16,7 +16,7 @@ const photoPreview = () => {
   if (photo) {
     photo.addEventListener('change', (event)=>{
       openFile(event);
-      photoButton.style['display'] = 'none';
+      // photoButton.style['display'] = 'none';
     });
   }
 }
