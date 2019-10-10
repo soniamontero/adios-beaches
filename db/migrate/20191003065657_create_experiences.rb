@@ -5,7 +5,7 @@ class CreateExperiences < ActiveRecord::Migration[5.2]
       t.string :address
       t.float :latitude
       t.float :longitude
-      t.integer :price, default: 0
+      t.integer :price
       t.integer :price_range
       t.text :details
       t.references :category, foreign_key: true

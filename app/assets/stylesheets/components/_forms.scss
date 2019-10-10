@@ -2,7 +2,9 @@
   padding: 2vh 10vw;
 }
 
-.new-experience-form {
+.minimal-form {
+  max-width: 500px;
+  margin: auto;
   *:focus, *:hover {
     outline: none;
     background-color: transparent;
@@ -22,13 +24,13 @@
   }
 }
 
-.new-experience-form input, .new-experience-form select, .new-experience-form textarea {
+.minimal-form input, .minimal-form select, .minimal-form textarea {
   border: none;
   background-color: transparent;
   border-bottom: 1px solid #179b8f4d;
 }
 
-.new-experience-form label, .new-experience-form legend {
+.minimal-form label, .minimal-form legend {
   font-size: 12px;
   font-weight: 400;
   color: #8eb6b5;
@@ -51,3 +53,25 @@
   box-shadow: none;
 }
 
+// .file-name {
+//   display: flex;
+//   justify-content: center;
+//   color: #8fb8b7;
+//   font-size: 13px;
+// }
+
+.photo-input {
+  display: flex;
+  justify-content: center
+}
+
+#DefaultImagePreview {
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: auto;
+  display: none;
+}

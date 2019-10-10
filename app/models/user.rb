@@ -42,7 +42,7 @@ class User < ApplicationRecord
   end
 
   def batch_location_to_lowercase
-    self.batch_location = self.batch_location.downcase
+    self.batch_location = self.batch_location.downcase unless self.batch_location.nil?
   end
 
   def self.find_for_github_oauth(auth)

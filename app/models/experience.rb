@@ -13,6 +13,7 @@ class Experience < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
 
+  mount_uploader :photo, PhotoUploader
 
   # PGSEARCH
   include PgSearch::Model
@@ -22,12 +23,4 @@ class Experience < ApplicationRecord
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }
 
-  # ALGOLIA
-  # include AlgoliaSearch
-  # algoliasearch do
-  #   attribute :name, :address, :category_id
-  #   # Use all default configuration
-  #    # `title` is more important than `{story,comment}_text`, `{story,comment}_text` more than `url`, `url` more than `author`
-  #   # btw, do not take into account position in most fields to avoid first word match boost
-  # end
 end

@@ -1,4 +1,28 @@
-.logo img{
+// DARK
+
+.navbar-dark {
+  .nav-items {
+    a {
+      color: #007a6f;
+    }
+  }
+}
+
+
+// LIGHT
+
+.navbar-light {
+  .nav-items {
+    a {
+      color: white;
+    }
+  }
+}
+
+
+// NEUTRAL
+
+.logo img {
   height: 88px;
 }
 
@@ -6,11 +30,6 @@
   height: 30px;
 }
 
-.nav-items {
-  a {
-    color: white;
-  }
-}
 
 .navbar-toggler {
   border: none;

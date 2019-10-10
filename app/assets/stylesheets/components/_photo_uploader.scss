@@ -1,0 +1,20 @@
+.photo-uploader {
+  background-color: #e3efef;
+  color: #007a6f !important;
+  border: 1px solid #e3efef00;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  -webkit-transition: background-color 0.5s; /* Safari prior 6.1 */
+  transition: background-color 0.5s;
+  &:hover {
+    background-color: #d6eaea;
+    border: none;
+  }
+}

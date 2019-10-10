@@ -49,7 +49,8 @@ class ExperiencesController < ApplicationController
       :price,
       :price_range,
       :details,
-      :category_id
+      :category_id,
+      :photo
     )
   end
 end

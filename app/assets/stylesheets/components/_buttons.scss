@@ -20,13 +20,20 @@
 }
 
 .github-button {
-  background-color: #333333;
-  padding: 15px;
-  color: white;
-  border-radius: 5px;
+  background-color: white;
+  padding: 12px;
+  color: #829992;
+  border-radius: 26px;
   height: 57px;
+  font-weight: 100;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  span {
+    font-size: 20px;
+  }
   &:hover {
     text-decoration: none;
-    color: white;
+    color: #829992;
   }
 }

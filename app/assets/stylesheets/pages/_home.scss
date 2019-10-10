@@ -1,16 +1,7 @@
 // Specific CSS for your home-page
 
 // Add a background image only on home page (see application.html.erb for body line)
-body.home-page {
-  background: no-repeat center center fixed;
-  background-image: linear-gradient(rgba(125, 125, 125, 0.4), rgba(0, 0, 0, 0.4)), url(home-banner2.jpg);
-  background-size: cover;
-  background-position: center;
-}
-
-.body-color {
-  background-color: #f0f6f6
-}
+// see background_color.scss and BackgroundColors Helper
 
 .main-white-title {
   font-weight: bold;
@@ -56,6 +47,9 @@ input.search-bar-home::-webkit-input-placeholder {
   text-align: center;
   max-width: 380px;
   margin: auto;
+  input:focus {
+    outline: none;
+  }
 }
 
 select#category {
