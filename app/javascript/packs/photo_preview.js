@@ -7,7 +7,10 @@ const openFile = (event) => {
       // output.style.display = 'block';
       // output.src = reader.result;
   };
-  reader.readAsDataURL(input.files[0]);
+  // If statement fixes error in case user clicks previous to get back to edit.
+  if (input.files[0]) {
+    reader.readAsDataURL(input.files[0]);
+  }
 };
 
 const photoPreview = () => {

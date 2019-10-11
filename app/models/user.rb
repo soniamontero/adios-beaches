@@ -34,11 +34,15 @@ class User < ApplicationRecord
   end
 
   def has_upvoted?(experience)
-    Vote.where(experience_id: experience.id, user_id: self.id).first.value == 1
+    if has_voted?(experience)
+      Vote.where(experience_id: experience.id, user_id: self.id).first.value == 1
+    end
   end
 
   def has_downvoted?(experience)
-    Vote.where(experience_id: experience.id, user_id: self.id).first.value == -1
+    if has_voted?(experience)
+      Vote.where(experience_id: experience.id, user_id: self.id).first.value == -1
+    end
   end
 
   def batch_location_to_lowercase

@@ -3,7 +3,11 @@ class ExperiencesController < ApplicationController
     if params[:category].present?
       @experiences = Experience.joins(:category).where(categories: {name: params[:category]})
     elsif params[:query].present?
-      @experiences = Experience.search_by_name_and_address(params[:query])
+      if params[:query] == ""
+        @experiences = Experience.all
+      else
+        @experiences = Experience.search_by_name_and_address(params[:query])
+      end
       # keyword = params[:query]
       # Experience.where("experiences.title LIKE ? OR experiences.details LIKE ?", "%#{keyword}%", "%#{keyword}%")
     else
@@ -32,9 +36,17 @@ class ExperiencesController < ApplicationController
   end
 
   def edit
+    @experience = Experience.find(params[:id])
   end
 
   def update
+    @experience = Experience.find(params[:id])
+    @experience.update(experience_params)
+    if @experience.save
+      redirect_to experience_path(@experience)
+    else
+      render :edit
+    end
   end
 
   def delete

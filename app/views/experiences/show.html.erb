@@ -1,51 +1,122 @@
-<h1>Experiences#show</h1>
-<p>Find me in app/views/experiences/show.html.erb</p>
-<%= @experience.name %>
+  <%#= cl_image_tag @experience.photo, class: 'experience-photo' %>
+<div class="experience-photo-container" style="background-image: url('<%= @experience.photo %>');"></div>
+<div class="experience-container">
+  <div class="experience-name">
+    <%= @experience.name %>
+  </div>
 
-<%= link_to 'Back', experiences_path %>
-
-<!-- Statement for done button on experience -->
-<% if current_user.has_done?(@experience) %>
-  <%= link_to 'Undo', done_path(Done.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :delete  %>
-  <br>
-<% else %>
-  <%= simple_form_for [@experience, @done] do |f| %>
-    <%= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
-  <% end %>
-<% end %>
-<!-- End of statement for done button on experience -->
-
-<!-- Statement for favorite button on experience -->
-<% if current_user.has_favorite?(@experience) %>
-  <%= link_to 'Unfavorite', favorite_path(Favorite.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :delete  %>
-  <br>
-<% else %>
-  <%= simple_form_for [@experience, @favorite] do |f| %>
-    <%= f.button :button, 'Favorite', type: 'submit', name: 'redirect_to', value: 'show' %>
-  <% end %>
-<% end %>
-<!-- End of statement for favorite button on experience -->
-
-<!-- Start statement for vote button on experience -->
-  <!-- VOTE + UPVOTE -->
-  <% if current_user.has_voted?(@experience) && current_user.has_upvoted?(@experience) %>
-    <%= link_to 'Cancel upvote', vote_path(Vote.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :delete  %>
-    <%= link_to 'Downvote', vote_path(Vote.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :put  %>
-
-  <!-- VOTE + DOWNVOTE -->
-  <% elsif current_user.has_voted?(@experience) && current_user.has_downvoted?(@experience) %>
-    <%= link_to 'Upvote', vote_path(Vote.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :put  %>
-    <%= link_to 'Cancel downvote', vote_path(Vote.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :delete  %>
-
-  <!-- NO VOTE -->
-  <% else %>
-    <%= simple_form_for [@experience, Vote.new] do |f| %>
-      <%= hidden_field_tag(:value, 1) %>
-      <%= f.button :button, 'upvote', type: 'submit', name: 'redirect_to', value: 'show' %>
+  <!-- Statement for done button on experience -->
+  <div class="done-button <%= current_user.has_done?(@experience).nil? ? 'deactivated' : 'activated' %>">
+    <% if current_user.has_done?(@experience) %>
+      <%= link_to done_path(Done.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :delete do %>
+          <i class="fas fa-check"></i>
+      <% end %>
+    <% else %>
+      <%= simple_form_for [@experience, @done] do |f| %>
+        <%= button_tag type: 'submit', name: 'redirect_to', value: 'show' do %>
+          <i class="fas fa-check"></i>
+      <% end %>
+        <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
+      <% end %>
     <% end %>
-    <%= simple_form_for [@experience, Vote.new] do |f| %>
-      <%= hidden_field_tag(:value, -1) %>
-      <%= f.button :button, 'downvote', type: 'submit', name: 'redirect_to', value: 'show' %>
+  </div>
+  <!-- End of statement for done button on experience -->
+
+
+  <!-- Statement for favorite button on experience -->
+  <div class="favorite-button <%= current_user.has_favorite?(@experience).nil? ? 'deactivated' : 'activated' %>">
+    <% if current_user.has_favorite?(@experience) %>
+      <%= link_to favorite_path(Favorite.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :delete do %>
+        <i class="fas fa-heart"></i>
+      <% end %>
+    <% else %>
+      <%= simple_form_for [@experience, @favorite] do |f| %>
+        <%= button_tag type: 'submit', name: 'redirect_to', value: 'show' do %>
+          <i class="fas fa-heart"></i>
+        <% end %>
+      <% end %>
     <% end %>
-  <% end %>
-<!-- End statement for vote button on experience -->
+  </div>
+  <!-- End of statement for favorite button on experience -->
+
+  <!-- Start statement for vote button on experience -->
+  <div class="vote-buttons">
+
+    <!-- VOTE + UPVOTE -->
+    <% if current_user.has_voted?(@experience) && current_user.has_upvoted?(@experience) %>
+      <%= link_to vote_path(Vote.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :delete do %>
+        <i class="fas fa-chevron-up upvote-button activated"></i>
+      <% end %>
+      <span class="vote-text">
+        <%= @experience.total_votes %>
+      </span>
+      <%= link_to vote_path(Vote.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :put do %>
+         <i class="fas fa-chevron-down downvote-button"></i>
+      <% end %>
+
+    <!-- VOTE + DOWNVOTE -->
+    <% elsif current_user.has_voted?(@experience) && current_user.has_downvoted?(@experience) %>
+      <%= link_to vote_path(Vote.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :put do %>
+        <i class="fas fa-chevron-up upvote-button"></i>
+      <% end %>
+      <span class="vote-text">
+        <%= @experience.total_votes %>
+      </span>
+      <%= link_to vote_path(Vote.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :delete do %>
+        <i class="fas fa-chevron-down downvote-button activated"></i>
+      <% end %>
+
+    <!-- NO VOTE -->
+    <% else %>
+      <%= simple_form_for [@experience, Vote.new] do |f| %>
+        <%= hidden_field_tag(:value, 1) %>
+        <%= button_tag type: 'submit', name: 'redirect_to', value: 'show' do %>
+          <i class="fas fa-chevron-up upvote-button"></i>
+        <% end %>
+      <% end %>
+      <span class="vote-text">
+        <%= @experience.total_votes %>
+      </span>
+      <%= simple_form_for [@experience, Vote.new] do |f| %>
+        <%= hidden_field_tag(:value, -1) %>
+        <%= button_tag type: 'submit', name: 'redirect_to', value: 'show' do %>
+          <i class="fas fa-chevron-down downvote-button"></i>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+  <!-- End statement for vote button on experience -->
+
+  <div class="experience-category">
+    <%= @experience.category.name %>
+  </div>
+
+  <div class="experience-location">
+    <i class="fas fa-map-marker-alt blue-color"></i> <%= @experience.address.split(',')[0] %> - <%= @experience.address.split(',')[2] %>
+  </div>
+
+  <hr>
+  <h6 class="small-dark-title pt-3">Price range</h6>
+  <div class="experience-price-range">
+    <%= @experience.price_range_to_icon %>
+  </div>
+
+  <h6 class="small-dark-title pt-3">Who has been there?</h6>
+  <div class="people-been-there">
+    <% @experience.total_dones.each do |person| %>
+      <span class="person-info">
+          <%= image_tag person.github_picture_url, class: "person_avatar #{'owner' if person.id == @experience.user_id}" %>
+          <%= person.github_username %>
+      </span>
+    <% end %>
+  </div>
+
+  <h6 class="small-dark-title pt-3">Details</h6>
+  <div class="experience-details">
+    <%= @experience.details %>
+  </div>
+
+  <%#= link_to 'edit', edit_experience_path(@experience)  %>
+  <%#= link_to 'Back', experiences_path %>
+
+</div>

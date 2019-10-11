@@ -43,17 +43,28 @@ p "Generated user: #{faker_name}!"
 end
 
 
-Category.create(name: "food")
-Category.create(name: "stays")
-Category.create(name: "nature")
-Category.create(name: "arts")
-Category.create(name: "nightlife")
-Category.create(name: "sports")
+Category.create(name: "Food")
+Category.create(name: "Stays")
+Category.create(name: "Nature")
+Category.create(name: "Arts")
+Category.create(name: "Nightlife")
+Category.create(name: "Sports")
 # Category.create(name: "workshops")
 puts "Categories generated!"
 
 
 puts "Starting experiences..."
+
+exp = Experience.create!(
+    name: "The lawn in canggu amazing place!",
+    address: "The Lawn, Jalan Pura Dalem, Canggu, Kabupaten de Badung, Bali, Indonésie",
+    price: 150000,
+    price_range: 2,
+    details: "Cool place, good cocktails. Expensive but worth a visit!",
+    category_id: 1,
+    user_id: User.all.pluck(:id).sample
+  )
+  p "Generated one more amazing experience: #{exp.name}..."
 
 16.times do
   experience = Experience.create(

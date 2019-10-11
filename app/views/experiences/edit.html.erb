@@ -1,2 +1,24 @@
-<h1>Experiences#edit</h1>
-<p>Find me in app/views/experiences/edit.html.erb</p>
+<div class="form-container">
+  <div class="minimal-form">
+    <%= simple_form_for @experience do |f| %>
+    <div class="photo-input" id="photo_input">
+      <label class="photo-uploader" id="DefaultImagePreview">
+        <i class='fas fa-camera-retro pb-2'></i>
+        Add a photo
+        <span style='display: none'>
+          <%= f.input :photo %>
+        </span>
+      </label>
+    </div>
+    <!-- <div id="DefaultImagePreview"></div> -->
+      <%= f.input :photo_cache, as: :hidden %>
+      <%= f.association :category, label_method: :name, selected: 'Food' %>
+      <%= f.input :name, placeholder: "ex: Diving at Penida with Dive Concepts" %>
+      <%= f.input :address, placeholder: "ex: Canggu" %>
+      <%= f.input :price_range, as: :radio_buttons, collection: Experience.price_ranges.keys.map {|key| [key.humanize, key]} %>
+      <%= f.input :price, placeholder: 'In IDR (optional)', label: "Average Price" %>
+      <%= f.input :details, input_html: {rows: 5}, placeholder: "How was your experience? What did you most enjoy? Would you recommend it? Summarize your visit or highlight an interesting detail." %>
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
