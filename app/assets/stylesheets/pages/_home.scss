@@ -3,10 +3,16 @@
 // Add a background image only on home page (see application.html.erb for body line)
 // see background_color.scss and BackgroundColors Helper
 
+.home-content {
+  margin-top: 10vh;
+}
+
 .main-white-title {
   font-weight: bold;
   color: white;
   font-size: 32px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .second-white-title {
@@ -53,17 +59,23 @@ input.search-bar-home::-webkit-input-placeholder {
 }
 
 select#category {
-  border-color: white;
+  border-color: #5bada9;
   border-radius: 23px;
   padding-left: 19px;
   border-width: 1px;
   border-style: solid;
   text-align: center;
-  color: white;
-  background-color: #ffffff26;
+  color: #5bada9;
+  background-color: #5bada924;
 }
 
 .select-items {
   font-size: 30px;
     color: blue !important;
+}
+
+@media only screen and (min-width: 600px) {
+  .main-white-title {
+    justify-content: center;
   }
+}

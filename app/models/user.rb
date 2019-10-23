@@ -39,6 +39,7 @@ class User < ApplicationRecord
     end
   end
 
+
   def has_downvoted?(experience)
     if has_voted?(experience)
       Vote.where(experience_id: experience.id, user_id: self.id).first.value == -1

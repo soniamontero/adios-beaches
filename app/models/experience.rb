@@ -7,7 +7,7 @@ class Experience < ApplicationRecord
 
   enum price_range: [:low, :medium, :high]
 
-  validates :name, presence: true, length: { minimum: 5 }
+  validates :name, presence: true, length: { minimum: 5, maximum: 45 }
   validates :address, presence: true
   validates :price, numericality: { only_integer: true }
   validates :price_range, presence: true, inclusion: { in: price_ranges.keys }
@@ -58,4 +58,6 @@ class Experience < ApplicationRecord
       string.html_safe
     end
   end
+
+
 end

@@ -9,11 +9,3 @@ class PagesController < ApplicationController
     @categories = Category.pluck(:name).uniq.map(&:capitalize)
   end
 end
-
-
-def test
-end
-
-def hello
-end
-

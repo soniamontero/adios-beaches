@@ -1,15 +1,12 @@
-.home-page-background-color{
+.home-page-background-color {
   background: no-repeat center center fixed;
   background-image: linear-gradient(rgba(125, 125, 125, 0.4), rgba(0, 0, 0, 0.4)), url(home-banner2.jpg);
   background-size: cover;
   background-position: center;
 }
 
-.new-experience-background-color {
-  background: no-repeat center center fixed;
-  background-image: url(background-test.png);
-  background-size: cover;
-  background-position: center;
+.light-blue-background-color {
+  background-color: #f0f6f6;
 }
 
 .login-background-color {

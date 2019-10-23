@@ -1,0 +1,46 @@
+<!-- Buttons for experience (done, favorite and vote) -->
+      <!-- Statement for done button on experience -->
+      <% if current_user.has_done?(experience) %>
+        <%= link_to 'Undo', done_path(Done.where(experience_id: experience.id, user_id: current_user.id).first), method: :delete  %>
+      <% else %>
+        <%= simple_form_for [experience, Done.new] do |f| %>
+          <%= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'index' %>
+        <% end %>
+      <% end %>
+      <!-- End statement done button on experience -->
+
+      <!-- Statement for favorite button on experience -->
+      <% if current_user.has_favorite?(experience) %>
+        <%= link_to 'Unfavorite', favorite_path(Favorite.where(experience_id: experience.id, user_id: current_user.id).first), method: :delete  %>
+        <br>
+      <% else %>
+        <%= simple_form_for [experience, Favorite.new] do |f| %>
+          <%= f.button :button, 'favorite', type: 'submit', name: 'redirect_to', value: 'index' %>
+        <% end %>
+      <% end %>
+      <!-- End statement favorite button on experience -->
+
+      <!-- Start statement for vote button on experience -->
+        <!-- VOTE + UPVOTE -->
+        <% if current_user.has_voted?(experience) && current_user.has_upvoted?(experience) %>
+          <%= link_to 'Cancel upvote', vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first), method: :delete  %>
+          <%= link_to 'Downvote', vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first), method: :put  %>
+
+        <!-- VOTE + DOWNVOTE -->
+        <% elsif current_user.has_voted?(experience) && current_user.has_downvoted?(experience) %>
+          <%= link_to 'Upvote', vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first), method: :put  %>
+          <%= link_to 'Cancel downvote', vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first), method: :delete  %>
+
+        <!-- NO VOTE -->
+        <% else %>
+          <%= simple_form_for [experience, Vote.new] do |f| %>
+            <%= hidden_field_tag(:value, 1) %>
+            <%= f.button :button, 'upvote', type: 'submit', name: 'redirect_to', value: 'index' %>
+          <% end %>
+          <%= simple_form_for [experience, Vote.new] do |f| %>
+            <%= hidden_field_tag(:value, -1) %>
+            <%= f.button :button, 'downvote', type: 'submit', name: 'redirect_to', value: 'index' %>
+          <% end %>
+        <% end %>
+      <!-- End statement for vote button on experience -->
+    <!-- End button for experience (done, favorite and vote) -->
