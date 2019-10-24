@@ -1,3 +1,18 @@
+<div class="home-search-form mt-3 mb-5">
+
+  <%= form_tag experiences_path, method: :get do %>
+    <%= text_field_tag :query,
+      params[:query],
+      class: "search-bar-home",
+      placeholder: @placeholder
+    %>
+    <button class="btn">
+      <i class="fas fa-search white-color"></i>
+    </button>
+    <%#= submit_tag "Search", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
 <div class="experiences-filter-form">
   <%= form_tag({:controller => "experiences", :action => "index"}, method: :get) do %>
     <%= select_tag "category", options_for_select(["Filter"] + Category.pluck(:name).uniq), onchange: "this.form.submit();", class: "custom-select" %>
@@ -16,7 +31,7 @@
           <%= link_to vote_path(Vote.find_by_experience(current_user, experience), redirect_to: 'index'), method: :delete do %>
             <i class="fas fa-chevron-up upvote-button activated"></i>
           <% end %>
-          <span class="vote-text">
+          <span class="vote-text <% experience.total_votes_state %>">
             <%= experience.total_votes %>
           </span>
           <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :put do %>

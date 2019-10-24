@@ -12,20 +12,19 @@
   left: 30px;
   font-size: 23px;
   a {
-  color: #00c4a3;
+  color: white;
+  mix-blend-mode: difference;
   }
 }
 
-.experience-white-background {
-  background-color: white;
-  // border-top-right-radius: 20px;
-  border-top-left-radius: 50px;
-  margin-top: -20px;
-  padding: 28px;
+.experience-main-container {
+  position: relative;
+  max-width: 500px;
+  margin: auto;
 }
 
-.experience-container {
-  position: relative;
+.experience-info-container {
+
   max-width: 500px;
   margin: auto;
 }
@@ -38,9 +37,9 @@
   justify-content: center;
   align-items: center;
   border-radius: 25px;
-  box-shadow: 2px 3px 15px 0px rgba(156, 156, 156, 0.75);
-  top: -50px;
-  right: 8%;
+  box-shadow: 2px 3px 15px 0px rgba(14, 98, 106, 0.37);
+  bottom: -50px;
+  right: 22%;
   background-color: white;
    *:focus, *:hover {
     outline: none;
@@ -56,41 +55,6 @@
   color: #f16d6d;
 }
 
-.small-dark-title {
-  font-weight: 600;
-  color: #0e646b;
-}
-
-.vote-buttons {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 38px;
-  right: 20%;
-  color: #d1d1d1;
-  .vote-text {
-    color: gray;
-  }
-  button {
-    border: none;
-    background-color: white;
-    color: #d1d1d1;
-  }
-  a {
-    color: #d1d1d1;
-  }
-}
-
-.upvote-button.activated {
-  color: #00eaa1;
-}
-
-.downvote-button.activated {
-  color: #f16d6d;
-}
-
 .done-button {
   position: absolute;
   height: 50px;
@@ -99,9 +63,9 @@
   justify-content: center;
   align-items: center;
   border-radius: 25px;
-  box-shadow: 2px 3px 15px 0px rgba(156, 156, 156, 0.75);
-  top: -50px;
-  right: 25%;
+  box-shadow: 2px 3px 15px 0px rgba(14, 98, 106, 0.37);
+  bottom: -50px;
+  right: 2%;
   background-color: white;
   *:focus, *:hover {
     outline: none;
@@ -117,6 +81,72 @@
   color: #00eaa1;
 }
 
+.done-hint {
+  position: absolute;
+  color: #83c8c9;;
+  font-size: 10px;
+  top: 55px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.favorite-hint {
+  position: absolute;
+  color: #83c8c9;;
+  font-size: 10px;
+  top: 55px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.small-light-title {
+  font-weight: 600;
+  color: #b1f0ed;
+}
+
+.vote-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 26%;
+  right: 5%;
+  color: #d1d1d1;
+  .vote-text {
+    color: #77a5aa;
+  }
+  .vote-text.activated {
+    color: #0ee19f;
+    font-weight: bold;
+  }
+  .vote-text.deactivated {
+    color: #f16d6d;
+    font-weight: bold;
+  }
+  button {
+    border: none;
+    background-color: #f0f6f600;
+    color: #74bcc2;
+    transition: 0.3s ease-out;
+  }
+  button:hover {
+    color: #0bc8d8;
+  }
+  a {
+    color: #74bcc2;
+  }
+}
+
+.upvote-button.activated {
+  color: #00eaa1;
+}
+
+.downvote-button.activated {
+  color: #f16d6d;
+}
+
+
 .blue-color {
   color: #0F656B;
 }
@@ -125,13 +155,13 @@
   font-size: 20px;
   font-weight: bold;
   color: #0F656B;
-  width: 70%;
+  width: 83%;
   padding-top: 16px;
 }
 
 .experience-location {
   font-size: 13px;
-  color: #c5c5c5;
+  color: #77a5aa;
   font-weight: bold;
   letter-spacing: 1px;
   padding-top: 10px;
@@ -139,13 +169,13 @@
 }
 
 .experience-category {
-  color: #c5c5c5;
+  color: #77a5aa;
   font-weight: bold;
   padding-top: 10px;
 }
 
 .experience-details {
-  color: #0F656B;
+  color: #ffffff;
   font-size: 14px;
 }
 
@@ -186,7 +216,7 @@
 }
 
 .experience-price-range {
-  color: #858585
+  color: #ffffff;
 }
 
 .photo-not-found-text {

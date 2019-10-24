@@ -13,6 +13,7 @@ class ExperiencesController < ApplicationController
     else
       @experiences = Experience.all
     end
+    @placeholder = params[:query] ? params[:query] : "Try to type temple or Ubud"
   end
 
   def show

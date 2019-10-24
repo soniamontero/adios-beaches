@@ -38,6 +38,19 @@ class Experience < ApplicationRecord
     end
   end
 
+  def total_votes_state
+    if self.total_votes == 0
+      state = "neutral"
+      return state.html_safe
+    elsif self.total_votes.negative?
+      state = "deactivated"
+      return state.html_safe
+    else
+      state = "activated"
+      return state.html_safe
+    end
+  end
+
   def total_dones
     if self.dones.length == 0
       "None one has been there yet."

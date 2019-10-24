@@ -110,7 +110,13 @@
   position: absolute;
   left: 17px;
   .vote-text {
-    color: gray;
+    color: #d1d1d;
+  }
+  .vote-text.activated {
+    color: #0ee19f;
+  }
+  .vote-text.deactivated {
+    color: #f16d6d;
   }
   button {
     border: none;
@@ -123,7 +129,7 @@
 }
 
 .experience-card-upvote-button.activated {
-  color: #00eaa1;
+  color: #0ee19f;
 }
 
 .experience-card-downvote-button.activated {

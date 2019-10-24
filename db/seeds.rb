@@ -64,7 +64,18 @@ exp = Experience.create!(
     category_id: 1,
     user_id: User.all.pluck(:id).sample
   )
-  p "Generated one more amazing experience: #{exp.name}..."
+p "Generated one more amazing experience: #{exp.name}..."
+
+exp = Experience.create!(
+    name: "The best pizza and the best pasta in Batu Bolong",
+    address: "The Lawn, Jalan Pura Dalem, Canggu, Kabupaten de Badung, Bali, Indonésie",
+    price: 150000,
+    price_range: 2,
+    details: "Cool place, good cocktails. Expensive but worth a visit!",
+    category_id: 1,
+    user_id: User.all.pluck(:id).sample
+  )
+p "Generated one more amazing experience: #{exp.name}..."
 
 16.times do
   experience = Experience.create(
