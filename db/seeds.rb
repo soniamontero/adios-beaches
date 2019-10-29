@@ -1,6 +1,12 @@
 require 'faker'
 require 'pry-byebug'
 
+Done.destroy_all
+puts 'Deleting dones...'
+Favorite.destroy_all
+puts "Deleting favorites..."
+Vote.destroy_all
+puts "Deleting votes..."
 Experience.destroy_all
 puts "Deleting experiences..."
 Category.destroy_all
@@ -61,33 +67,151 @@ exp = Experience.create!(
     price: 150000,
     price_range: 2,
     details: "Cool place, good cocktails. Expensive but worth a visit!",
-    category_id: 1,
-    user_id: User.all.pluck(:id).sample
+    category_id: Category.find_by(name: "Food").id,
+    user_id: User.all.pluck(:id).sample,
+    remote_photo_url: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"
   )
 p "Generated one more amazing experience: #{exp.name}..."
 
 exp = Experience.create!(
-    name: "The best pizza and the best pasta in Batu Bolong",
-    address: "The Lawn, Jalan Pura Dalem, Canggu, Kabupaten de Badung, Bali, Indonésie",
+    name: "The best pizza and pasta in Batu Bolong",
+    address: "Pizza Fabbrica, Jalan Pura Dalem, Canggu, Kabupaten de Badung, Bali, Indonésie",
     price: 150000,
     price_range: 2,
     details: "Cool place, good cocktails. Expensive but worth a visit!",
-    category_id: 1,
-    user_id: User.all.pluck(:id).sample
+    category_id: Category.find_by(name: "Food").id,
+    user_id: User.all.pluck(:id).sample,
+    remote_photo_url: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1334&q=80"
   )
 p "Generated one more amazing experience: #{exp.name}..."
 
-16.times do
-  experience = Experience.create(
-    name: Faker::Hipster.sentence,
-    address: addresses.sample,
-    price: rand(0..150),
-    price_range: rand(0..2),
-    details: Faker::Hipster.paragraph(sentence_count: 6),
-    category_id: Category.all.pluck(:id).sample,
-    user_id: User.all.pluck(:id).sample
+exp = Experience.create!(
+    name: "Open Water in Amed",
+    address: "Dive Concepts, jalan amlapura, Amed, Karangasem Regency, Bali, Indonésie",
+    price: 500000000,
+    price_range: 2,
+    details: "Super experienced divers, the teacher was great. Ask for great, he was nice, professional and super patient. And the prce of te open water is pretty cheap compared to competition. Highly recommanded to anyone! ",
+    category_id: Category.find_by(name: "Sports").id,
+    user_id: User.all.pluck(:id).sample,
+    remote_photo_url: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"
   )
-  p "Generated one more amazing experience: #{experience.name}..."
-end
+p "Generated one more amazing experience: #{exp.name}..."
+
+exp = Experience.create!(
+    name: "Best sunset on ricefields at El Passo",
+    address: "El Passo, Jl. By Pass Tanah Lot, Munggu, Kec. Mengwi, Kabupaten Badung, Bali, Indonésie",
+    price: 30000,
+    price_range: 1,
+    details: "Fresh beers with the best view on the rice field behing the restaurants. Good for sunset!",
+    category_id: Category.find_by(name: "Food").id,
+    user_id: User.all.pluck(:id).sample,
+    remote_photo_url: "https://images.unsplash.com/photo-1532160515895-a97adb75c4f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
+  )
+p "Generated one more amazing experience: #{exp.name}..."
+
+exp = Experience.create!(
+    name: "Luigi DJ and bar, on fire on Monday",
+    address: "El Passo, Jl. By Pass Tanah Lot, Munggu, Kec. Mengwi, Kabupaten Badung, Bali, Indonésie",
+    price: 80000,
+    price_range: 1,
+    details: "Cool pizza with DJ and dancefloor in the back. Beers and cocktails, a lot of people. They have a deal on Ponday as well, worth going! And LW student shave a discount there :) ",
+    category_id: Category.find_by(name: "Food").id,
+    user_id: User.all.pluck(:id).sample,
+    remote_photo_url: "https://images.unsplash.com/photo-1520201163981-8cc95007dd2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=2468&q=80"
+  )
+p "Generated one more amazing experience: #{exp.name}..."
+
+exp = Experience.create!(
+    name: "Cheap food at Warung Sika",
+    address: "Warung Sika, Jalan Tanah Barak No.45, Canggu, Kec. Kuta Utara, Kabupaten Badung, Bali, Indonésie",
+    price: 42000,
+    price_range: 1,
+    details: "Fresh warung, cheap and close to Frii, perfect to eat fast!",
+    category_id: Category.find_by(name: "Food").id,
+    user_id: User.all.pluck(:id).sample,
+    remote_photo_url: "https://images.unsplash.com/photo-1559603739-f9d7d50360a2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2500&q=80"
+  )
+p "Generated one more amazing experience: #{exp.name}..."
+
+exp = Experience.create!(
+    name: "Monkey Forest in Ubud",
+    address: "Monkey Forest, Jl. Monkey Forest, Ubud, Kecamatan Ubud, Kabupaten Gianyar, Bali, Indonésie",
+    price: 50000,
+    price_range: 1,
+    details: "Monkeys in Bali are so cool. Just go there, bring or buy some bananas, and feed the babies. Cutest little things on earth. No, just kidding, they will try to steal your stuff and maybe even bite you. But still worth it somehow!",
+    category_id: Category.find_by(name: "Nature").id,
+    user_id: User.all.pluck(:id).sample,
+    remote_photo_url: "https://images.unsplash.com/photo-1430462773665-fd261133b47f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1510&q=80"
+  )
+p "Generated one more amazing experience: #{exp.name}..."
+
+exp = Experience.create!(
+    name: "Fruits and veggies market super early",
+    address: "Pasar Canggu, Jl. Raya Taman No.88, Seminyak, Kuta, Kabupaten Badung, Bali, Indonésie",
+    price: 42000,
+    price_range: 1,
+    details: "Starts at 5am I think, finishes at 7am. But u can find all the veggies ever there, only locals.",
+    category_id: Category.find_by(name: "Food").id,
+    user_id: User.all.pluck(:id).sample,
+    remote_photo_url: "https://images.unsplash.com/photo-1555876484-a71a693b161b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2468&q=80"
+  )
+p "Generated one more amazing experience: #{exp.name}..."
+
+exp = Experience.create!(
+    name: "Jewellery at Monsieur Blonde in Batu Bolong",
+    address: "Monsieur Blonde, Pantai Batu Bolong St No.96a, Canggu, North Kuta, Badung Regency, Bali, Indonésie",
+    price: 800000,
+    price_range: 2,
+    details: "Lot of jewellery, silver and gold plated. Also lingerie!",
+    category_id: Category.find_by(name: "Stays").id,
+    user_id: User.all.pluck(:id).sample,
+    remote_photo_url: "https://images.unsplash.com/photo-1536502829567-baf877a670b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"
+  )
+p "Generated one more amazing experience: #{exp.name}..."
+
 
 puts "TROPIC LIKE IT'S HOOOOT!"
+
+
+
+
+
+
+
+
+
+
+
+
+
+brands = ["Honda", "Vario", ""]
+
+Scooter.create(
+  brand: brands.sample,
+  power: "50CV"
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

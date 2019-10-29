@@ -1,22 +1,76 @@
-<div class="home-search-form mt-3 mb-5">
+<div class="experience-index-background" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= asset_path 'palm-leaves.jpeg' %>)">
+  <div class="experiences-index-container">
+    <h1 class="second-white-title px-2 pb-3 pt-5">
+      <span>Find the best spots&nbsp;</span>
+      <span>in <strong>Bali.</strong></span>
+    </h1>
 
-  <%= form_tag experiences_path, method: :get do %>
-    <%= text_field_tag :query,
-      params[:query],
-      class: "search-bar-home",
-      placeholder: @placeholder
-    %>
-    <button class="btn">
-      <i class="fas fa-search white-color"></i>
-    </button>
-    <%#= submit_tag "Search", class: "btn btn-primary" %>
-  <% end %>
-</div>
+    <div class="home-search-form mt-3 mb-3">
+      <%= form_tag experiences_path, method: :get do %>
+        <%= text_field_tag :query,
+          params[:query],
+          class: "search-bar-home",
+          placeholder: @placeholder
+        %>
+        <button class="btn">
+          <i class="fas fa-search white-color"></i>
+        </button>
+        <%#= submit_tag "Search", class: "btn btn-primary" %>
+      <% end %>
+    </div>
 
-<div class="experiences-filter-form">
-  <%= form_tag({:controller => "experiences", :action => "index"}, method: :get) do %>
-    <%= select_tag "category", options_for_select(["Filter"] + Category.pluck(:name).uniq), onchange: "this.form.submit();", class: "custom-select" %>
-  <% end %>
+    <div class="category-icons">
+      <%= form_tag experiences_path, method: :get do %>
+        <%= hidden_field_tag :category,
+          params[:category], value: "Food"
+        %>
+        <%= image_submit_tag("food.png", class: 'category-icon food', alt: 'Food') %>
+      <% end %>
+
+      <%= form_tag experiences_path, method: :get do %>
+        <%= hidden_field_tag :category,
+          params[:category], value: "Arts"
+        %>
+        <%= image_submit_tag("arts.png", class: 'category-icon arts', alt: 'Food') %>
+      <% end %>
+
+      <%= form_tag experiences_path, method: :get do %>
+        <%= hidden_field_tag :category,
+          params[:category], value: "Nature"
+        %>
+        <%= image_submit_tag("monkey.png", class: 'category-icon nature', alt: 'Food') %>
+      <% end %>
+    </div>
+    <div class="category-icons">
+        <%= form_tag experiences_path, method: :get do %>
+          <%= hidden_field_tag :category,
+            params[:category], value: "Nightlife"
+          %>
+          <%= image_submit_tag("nightlife.png", class: 'category-icon nightlife', alt: 'Food') %>
+        <% end %>
+
+        <%= form_tag experiences_path, method: :get do %>
+          <%= hidden_field_tag :category,
+            params[:category], value: "Stays"
+          %>
+          <%= image_submit_tag("stays.png", class: 'category-icon stays', alt: 'Food') %>
+        <% end %>
+
+        <%= form_tag experiences_path, method: :get do %>
+          <%= hidden_field_tag :category,
+            params[:category], value: "Sports"
+          %>
+          <%= image_submit_tag("sports.png", class: 'category-icon sports', alt: 'Food') %>
+        <% end %>
+      </div>
+
+  <!--   <div class="experiences-filter-form">
+      <%#= form_tag({:controller => "experiences", :action => "index"}, method: :get) do %>
+        <%#= select_tag "category", options_for_select(["Filter"] + Category.pluck(:name).uniq), onchange: "this.form.submit();", class: "custom-select" %>
+      <%# end %>
+    </div> -->
+
+  </div>
 </div>
 
 <div class="experience-cards-container">
@@ -131,4 +185,5 @@
     <%#= link_to 'show', experience_path(experience.id) %>
   <% end %>
 </div>
+
 

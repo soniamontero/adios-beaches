@@ -16,11 +16,13 @@
 }
 
 .second-white-title {
-  font-weight: 400;
   color: white;
-  font-size: 16px;
-  text-align: center;
+  font-size: 25px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
+
 
 .white-paragraphe-upcased {
   color: white;
@@ -48,6 +50,8 @@ input.search-bar-home {
 input.search-bar-home::-webkit-input-placeholder {
   color: #ffffff8a; // Color of the placeholder input
 }
+
+
 
 .home-search-form {
   text-align: center;
@@ -79,3 +83,10 @@ select#category {
     justify-content: center;
   }
 }
+
+@media only screen and (min-width: 600px) {
+  .second-white-title {
+    text-align: center;
+  }
+}
+
