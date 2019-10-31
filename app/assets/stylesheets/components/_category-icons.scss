@@ -5,6 +5,41 @@
   align-items: center;
 }
 
+
+.category-icons-scroll {
+  // display: flex;
+  overflow-x: auto;
+  // justify-content: center;
+  .category-icon {
+    margin-right: 2vw;
+    margin-left: 2vw;
+  }
+}
+
+.test-container {
+  display: flex;
+  margin: auto;
+  // Change the width if more category icons are added or removed.
+  // This allow the items to not be hidden when scrolling (compared to
+  // justify-content-center that doesn't give a damn about the overflowx and hides it).
+  max-width: 550px;
+}
+.category-icons-scroll::-webkit-scrollbar {
+    height: 5px;
+    /* border: 1px solid white; */
+    border-radius: 13px;
+    background-color: #1a291b;
+}
+
+.category-icons-scroll::-webkit-scrollbar-thumb {
+    border-radius: 16px;
+    background: #ffffff70;
+}
+.category-icons-scroll::-webkit-scrollbar-track {
+    border-radius: 6;
+    background: #ffffff33;
+}
+
 .category-icon {
   height: 50px;
   margin: 5px;

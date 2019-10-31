@@ -8,7 +8,10 @@
 }
 
 .experiences-index-container {
-  padding: 10vh 8vw;
+  padding-right: 8vw;
+  padding-left: 8vw;
+  padding-top: 12vh;
+  padding-bottom: 5vh;
 }
 
 .experience-index-background {
@@ -16,7 +19,8 @@
   background-position: center;
   background-repeat: no-repeat;
   margin-top: -84px;
-
+  border-bottom-left-radius: 34px;
+  border-bottom-right-radius: 34px;
 }
 
 // .search-bar-index {
