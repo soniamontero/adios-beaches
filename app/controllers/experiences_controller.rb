@@ -6,14 +6,24 @@ class ExperiencesController < ApplicationController
       if params[:query] == ""
         @experiences = Experience.all
       else
-        @experiences = Experience.search_by_name_and_address(params[:query])
+        @experiences = Experience.search_by_name_and_address_and_category(params[:query])
       end
       # keyword = params[:query]
       # Experience.where("experiences.title LIKE ? OR experiences.details LIKE ?", "%#{keyword}%", "%#{keyword}%")
     else
       @experiences = Experience.all
     end
-    @placeholder = params[:query] ? params[:query] : "Search by name / location"
+    params_query = (params[:query] == "" || params[:query] == nil) ? false : true
+    params_category = (params[:category] == "" || params[:category] == nil) ? false : true
+    @params_present = params_query || params_category ? true : false
+
+    if params_query
+      @placeholder = params[:query]
+    elsif params_category
+      @placeholder = params[:category]
+    else
+      @placeholder = "Search by name / location"
+    end
   end
 
   def show

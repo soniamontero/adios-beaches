@@ -55,6 +55,7 @@ Category.create(name: "Nature")
 Category.create(name: "Arts")
 Category.create(name: "Nightlife")
 Category.create(name: "Sports")
+Category.create(name: "Shopping")
 # Category.create(name: "workshops")
 puts "Categories generated!"
 

@@ -20,8 +20,11 @@ class Experience < ApplicationRecord
 
   # PGSEARCH
   include PgSearch::Model
-  pg_search_scope :search_by_name_and_address,
+  pg_search_scope :search_by_name_and_address_and_category,
     against: [ :name, :address ],
+    associated_against: {
+      category: :name
+    },
     using: {
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }

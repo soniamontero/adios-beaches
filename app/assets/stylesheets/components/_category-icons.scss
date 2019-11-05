@@ -16,13 +16,13 @@
   }
 }
 
-.test-container {
+.category-icons-index {
   display: flex;
   margin: auto;
   // Change the width if more category icons are added or removed.
   // This allow the items to not be hidden when scrolling (compared to
   // justify-content-center that doesn't give a damn about the overflowx and hides it).
-  max-width: 550px;
+  max-width: 600px;
 }
 .category-icons-scroll::-webkit-scrollbar {
     height: 5px;
