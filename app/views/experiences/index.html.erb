@@ -103,6 +103,13 @@
   <% @experiences.each do |experience| %>
 
     <div class="experience-card">
+      <div class="experience-card-photo">
+        <% if experience.photo.file.nil? %>
+          <%= image_tag asset_path('photo-not-found.jpeg') %>
+        <% else %>
+          <%= cl_image_tag experience.photo %>
+        <% end %>
+      </div>
       <!-- Start statement for vote button on experience -->
       <div class="experience-card-vote-buttons">
 
@@ -150,13 +157,7 @@
         <% end %>
       </div>
       <!-- End statement for vote button on experience -->
-      <div class="experience-card-photo">
-        <% if experience.photo.file.nil? %>
-          <%= image_tag asset_path('photo-not-found.jpeg') %>
-        <% else %>
-          <%= cl_image_tag experience.photo %>
-        <% end %>
-      </div>
+
       <div class="experience-card-info">
         <div class="experience-card-name">
           <%= experience.name %>
@@ -170,8 +171,10 @@
         <div class="experience-card-location">
           <%= experience.address.split(',')[2] %>
         </div>
-
       </div>
+
+
+
       <div class="experience-card-buttons">
         <!-- Statement for done button on experience -->
         <div class="experience-card-done-button <%= current_user.has_done?(experience).nil? ? 'deactivated' : 'activated' %>">
