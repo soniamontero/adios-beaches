@@ -1,5 +1,6 @@
 class ExperiencesController < ApplicationController
   def index
+    # Define experience if there are search or filter queries.
     if params[:category].present?
       @experiences = Experience.joins(:category).where(categories: {name: params[:category]})
     elsif params[:query].present?
@@ -13,6 +14,8 @@ class ExperiencesController < ApplicationController
     else
       @experiences = Experience.all
     end
+
+    # Update the placeholder of the search bar depending on serch/filter query
     params_query = (params[:query] == "" || params[:query] == nil) ? false : true
     params_category = (params[:category] == "" || params[:category] == nil) ? false : true
     @params_present = params_query || params_category ? true : false
@@ -23,6 +26,15 @@ class ExperiencesController < ApplicationController
       @placeholder = params[:category]
     else
       @placeholder = "Search by name / location"
+    end
+
+    # Define the markers on the map depending on experiences up there.
+    @markers = @experiences.map do |experience|
+      {
+        lat: experience.latitude,
+        lng: experience.longitude,
+        infoWindow: render_to_string(partial: "info_window", locals: { experience: experience })
+      }
     end
   end
 
