@@ -5,10 +5,12 @@ import 'mapbox-gl/dist/mapbox-gl.css'; // <-- you need to uncomment the styleshe
 import { initMapbox } from '../plugins/init_mapbox';
 import { googleAutocomplete } from '../plugins/google_autocomplete';
 import { photoPreview } from './photo_preview.js';
+import { toggleMap } from '../components/toggleMap.js';
 
 initMapbox();
 photoPreview();
 googleAutocomplete();
+toggleMap();
 
 // Coming from Algolia
 // import { initAutocomplete } from '../plugins/init_autocomplete';

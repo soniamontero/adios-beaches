@@ -82,28 +82,35 @@
       </div>
     </div>
 
-    <p class="search-results-info">
+    <span class="search-results-info">
       <% if @params_present %>
-        Results for '<%= @placeholder %>': <strong><%= @experiences.count %></strong>
+        <span class="mr-3">
+          Results for '<%= @placeholder %>': <strong><%= @experiences.count %></strong>
+        </span>
       <% else %>
-        Total 'tropic like it's hot!' spots: <strong><%= @experiences.count %></strong>
+       <span class="mr-3">
+          Search results: <strong><%= @experiences.count %></strong>
+        </span>
       <% end %>
-    </p>
+      -
+      <div class="toggle map-button-container ml-3" id="display-map-button">
+        <p class='mr-3' id='display-map-text'>Display the map</p>
+        <input type="checkbox" id="toggle" />
+        <label for="toggle"></label>
+      </div>
+    </span>
 
-
-  <!--   <div class="experiences-filter-form">
-      <%#= form_tag({:controller => "experiences", :action => "index"}, method: :get) do %>
-        <%#= select_tag "category", options_for_select(["Filter"] + Category.pluck(:name).uniq), onchange: "this.form.submit();", class: "custom-select" %>
-      <%# end %>
-    </div> -->
+    <!-- Button to toggle the map -->
 
   </div>
 </div>
 
+
 <!-- end of first top part filters and search -->
 
+
 <!-- Begining of results container -->
-<div class="experience-cards-container">
+<div class="experience-cards-container" id="experience-cards-container">
   <% @experiences.each do |experience| %>
 
     <div class="experience-card">
@@ -224,7 +231,9 @@
 <div
   id="map"
   style="width: 100%;
-  height: 600px;"
+  height: 600px;
+  margin-top: -53px;
+  z-index: -1;"
   data-markers="<%= @markers.to_json %>"
   data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
 ></div>
