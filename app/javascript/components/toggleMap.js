@@ -1,11 +1,13 @@
 const mapContainer = document.querySelector("#map");
 const experiencesContainer = document.querySelector("#experience-cards-container");
-const displayMapButton = document.querySelector("#display-map-button input");
+const displayMapButtonInput = document.querySelector("#display-map-button input");
+const displayMapButton = document.querySelector("#display-map-button");
 
 const toggleMap = () => {
+
   if (mapContainer) {
     displayMapButton.addEventListener("change", (event) => {
-      if (displayMapButton.checked) {
+      if (displayMapButtonInput.checked) {
         mapContainer.classList.add("display-flex");
         mapContainer.classList.remove("display-none");
         experiencesContainer.classList.add("display-none");
@@ -18,10 +20,29 @@ const toggleMap = () => {
       }
     })
 
-    // displayMapButton.addEventListener("change", (event) => {
-    //   console.log("hello")
+    const checksize = (event) => {
+      if (window.innerWidth > 765) {
+        displayMapButton.classList.remove('display-flex');
+        displayMapButton.classList.add('display-none');
+      } else {
+        displayMapButton.classList.remove('display-none');
+        displayMapButton.classList.add('display-flex');
+      }
+    }
 
-    // })
+    document.addEventListener("DOMContentLoaded", checksize)
+
+
+    window.addEventListener('resize', (event) => {
+      if (event.currentTarget.innerWidth > 765) {
+        displayMapButton.classList.remove('display-flex');
+        displayMapButton.classList.add('display-none');
+      } else {
+        displayMapButton.classList.remove('display-none');
+        displayMapButton.classList.add('display-flex');
+      }
+    })
+
   }
 }
 

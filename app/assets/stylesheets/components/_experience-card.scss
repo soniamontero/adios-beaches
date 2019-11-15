@@ -168,3 +168,25 @@
 .experience-card-done-button.activated a {
   color: #00eaa1;
 }
+
+@media only screen and (min-width: 765px) {
+  .experience-cards-container {
+    width: 480px;
+    padding: 10px;
+    display: block;
+  }
+
+   #map {
+    display: flex;
+    min-height: 100vh;
+    position: sticky;
+    top: 0
+   }
+   .cards-and-map-container {
+    display: flex;
+
+   }
+}
+
+
+
