@@ -84,16 +84,17 @@
 
     <span class="search-results-info">
       <% if @params_present %>
-        <span class="mr-3">
+        <div class="mr-3 mb-3">
           Results for '<%= @placeholder %>': <strong><%= @experiences.count %></strong>
-        </span>
+        </div>
       <% else %>
-       <span class="mr-3">
+       <div class="mr-3 mb-3">
           Search results: <strong><%= @experiences.count %></strong>
-        </span>
+        </div>
       <% end %>
+      <br>
       <div class="toggle display-flex map-button-container ml-3" id="display-map-button">
-        <p class='mr-3' id='display-map-text'>- Display the map</p>
+        <p class='mr-3' id='display-map-text'>Display the map:</p>
         <input type="checkbox" id="toggle" />
         <label for="toggle"></label>
       </div>
@@ -120,13 +121,15 @@
     <% @experiences.each do |experience| %>
 
       <div class="experience-card">
-        <div class="experience-card-photo">
-          <% if experience.photo.file.nil? %>
-            <%= image_tag asset_path('photo-not-found.jpeg') %>
-          <% else %>
-            <%= cl_image_tag experience.photo %>
-          <% end %>
-        </div>
+        <%= link_to experience_path(experience) do %>
+          <div class="experience-card-photo">
+            <% if experience.photo.file.nil? %>
+              <%= image_tag asset_path('photo-not-found.jpeg') %>
+            <% else %>
+              <%= cl_image_tag experience.photo %>
+            <% end %>
+          </div>
+        <% end %>
         <!-- Start statement for vote button on experience -->
         <div class="experience-card-vote-buttons">
 
@@ -176,11 +179,13 @@
         <!-- End statement for vote button on experience -->
 
         <div class="experience-card-info">
-          <div class="experience-card-name">
-            <%= experience.name %>
-          </div>
+          <%= link_to experience_path(experience) do %>
+            <div class="experience-card-name">
+              <%= experience.name %>
+            </div>
+          <% end %>
           <div class="experience-card-category">
-            <%= experience.category.name %> &nbsp;&nbsp;-&nbsp;&nbsp;
+            <%= experience.category.name %>&nbsp;&nbsp;-&nbsp;&nbsp;
             <span class="experience-price-range">
               <%= experience.price_range_to_icon %>
             </span>

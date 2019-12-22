@@ -24,8 +24,16 @@
   padding: 12px 28px 28px 28px;
 }
 
-.experience-dark-blue-background {
-  background-color: #0e636b;
+.experience-light-gray-background {
+  background-color: #f7f7f7;
+  // border-top-right-radius: 20px;
+  border-top-left-radius: 50px;
+  margin-top: -20px;
+  padding: 12px 28px 28px 28px;
+}
+
+.experience-dark-gray-background {
+  background-color: #505050;
   // border-top-right-radius: 20px;
   padding: 28px;
 }

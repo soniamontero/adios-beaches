@@ -83,7 +83,7 @@
 
 .done-hint {
   position: absolute;
-  color: #83c8c9;;
+  color: #c1c1c1;
   font-size: 10px;
   top: 55px;
   text-align: center;
@@ -92,7 +92,7 @@
 
 .favorite-hint {
   position: absolute;
-  color: #83c8c9;;
+  color: #c1c1c1;
   font-size: 10px;
   top: 55px;
   text-align: center;
@@ -101,7 +101,7 @@
 
 .small-light-title {
   font-weight: 600;
-  color: #b1f0ed;
+  color: #C5C5C5;
 }
 
 .vote-buttons {
@@ -127,14 +127,18 @@
   button {
     border: none;
     background-color: #f0f6f600;
-    color: #74bcc2;
-    transition: 0.3s ease-out;
+    color: #d2d2d2;
   }
-  button:hover {
-    color: #0bc8d8;
+  .upvote-button:hover {
+    color: #00EAA1;
+    transition: 0.8s ease-out;
+  }
+  .downvote-button:hover {
+    color: #F16D6D;
+    transition: 0.8s ease-out;
   }
   a {
-    color: #74bcc2;
+    color: #d2d2d2;
   }
 }
 
@@ -154,14 +158,14 @@
 .experience-name {
   font-size: 20px;
   font-weight: bold;
-  color: #0F656B;
+  color: #6B6B6B;
   width: 83%;
   padding-top: 16px;
 }
 
 .experience-location {
   font-size: 13px;
-  color: #77a5aa;
+  color: #a5a5a5;
   font-weight: bold;
   letter-spacing: 1px;
   padding-top: 10px;
@@ -169,7 +173,7 @@
 }
 
 .experience-category {
-  color: #77a5aa;
+  color: #C5C5C5;
   font-weight: bold;
   padding-top: 10px;
 }
@@ -203,7 +207,6 @@
   }
 }
 
-
 .person_avatar {
   height: 50px;
   width: 50px;
@@ -216,7 +219,7 @@
 }
 
 .experience-price-range {
-  color: #ffffff;
+  color: #f7f7f7;
 }
 
 .photo-not-found-text {

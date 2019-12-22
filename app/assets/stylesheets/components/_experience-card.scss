@@ -40,7 +40,7 @@
 .experience-card-name {
   font-size: 13px;
   font-weight: bold;
-  color: #0F656B;
+  color: #6b6b6b;
   margin-right: 18px;
 }
 
@@ -70,6 +70,9 @@
   flex-direction: column;
   position: absolute;
   left: 175px;
+  a, a:hover, a:active, a:visited, a:focus {
+    text-decoration: none;
+  }
 }
 
 .experience-card-buttons {
@@ -93,6 +96,8 @@
   margin-left: 10px;
    *:focus, *:hover {
     outline: none;
+    color: #f16d6d;
+    transition: 0.8s ease-out;
   }
 }
 
@@ -119,7 +124,7 @@
   position: absolute;
   left: 145px;
   .vote-text {
-    color: #d1d1d;
+    color: #a5a5a5;
   }
   .vote-text.activated {
     color: #0ee19f;
@@ -131,6 +136,14 @@
     border: none;
     background-color: #ffffff00;
     color: #d1d1d1;
+  }
+  .upvote-button:hover {
+    color: #00EAA1;
+    transition: 0.8s ease-out;
+  }
+  .downvote-button:hover {
+    color: #F16D6D;
+    transition: 0.8s ease-out;
   }
   a {
     color: #d1d1d1;
@@ -148,15 +161,17 @@
 .experience-card-done-button {
   height: 30px;
   width: 30px;
+  font-size: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 25px;
   box-shadow: 1px 1px 5px 0px rgba(156, 156, 156, 0.44);
   background-color: #ffffff;
-  font-size: 10px;
   *:focus, *:hover {
     outline: none;
+    transition: 0.8s ease-out;
+    color: #00eaa1;
   }
 }
 
@@ -175,7 +190,6 @@
     padding: 10px;
     display: block;
   }
-
    #map {
     display: flex;
     min-height: 100vh;
@@ -184,8 +198,13 @@
    }
    .cards-and-map-container {
     display: flex;
-
    }
+}
+
+@media only screen and (max-width: 400px) {
+  .experience-card {
+    min-width: 100vw;
+ }
 }
 
 
