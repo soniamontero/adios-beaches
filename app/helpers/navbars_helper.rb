@@ -6,6 +6,8 @@ module NavbarsHelper
       return render 'shared/navbar_light'
     elsif controller_name == "experiences" && action_name == "new"
       return render 'shared/navbar_dark'
+    elsif controller_name == "experiences" && action_name == "create"
+      return render 'shared/navbar_dark'
     elsif controller_name == "experiences" && action_name == "index"
       return render 'shared/navbar_back_btn_with_dash'
     # elsif controller_name == "experiences" && action_name == "show"

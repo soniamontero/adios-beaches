@@ -10,11 +10,10 @@
         </span>
       </label>
     </div>
-    <!-- <div id="DefaultImagePreview"></div> -->
       <%= f.input :photo_cache, as: :hidden %>
       <%= f.association :category, label_method: :name, selected: 'Food' %>
-      <%= f.input :name, placeholder: "ex: Diving at Penida with Dive Concepts" %>
-      <%= f.input :address, placeholder: "ex: Canggu" %>
+      <%= f.input :name, placeholder: "ex: Diving at Penida with Dive Concepts", label: 'Spot short description' %>
+      <%= f.input :address, placeholder: "Try to type 'The Lawn'", label: "Name of the point of interest (or address)" %>
       <%= f.input :price_range, as: :radio_buttons, collection: Experience.price_ranges.keys.map {|key| [key.humanize, key]} %>
       <%= f.input :price, placeholder: 'In IDR (optional)', label: "Average Price" %>
       <%= f.input :details, input_html: {rows: 5}, placeholder: "How was your experience? What did you most enjoy? Would you recommend it? Summarize your visit or highlight an interesting detail." %>
@@ -22,6 +21,21 @@
     <% end %>
   </div>
 </div>
+
+<!-- <script>
+  const nameInput = document.querySelector("#experience_name")
+  const charactersLeft = document.querySelector("#number-of-characters")
+  nameInput.addEventListener('keyup', (event) => {
+    const number = nameInput.value.length
+    if (number <= 45) {
+      charactersLeft.innerHTML = "";
+      charactersLeft.insertAdjacentHTML('afterbegin', `${45 - number} characters left.`)
+    } else {
+      charactersLeft.innerHTML = "";
+      charactersLeft.insertAdjacentHTML('afterbegin', `${number - 45} characters too many.`)
+    }
+  })
+</script> -->
 
 <!-- <script>
   const getFileName = (event) => {

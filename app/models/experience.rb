@@ -9,7 +9,7 @@ class Experience < ApplicationRecord
 
   validates :name, presence: true, length: { minimum: 5, maximum: 45 }
   validates :address, presence: true
-  validates :price, numericality: { only_integer: true }
+  validates :price, numericality: { only_integer: true }, allow_nil: true
   validates :price_range, presence: true, inclusion: { in: price_ranges.keys }
 
   geocoded_by :address

@@ -65,6 +65,23 @@
   justify-content: center
 }
 
+.valid-characters-number {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #8db6b5;
+}
+
+.invalid-characters-number {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #FD1015;
+}
+
+
 #DefaultImagePreview {
   width:150px;
   height:150px;
