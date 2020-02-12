@@ -1,4 +1,3 @@
-  <%#= cl_image_tag @experience.photo, class: 'experience-photo' %>
 <div class="experience-photo-container" style="background-image: <%= 'linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),' if @experience.photo.file.nil? %> url(<%= @experience.photo.file.nil? ? asset_path('photo-not-found.jpeg') : @experience.photo %>);">
   <div class="back-icon">
     <%= link_to experiences_path do  %>
@@ -143,6 +142,4 @@
       <%#= link_to 'Back', experiences_path %>
     </div>
   </div>
-  </div>
-
 </div>

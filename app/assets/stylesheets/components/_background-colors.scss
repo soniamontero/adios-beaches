@@ -9,6 +9,10 @@
   background-color: #e3eae3;
 }
 
+.dark-green-background-color {
+  background-color: #2b3e2b;
+}
+
 .login-background-color {
   background: no-repeat center center fixed;
   background-image: linear-gradient(rgba(125, 125, 125, 0.38), rgba(0, 0, 0, 0.06)), url(new-experience.jpeg);
@@ -26,14 +30,15 @@
 
 .experience-light-gray-background {
   background-color: #f7f7f7;
-  // border-top-right-radius: 20px;
   border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
   margin-top: -20px;
   padding: 12px 28px 28px 28px;
+  box-shadow: 4px 11px 16px -5px rgba(51, 93, 45, 0.8);
 }
 
 .experience-dark-gray-background {
-  background-color: #505050;
+  // background-color: #505050;
   // border-top-right-radius: 20px;
   padding: 28px;
 }
