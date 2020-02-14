@@ -119,17 +119,17 @@
   </div>
   <div class="experience-dark-gray-background">
     <div class="experience-info-container">
-      <h6 class="small-light-title">Price range</h6>
+      <h6 class="small-blue-title">Price range</h6>
       <div class="experience-price-range">
         <%= @experience.price_range_to_icon %>
       </div>
 
-      <h6 class="small-light-title pt-3">Details</h6>
+      <h6 class="small-blue-title pt-3">Details</h6>
       <div class="experience-details">
         <%= @experience.details %>
       </div>
 
-      <h6 class="small-light-title pt-3">Who has been there?</h6>
+      <h6 class="small-blue-title pt-3">Who has been there?</h6>
       <div class="people-been-there">
         <% @experience.total_dones.each do |person| %>
           <span class="person-info">
@@ -138,7 +138,9 @@
           </span>
         <% end %>
       </div>
-      <%#= link_to 'edit', edit_experience_path(@experience)  %>
+      <div class="white-transparent-button my-4">
+        <%= link_to 'Edit your experience', edit_experience_path(@experience)  %>
+      </div>
       <%#= link_to 'Back', experiences_path %>
     </div>
   </div>

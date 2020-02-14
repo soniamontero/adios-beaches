@@ -5,7 +5,7 @@ module BackgroundColorsHelper
     elsif controller_name == 'experiences' && action_name == 'index'
       'light-green-background-color'
     elsif controller_name == 'experiences' && action_name == 'show'
-      'dark-green-background-color'
+      'light-grey-background-color'
     elsif controller_name == 'pages'
       'home-page-background-color'
     end
