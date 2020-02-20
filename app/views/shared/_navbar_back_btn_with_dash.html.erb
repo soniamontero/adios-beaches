@@ -15,6 +15,9 @@
     <ul class="navbar-nav mr-auto nav-items">
       <% if user_signed_in? %>
         <li class="nav-item active">
+          <%= link_to "Add experience", new_experience_path %>
+        </li>
+        <li class="nav-item active">
           <%= link_to "Dashboard", "#" %>
         </li>
         <li class="nav-item">
