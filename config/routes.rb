@@ -19,5 +19,6 @@ Rails.application.routes.draw do
   resources :dones, only: [:destroy]
   resources :favorites, only: [:destroy]
   resources :votes, only: [:update, :destroy]
-  # post "dones", to: "dones#create", as: "dones"
+
+  get "dashboard", to: "pages#dashboard", as: :dashboard
 end

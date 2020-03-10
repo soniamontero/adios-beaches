@@ -1,0 +1,27 @@
+.dashboard-container {
+  padding-right: 8vw;
+  padding-left: 8vw;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+}
+
+.top-dashboard-container {
+  padding-top: 18vh;
+  padding-bottom: 5vh;
+  padding-right: 8vw;
+  padding-left: 8vw;
+  display: flex;
+  justify-content: space-between;
+  .active-title {
+    font-weight: 500;
+    color: white;
+    opacity: 1;
+  }
+  span {
+    font-weight: 100;
+    text-transform: uppercase;
+    color: white;
+    opacity: 0.8;
+  }
+}
+

@@ -1,0 +1,429 @@
+<!-- First top part with search and filters -->
+<div class="experience-index-background" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= asset_path 'palm-leaves.jpeg' %>)">
+  <div class="top-dashboard-container">
+    <span id='saved' class="active-title">
+      Save
+    </span>
+    <span id='done'>
+      Done
+    </span>
+    <span id='my-experiences'>
+      My experiences
+    </span>
+  </div>
+</div>
+
+<div class="dashboard-container">
+  <!-- Beginning of my_favorites container -->
+    <div class="experience-cards-container" id="saved-container">
+      <% if @my_favorites.count == 0 %>
+        <p class="no-search-results mt-5">
+          No results for your research. Try something else!
+        </p>
+      <% end %>
+      <% @my_favorites.each do |favorite| %>
+
+        <div class="experience-card">
+          <%= link_to experience_path(favorite.experience) do %>
+            <div class="experience-card-photo">
+              <% if favorite.experience.photo.file.nil? %>
+                <%= image_tag asset_path('photo-not-found.jpeg') %>
+              <% else %>
+                <%= cl_image_tag favorite.experience.photo %>
+              <% end %>
+            </div>
+          <% end %>
+          <!-- Start statement for vote button on experience -->
+          <div class="experience-card-vote-buttons">
+
+            <!-- VOTE + UPVOTE -->
+            <% if current_user.has_voted?(favorite.experience) && current_user.has_upvoted?(favorite.experience) %>
+              <%= link_to vote_path(Vote.find_by_experience(current_user, favorite.experience), redirect_to: 'index'), method: :delete do %>
+                <i class="fas fa-chevron-up upvote-button activated"></i>
+              <% end %>
+              <span class="vote-text <% favorite.experience.total_votes_state %>">
+                <%= favorite.experience.total_votes %>
+              </span>
+              <%= link_to vote_path(Vote.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :put do %>
+                 <i class="fas fa-chevron-down downvote-button"></i>
+              <% end %>
+
+            <!-- VOTE + DOWNVOTE -->
+            <% elsif current_user.has_voted?(favorite.experience) && current_user.has_downvoted?(favorite.experience) %>
+              <%= link_to vote_path(Vote.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :put do %>
+                <i class="fas fa-chevron-up upvote-button"></i>
+              <% end %>
+              <span class="vote-text">
+                <%= favorite.experience.total_votes %>
+              </span>
+              <%= link_to vote_path(Vote.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                <i class="fas fa-chevron-down downvote-button activated"></i>
+              <% end %>
+
+            <!-- NO VOTE -->
+            <% else %>
+              <%= simple_form_for [favorite.experience, Vote.new], html: { id: (1..10000).to_a.sample} do |f| %>
+                <%= hidden_field_tag(:value, 1, id: (1..10000).to_a.sample) %>
+                <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+                  <i class="fas fa-chevron-up upvote-button"></i>
+                <% end %>
+              <% end %>
+              <span class="vote-text">
+                <%= favorite.experience.total_votes %>
+              </span>
+              <%= simple_form_for [favorite.experience, Vote.new], html: { id: (1..10000).to_a.sample} do |f| %>
+                <%= hidden_field_tag(:value, -1, id: (1..10000).to_a.sample) %>
+                <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+                  <i class="fas fa-chevron-down downvote-button"></i>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+          <!-- End statement for vote button on favorite.experience -->
+
+          <div class="experience-card-info">
+            <%= link_to experience_path(favorite.experience) do %>
+              <div class="experience-card-name">
+                <%= favorite.experience.name %>
+              </div>
+            <% end %>
+            <div class="experience-card-category">
+              <%= favorite.experience.category.name %>&nbsp;&nbsp;-&nbsp;&nbsp;
+              <span class="experience-price-range">
+                <%= favorite.experience.price_range_to_icon %>
+              </span>
+            </div>
+            <div class="experience-card-location">
+              <%= favorite.experience.address.split(',')[2] %>
+            </div>
+          </div>
+
+
+
+          <div class="experience-card-buttons">
+            <!-- Statement for done button on experience -->
+            <div class="experience-card-done-button <%= current_user.has_done?(favorite.experience).nil? ? 'deactivated' : 'activated' %>">
+              <% if current_user.has_done?(favorite.experience) %>
+                <%= link_to done_path(Done.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                    <i class="fas fa-check"></i>
+                <% end %>
+              <% else %>
+                <%= simple_form_for [favorite.experience, Done.new], html: { id: (1..10000).to_a.sample}  do |f| %>
+                  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample do %>
+                    <i class="fas fa-check"></i>
+                <% end %>
+                  <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
+                <% end %>
+              <% end %>
+            </div>
+            <!-- End of statement for done button on experience -->
+
+
+            <!-- Statement for favorite button on experience -->
+            <div class="experience-card-favorite-button <%= current_user.has_favorite?(favorite.experience).nil? ? 'deactivated' : 'activated' %>">
+              <% if current_user.has_favorite?(favorite.experience) %>
+                <%= link_to favorite_path(Favorite.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                  <i class="fas fa-heart"></i>
+                <% end %>
+              <% else %>
+                <%= simple_form_for [favorite.experience, Favorite.new], html: { id: (1..10000).to_a.sample}  do |f| %>
+                  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample do %>
+                    <i class="fas fa-heart"></i>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+            <!-- End of statement for favorite button on experience -->
+          </div>
+        </div>
+        <%#= link_to 'show', experience_path(experience.id) %>
+      <% end %>
+    </div>
+    <!-- End of my_favorites container -->
+
+  <!-- Beginning of my_dones container -->
+    <div class="experience-cards-container" hidden id="done-container">
+      <% if @my_dones.count == 0 %>
+        <p class="no-search-results mt-5">
+          No results for your research. Try something else!
+        </p>
+      <% end %>
+      <% @my_dones.each do |done| %>
+
+        <div class="experience-card">
+          <%= link_to experience_path(done.experience) do %>
+            <div class="experience-card-photo">
+              <% if done.experience.photo.file.nil? %>
+                <%= image_tag asset_path('photo-not-found.jpeg') %>
+              <% else %>
+                <%= cl_image_tag done.experience.photo %>
+              <% end %>
+            </div>
+          <% end %>
+          <!-- Start statement for vote button on experience -->
+          <div class="experience-card-vote-buttons">
+
+            <!-- VOTE + UPVOTE -->
+            <% if current_user.has_voted?(done.experience) && current_user.has_upvoted?(done.experience) %>
+              <%= link_to vote_path(Vote.find_by_experience(current_user, done.experience), redirect_to: 'index'), method: :delete do %>
+                <i class="fas fa-chevron-up upvote-button activated"></i>
+              <% end %>
+              <span class="vote-text <% done.experience.total_votes_state %>">
+                <%= done.experience.total_votes %>
+              </span>
+              <%= link_to vote_path(Vote.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :put do %>
+                 <i class="fas fa-chevron-down downvote-button"></i>
+              <% end %>
+
+            <!-- VOTE + DOWNVOTE -->
+            <% elsif current_user.has_voted?(done.experience) && current_user.has_downvoted?(done.experience) %>
+              <%= link_to vote_path(Vote.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :put do %>
+                <i class="fas fa-chevron-up upvote-button"></i>
+              <% end %>
+              <span class="vote-text">
+                <%= done.experience.total_votes %>
+              </span>
+              <%= link_to vote_path(Vote.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                <i class="fas fa-chevron-down downvote-button activated"></i>
+              <% end %>
+
+            <!-- NO VOTE -->
+            <% else %>
+              <%= simple_form_for [done.experience, Vote.new], html: { id: (1..10000).to_a.sample} do |f| %>
+                <%= hidden_field_tag(:value, 1, id: (1..10000).to_a.sample) %>
+                <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+                  <i class="fas fa-chevron-up upvote-button"></i>
+                <% end %>
+              <% end %>
+              <span class="vote-text">
+                <%= done.experience.total_votes %>
+              </span>
+              <%= simple_form_for [done.experience, Vote.new], html: { id: (1..10000).to_a.sample} do |f| %>
+                <%= hidden_field_tag(:value, -1, id: (1..10000).to_a.sample) %>
+                <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+                  <i class="fas fa-chevron-down downvote-button"></i>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+          <!-- End statement for vote button on done.experience -->
+
+          <div class="experience-card-info">
+            <%= link_to experience_path(done.experience) do %>
+              <div class="experience-card-name">
+                <%= done.experience.name %>
+              </div>
+            <% end %>
+            <div class="experience-card-category">
+              <%= done.experience.category.name %>&nbsp;&nbsp;-&nbsp;&nbsp;
+              <span class="experience-price-range">
+                <%= done.experience.price_range_to_icon %>
+              </span>
+            </div>
+            <div class="experience-card-location">
+              <%= done.experience.address.split(',')[2] %>
+            </div>
+          </div>
+
+
+
+          <div class="experience-card-buttons">
+            <!-- Statement for done button on experience -->
+            <div class="experience-card-done-button <%= current_user.has_done?(done.experience).nil? ? 'deactivated' : 'activated' %>">
+              <% if current_user.has_done?(done.experience) %>
+                <%= link_to done_path(Done.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                    <i class="fas fa-check"></i>
+                <% end %>
+              <% else %>
+                <%= simple_form_for [done.experience, Done.new], html: { id: (1..10000).to_a.sample}  do |f| %>
+                  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample do %>
+                    <i class="fas fa-check"></i>
+                <% end %>
+                  <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
+                <% end %>
+              <% end %>
+            </div>
+            <!-- End of statement for done button on experience -->
+
+
+            <!-- Statement for favorite button on experience -->
+            <div class="experience-card-favorite-button <%= current_user.has_favorite?(done.experience).nil? ? 'deactivated' : 'activated' %>">
+              <% if current_user.has_favorite?(done.experience) %>
+                <%= link_to favorite_path(Favorite.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                  <i class="fas fa-heart"></i>
+                <% end %>
+              <% else %>
+                <%= simple_form_for [done.experience, Favorite.new], html: { id: (1..10000).to_a.sample}  do |f| %>
+                  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample do %>
+                    <i class="fas fa-heart"></i>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+            <!-- End of statement for favorite button on experience -->
+          </div>
+        </div>
+        <%#= link_to 'show', experience_path(experience.id) %>
+      <% end %>
+    </div>
+    <!-- End of my_dones container -->
+
+  <!-- Begining of my_experiences container -->
+    <div class="experience-cards-container" hidden id="my-experiences-container">
+      <% if @my_experiences.count == 0 %>
+        <p class="no-search-results mt-5">
+          No results for your research. Try something else!
+        </p>
+      <% end %>
+      <% @my_experiences.each do |experience| %>
+
+        <div class="experience-card">
+          <%= link_to experience_path(experience) do %>
+            <div class="experience-card-photo">
+              <% if experience.photo.file.nil? %>
+                <%= image_tag asset_path('photo-not-found.jpeg') %>
+              <% else %>
+                <%= cl_image_tag experience.photo %>
+              <% end %>
+            </div>
+          <% end %>
+          <!-- Start statement for vote button on experience -->
+          <div class="experience-card-vote-buttons">
+
+            <!-- VOTE + UPVOTE -->
+            <% if current_user.has_voted?(experience) && current_user.has_upvoted?(experience) %>
+              <%= link_to vote_path(Vote.find_by_experience(current_user, experience), redirect_to: 'index'), method: :delete do %>
+                <i class="fas fa-chevron-up upvote-button activated"></i>
+              <% end %>
+              <span class="vote-text <% experience.total_votes_state %>">
+                <%= experience.total_votes %>
+              </span>
+              <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :put do %>
+                 <i class="fas fa-chevron-down downvote-button"></i>
+              <% end %>
+
+            <!-- VOTE + DOWNVOTE -->
+            <% elsif current_user.has_voted?(experience) && current_user.has_downvoted?(experience) %>
+              <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :put do %>
+                <i class="fas fa-chevron-up upvote-button"></i>
+              <% end %>
+              <span class="vote-text">
+                <%= experience.total_votes %>
+              </span>
+              <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                <i class="fas fa-chevron-down downvote-button activated"></i>
+              <% end %>
+
+            <!-- NO VOTE -->
+            <% else %>
+              <%= simple_form_for [experience, Vote.new], html: { id: (1..10000).to_a.sample} do |f| %>
+                <%= hidden_field_tag(:value, 1, id: (1..10000).to_a.sample) %>
+                <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+                  <i class="fas fa-chevron-up upvote-button"></i>
+                <% end %>
+              <% end %>
+              <span class="vote-text">
+                <%= experience.total_votes %>
+              </span>
+              <%= simple_form_for [experience, Vote.new], html: { id: (1..10000).to_a.sample} do |f| %>
+                <%= hidden_field_tag(:value, -1, id: (1..10000).to_a.sample) %>
+                <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+                  <i class="fas fa-chevron-down downvote-button"></i>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+          <!-- End statement for vote button on experience -->
+
+          <div class="experience-card-info">
+            <%= link_to experience_path(experience) do %>
+              <div class="experience-card-name">
+                <%= experience.name %>
+              </div>
+            <% end %>
+            <div class="experience-card-category">
+              <%= experience.category.name %>&nbsp;&nbsp;-&nbsp;&nbsp;
+              <span class="experience-price-range">
+                <%= experience.price_range_to_icon %>
+              </span>
+            </div>
+            <div class="experience-card-location">
+              <%= experience.address.split(',')[2] %>
+            </div>
+          </div>
+
+
+
+          <div class="experience-card-buttons">
+            <!-- Statement for done button on experience -->
+            <div class="experience-card-done-button <%= current_user.has_done?(experience).nil? ? 'deactivated' : 'activated' %>">
+              <% if current_user.has_done?(experience) %>
+                <%= link_to done_path(Done.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                    <i class="fas fa-check"></i>
+                <% end %>
+              <% else %>
+                <%= simple_form_for [experience, Done.new], html: { id: (1..10000).to_a.sample}  do |f| %>
+                  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample do %>
+                    <i class="fas fa-check"></i>
+                <% end %>
+                  <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
+                <% end %>
+              <% end %>
+            </div>
+            <!-- End of statement for done button on experience -->
+
+
+            <!-- Statement for favorite button on experience -->
+            <div class="experience-card-favorite-button <%= current_user.has_favorite?(experience).nil? ? 'deactivated' : 'activated' %>">
+              <% if current_user.has_favorite?(experience) %>
+                <%= link_to favorite_path(Favorite.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                  <i class="fas fa-heart"></i>
+                <% end %>
+              <% else %>
+                <%= simple_form_for [experience, Favorite.new], html: { id: (1..10000).to_a.sample}  do |f| %>
+                  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample do %>
+                    <i class="fas fa-heart"></i>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+            <!-- End of statement for favorite button on experience -->
+
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <!-- End of my_experiences container -->
+
+</div>
+
+
+
+
+<script type="text/javascript">
+  const dones = document.querySelector("#done");
+  const saved = document.querySelector("#saved");
+  const myExperiences = document.querySelector("#my-experiences");
+
+  const donesContainer = document.querySelector("#done-container");
+  const savedContainer = document.querySelector("#saved-container");
+  const myExperiencesContainer = document.querySelector("#my-experiences-container");
+
+  const toggleActive = (event) => {
+    dones.classList.remove("active-title");
+    saved.classList.remove("active-title");
+    myExperiences.classList.remove("active-title");
+    const id = event.currentTarget.id
+    event.currentTarget.classList.add("active-title");
+    const container = document.querySelector(`#${id}-container`);
+    donesContainer.setAttribute("hidden", "");
+    savedContainer.setAttribute("hidden", "");
+    myExperiencesContainer.setAttribute("hidden", "");
+    container.removeAttribute("hidden", "")
+  }
+
+  dones.addEventListener('click', toggleActive)
+  saved.addEventListener('click', toggleActive)
+  myExperiences.addEventListener('click', toggleActive)
+
+</script>

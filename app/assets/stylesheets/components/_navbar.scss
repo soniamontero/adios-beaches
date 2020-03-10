@@ -4,7 +4,7 @@
   .nav-items {
     a {
 
-      color: #007a6f;
+      color: $dark-green;
     }
   }
 }
@@ -31,17 +31,17 @@
   z-index: 3;
 }
 
-.back-navbar-icon-dark {
-  font-size: 23px;
-  a, a:active, a:visited {
-    color: #00c4a3;
-  }
-}
-
 .back-navbar-icon-light {
   font-size: 23px;
   a, a:active, a:visited {
     color: white;
+  }
+}
+
+.back-navbar-icon-dark {
+  font-size: 23px;
+  a, a:active, a:visited {
+    color: $dark-green
   }
 }
 

@@ -15,16 +15,24 @@
   flex-wrap: wrap;
 }
 
-.second-white-title {
-  color: white;
+.second-title {
   font-size: 25px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  padding-top: 125px;
-  padding-top: 125px;
 }
 
+.white {
+  color: white;
+}
+
+.second-title span {
+  font-size: 15px;
+}
+
+.large-padding-top {
+  padding-top: 125px;
+}
 
 .white-paragraphe-upcased {
   color: white;
@@ -87,7 +95,7 @@ select#category {
 }
 
 @media only screen and (min-width: 600px) {
-  .second-white-title {
+  .second-title {
     text-align: center;
   }
 }
