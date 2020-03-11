@@ -1,4 +1,4 @@
-<div class="navbar navbar-expand-sm main-navbar navbar-dark navbar-backbutton">
+<div class="navbar main-navbar navbar-dark navbar-backbutton">
   <div class="back-navbar-icon-dark">
     <%= link_to root_path do  %>
       <i class="fas fa-chevron-left"></i>
@@ -6,7 +6,11 @@
   </div>
 
   <span class="navbar-toggler"  data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <%= image_tag "menu-dark.png", class: "toggler-icon" %>
+    <% if user_signed_in? && current_user.github_picture_url.present? %>
+      <%= image_tag current_user.github_picture_url, class: "avatar" %>
+    <% else %>
+      <%= image_tag "menu-dark.png", class: "toggler-icon" %>
+    <% end %>
     <!-- <span class="navbar-toggler-icon"></span> -->
   </span>
 

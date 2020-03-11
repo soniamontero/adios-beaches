@@ -1,16 +1,19 @@
 .dashboard-container {
   padding-right: 8vw;
   padding-left: 8vw;
-  padding-top: 5vh;
-  padding-bottom: 5vh;
+  padding-top: 3vh;
+  padding-bottom: 3vh;
 }
 
 .top-dashboard-container {
-  padding-top: 18vh;
+  margin: auto;
+  max-width: 600px;
+  padding-top: 20vh;
   padding-bottom: 5vh;
   padding-right: 8vw;
   padding-left: 8vw;
   display: flex;
+  text-align: center;
   justify-content: space-between;
   .active-title {
     font-weight: 500;
@@ -23,5 +26,13 @@
     color: white;
     opacity: 0.8;
   }
+  span:hover {
+    cursor: pointer;
+  }
 }
 
+@media only screen and (max-width: 400px) {
+  .top-dashboard-container span {
+    font-size: 14px;
+  }
+}
