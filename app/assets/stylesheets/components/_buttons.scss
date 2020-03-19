@@ -15,6 +15,23 @@
   }
 }
 
+.teal-transparent-button {
+  margin: auto;
+  border-color: $teal;
+  border-radius: 23px;
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+  text-align: center;
+  color: $teal;
+  background-color: #ffffff26;
+  max-width: 350px;
+  a {
+    color: $teal;
+    text-decoration: none;
+  }
+}
+
 .white-color {
   color: white;
 }

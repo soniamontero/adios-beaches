@@ -29,7 +29,7 @@ class ExperiencesController < ApplicationController
     end
 
     # Define the markers on the map depending on experiences up there.
-    @markers = @experiences.map do |experience|
+    @markers = @experiences.where.not(longitude: nil, latitude: nil).map do |experience|
       {
         lat: experience.latitude,
         lng: experience.longitude,

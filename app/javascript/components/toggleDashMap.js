@@ -1,9 +1,9 @@
-const mapContainer = document.querySelector("#index-map");
+const mapContainer = document.querySelector("#dashboard-map");
 const experiencesContainer = document.querySelector("#experience-cards-container");
 const displayMapButtonInput = document.querySelector("#display-map-button input");
 const displayMapButton = document.querySelector("#display-map-button");
 
-const toggleMap = () => {
+const toggleDashMap = () => {
   if (mapContainer) {
     displayMapButton.addEventListener("change", (event) => {
       if (displayMapButtonInput.checked) {
@@ -35,7 +35,6 @@ const toggleMap = () => {
 
     document.addEventListener("DOMContentLoaded", checksize)
 
-
     window.addEventListener('resize', (event) => {
       if (event.currentTarget.innerWidth > 765) {
         displayMapButton.classList.remove('display-flex');
@@ -49,4 +48,4 @@ const toggleMap = () => {
   }
 }
 
-export { toggleMap };
+export { toggleDashMap };

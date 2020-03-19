@@ -47,3 +47,15 @@
   margin-left: 4vw;
 }
 
+
+@media only screen and (min-width: 765px) {
+  .category-icons-index {
+    display: flex;
+    margin: auto;
+    // Change the width if more category icons are added or removed.
+    // This allow the items to not be hidden when scrolling (compared to
+    // justify-content-center that doesn't give a damn about the overflowx and hides it).
+    max-width: fit-content;
+  }
+}
+

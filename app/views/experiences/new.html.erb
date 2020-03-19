@@ -21,33 +21,3 @@
     <% end %>
   </div>
 </div>
-
-<!-- <script>
-  const nameInput = document.querySelector("#experience_name")
-  const charactersLeft = document.querySelector("#number-of-characters")
-  nameInput.addEventListener('keyup', (event) => {
-    const number = nameInput.value.length
-    if (number <= 45) {
-      charactersLeft.innerHTML = "";
-      charactersLeft.insertAdjacentHTML('afterbegin', `${45 - number} characters left.`)
-    } else {
-      charactersLeft.innerHTML = "";
-      charactersLeft.insertAdjacentHTML('afterbegin', `${number - 45} characters too many.`)
-    }
-  })
-</script> -->
-
-<!-- <script>
-  const getFileName = (event) => {
-    let f = event.currentTarget.value;
-    f = f.replace(/.*[\/\\]/, '');
-    return f;
-  }
-  photo = document.querySelector('#experience_photo');
-  photo.addEventListener('change', (e)=>{
-    let fileName = getFileName(e)
-    photoInput = document.querySelector('#photo_input')
-    photoInput.insertAdjacentHTML('afterend', `<div class='file-name'>${fileName}</div>`)
-  });
-
-</script> -->

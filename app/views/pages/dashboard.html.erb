@@ -11,9 +11,15 @@
       My experiences
     </span>
   </div>
+
+  <div class="toggle display-flex map-button-container ml-3" id="display-map-button">
+    <p class='mr-3' id='display-map-text'>Display the map:</p>
+    <input type="checkbox" id="toggle" />
+    <label for="toggle"></label>
+  </div>
 </div>
 
-<div class="dashboard-container">
+<div class="cards-and-map-container" id="experience-cards-container">
   <!-- Beginning of my_favorites container -->
     <div class="experience-cards-container" id="saved-container">
       <% if @my_favorites.count == 0 %>
@@ -365,7 +371,7 @@
                 <%= simple_form_for [experience, Done.new], html: { id: (1..10000).to_a.sample}  do |f| %>
                   <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample do %>
                     <i class="fas fa-check"></i>
-                <% end %>
+                  <% end %>
                   <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
                 <% end %>
               <% end %>
@@ -395,35 +401,19 @@
     </div>
   <!-- End of my_experiences container -->
 
+  <!-- Beginning of map -->
+  <div
+    class="display-none"
+    id="dashboard-map"
+    style="width: 100%;
+    height: 600px;
+    margin-top: -53px;
+    z-index: 1;"
+    data-experiencesMarkers="<%= @user_experiences_markers.to_json %>"
+    data-favoritesMarkers="<%= @user_favorites_markers.to_json %>"
+    data-donesMarkers="<%= @user_dones_markers.to_json %>"
+    data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
+  >
+  </div>
+  <!-- End of map -->
 </div>
-
-
-
-
-<script type="text/javascript">
-  const dones = document.querySelector("#done");
-  const saved = document.querySelector("#saved");
-  const myExperiences = document.querySelector("#my-experiences");
-
-  const donesContainer = document.querySelector("#done-container");
-  const savedContainer = document.querySelector("#saved-container");
-  const myExperiencesContainer = document.querySelector("#my-experiences-container");
-
-  const toggleActive = (event) => {
-    dones.classList.remove("active-title");
-    saved.classList.remove("active-title");
-    myExperiences.classList.remove("active-title");
-    const id = event.currentTarget.id
-    event.currentTarget.classList.add("active-title");
-    const container = document.querySelector(`#${id}-container`);
-    donesContainer.setAttribute("hidden", "");
-    savedContainer.setAttribute("hidden", "");
-    myExperiencesContainer.setAttribute("hidden", "");
-    container.removeAttribute("hidden", "")
-  }
-
-  dones.addEventListener('click', toggleActive)
-  saved.addEventListener('click', toggleActive)
-  myExperiences.addEventListener('click', toggleActive)
-
-</script>

@@ -24,6 +24,6 @@ class ApplicationController < ActionController::Base
     )
 
     # For additional in app/views/devise/registrations/edit.html.erb
-    # devise_parameter_sanitizer.permit(:account_update, keys: [:batch_number, :batch_location, :visited_bali, :slack_username])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:batch_number, :batch_location, :visited_bali, :slack_username])
   end
 end

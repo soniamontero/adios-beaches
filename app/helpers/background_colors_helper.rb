@@ -1,6 +1,8 @@
 module BackgroundColorsHelper
   def define_background_color
-    if controller_name == 'registrations' || controller_name == 'sessions'
+    if controller_name == "registrations" && action_name == "edit"
+      'light-grey-background-color'
+    elsif controller_name == 'registrations' || controller_name == 'sessions'
       'login-background-color'
     elsif controller_name == 'experiences' && action_name == 'index'
       'light-green-background-color'
