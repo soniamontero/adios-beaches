@@ -6,6 +6,8 @@ module NavbarsHelper
       return render 'shared/navbar_light_back_btn'
     elsif controller_name == "registrations" && action_name == 'edit'
       return render 'shared/navbar_dark'
+    elsif controller_name == "users" && action_name == 'edit'
+      return render 'shared/navbar_dark'
     elsif controller_name == "registrations" || controller_name == "sessions"
       return render 'shared/navbar_light'
     elsif controller_name == "experiences" && action_name == "new"

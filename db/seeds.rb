@@ -185,28 +185,6 @@ puts "TROPIC LIKE IT'S HOOOOT!"
 
 
 
-brands = ["Honda", "Vario", ""]
-
-Scooter.create(
-  brand: brands.sample,
-  power: "50CV"
-)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
