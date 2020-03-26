@@ -5,8 +5,8 @@ class ApplicationController < ActionController::Base
   before_action :redirect
 
   def redirect # Force the user to stay on edit_profile if profile info not completed
-    flash[:notice] = 'We need these information before letting you access the platform' if current_user && current_user.first_login
     if (current_user && current_user.first_login) && action_name != "home"
+      flash[:notice] = 'We need these information before letting you access the platform' if current_user && current_user.first_login
       redirect_to edit_profile_path if controller_name != 'users' && action_name != "edit"
     end
   end

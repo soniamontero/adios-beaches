@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   resources :votes, only: [:update, :destroy]
 
   get "dashboard", to: "pages#dashboard", as: :dashboard
+  get "/:github_username", to: "users#show", as: :user_profile
 end

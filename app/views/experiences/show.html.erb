@@ -117,7 +117,7 @@
 
     </div>
   </div>
-  <div class="experience-dark-gray-background">
+  <div class="experience-dark-gray-background p-4">
     <div class="experience-info-container">
       <h6 class="small-grey-title">Price range</h6>
       <div class="experience-price-range">
@@ -132,10 +132,12 @@
       <h6 class="small-grey-title pt-3">Who has been there?</h6>
       <div class="people-been-there">
         <% @experience.total_dones.each do |person| %>
-          <span class="person-info">
-              <%= image_tag person.github_picture_url, class: "person_avatar #{'owner' if person.id == @experience.user_id}" %>
-              <%= person.github_username %>
-          </span>
+          <%= link_to user_profile_path(person.github_username) do %>
+            <span class="person-info">
+                <%= image_tag person.github_picture_url, class: "person_avatar #{'owner' if person.id == @experience.user_id}" %>
+                <%= person.github_username %>
+            </span>
+          <% end %>
         <% end %>
       </div>
       <div class="teal-transparent-button my-4">

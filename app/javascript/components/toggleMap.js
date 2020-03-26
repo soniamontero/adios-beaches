@@ -35,7 +35,6 @@ const toggleMap = () => {
 
     document.addEventListener("DOMContentLoaded", checksize)
 
-
     window.addEventListener('resize', (event) => {
       if (event.currentTarget.innerWidth > 765) {
         displayMapButton.classList.remove('display-flex');

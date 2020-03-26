@@ -20,6 +20,9 @@
           <%= link_to "Dashboard", dashboard_path %>
         </li>
         <li class="nav-item">
+          <%= link_to "Profile", user_profile_path(current_user.github_username) %>
+        </li>
+        <li class="nav-item">
           <%= link_to "Account Settings", edit_registration_path(current_user) %>
         </li>
         <li class="nav-item">

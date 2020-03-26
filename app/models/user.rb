@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :experiences
-  has_many :dones
-  has_many :favorites
+  has_many :dones, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -21,6 +21,14 @@ class User < ApplicationRecord
   validates :batch_number, presence: true, numericality: { only_integer: true }, on: :update
   validates :batch_location, presence: true, inclusion: lw_cities, on: :update
   validates :visited_bali, inclusion: [ true, false ], on: :update
+  validate :has_avatar, on: :create
+
+  def has_avatar
+    identicons = ["https://avatars0.githubusercontent.com/u/11577265?s=460&v=4", "https://avatars2.githubusercontent.com/u/12451650?s=460&v=4", "https://avatars1.githubusercontent.com/u/26235955?s=460&v=4", "https://topcoder-prod-media.s3.amazonaws.com/member/profile/Dhirendra24-1521096232990.png"]
+    if self.github_picture_url.nil?
+      self.github_picture_url = identicons.sample
+    end
+  end
 
   def has_done?(experience)
     Done.where(experience_id: experience.id, user_id: self.id).first

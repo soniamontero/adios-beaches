@@ -1,0 +1,46 @@
+.profile-container {
+  margin-top: -209px;
+}
+
+.profile-icon{
+  position: relative;
+}
+
+.profile-icon img {
+  height: 50px;
+  width: 50px;
+  padding: 11px;
+  margin: 16px;
+  position: relative;
+  background-color: #d6d6d6;
+  border-radius: 10px;
+  box-shadow: 4px 3px 19px rgba(137, 137, 137, 0.2);
+  border: 4px solid #f7f7f7;
+}
+.experience-stat {
+  height: 90px; // Height to avoid other elements of the page to move when CSS transition is triggered on click on the profile icons
+}
+
+.experience-stat:hover {
+  cursor: pointer;
+}
+
+.experience-count {
+  position: absolute;
+  bottom: 2px;
+  right: 0px;
+  background-color: white;
+  border-radius: 50%;
+  padding: 5px;
+  height: 35px;
+  width: 35px;
+  text-align: center;
+  box-shadow: 4px 3px 10px rgba(0, 0, 0, 0.2)
+}
+
+.active-icon img {
+  background-color: #9ad4d0;
+  transition: 0.3s ease-out;
+  transform: scale(1.15);
+  box-shadow: 4px 3px 19px rgba(137, 137, 137, 0.32);
+}

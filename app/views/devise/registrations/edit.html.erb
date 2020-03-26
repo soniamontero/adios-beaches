@@ -6,19 +6,13 @@
         <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
       <% end %>
       <div class="experience-name">
-        <h3>Your Profile</h3>
+        <h3>Account Settings</h3>
       </div>
       <%= f.input :first_name %>
       <%= f.input :batch_number %>
       <%= f.input :batch_location %>
       <%= f.input :slack_username %>
       <%= f.input :visited_bali, label: "Ever visited Bali before?" %>
-      <%= f.submit "Save", class: "btn btn-primary" %>
-
-
-      <div class="experience-name mt-5">
-        <h3>Account settings</h3>
-      </div>
       <%= f.input :email %>
       <%= f.submit "Save", class: "btn btn-primary" %>
     <% end  %>

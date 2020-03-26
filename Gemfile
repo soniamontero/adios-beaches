@@ -25,7 +25,7 @@ gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'mast
 gem 'pg_search', '~> 2.3.0'
 
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
-
+gem 'rest-client'
 
 group :development do
   gem 'web-console', '>= 3.3.0'

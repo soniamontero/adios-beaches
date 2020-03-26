@@ -50,9 +50,24 @@
   color: #e4baba;
   border: none;
   background-color: white;
+  transition: 0.1s ease-out;
 }
+
+.favorite-button.deactivated button:hover {
+  color: #e4baba;
+  border: none;
+  background-color: white;
+  font-size: 18px;
+}
+
 .favorite-button.activated a {
   color: #f16d6d;
+  transition: 0.1s ease-out;
+}
+
+.favorite-button.activated a:hover {
+  color: #f16d6d;
+  font-size: 18px;
 }
 
 .done-button {
@@ -76,9 +91,24 @@
   color: #c7c7c7;
   border: none;
   background-color: white;
+  transition: 0.1s ease-out;
 }
+
+.done-button.deactivated button:hover {
+  color: #c7c7c7;
+  border: none;
+  background-color: white;
+  font-size: 18px;
+}
+
 .done-button.activated a {
   color: #00eaa1;
+  transition: 0.1s ease-out;
+}
+
+.done-button.activated a:hover {
+  color: #00eaa1;
+  font-size: 18px;
 }
 
 .done-hint {
@@ -156,7 +186,7 @@
 }
 
 .experience-name {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   color: #72b3ae;
   width: 83%;
@@ -220,7 +250,7 @@
 }
 
 .experience-price-range {
-  color: #8eb6b5;
+  color: #6b6b6b;
 }
 
 .photo-not-found-text {

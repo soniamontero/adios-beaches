@@ -7,28 +7,28 @@ const toggleDashMap = () => {
   if (mapContainer) {
     displayMapButton.addEventListener("change", (event) => {
       if (displayMapButtonInput.checked) {
-        mapContainer.classList.add("display-flex");
+        mapContainer.classList.add("d-block");
         mapContainer.classList.remove("display-none");
         experiencesContainer.classList.add("display-none");
-        experiencesContainer.classList.remove("display-flex");
+        experiencesContainer.classList.remove("d-block");
       } else {
-        mapContainer.classList.remove("display-flex");
+        mapContainer.classList.remove("d-block");
         mapContainer.classList.add("display-none");
         experiencesContainer.classList.remove("display-none");
-        experiencesContainer.classList.add("display-flex");
+        experiencesContainer.classList.add("d-block");
       }
     })
 
     const checksize = (event) => {
       if (window.innerWidth > 765) {
-        displayMapButton.classList.remove('display-flex');
+        displayMapButton.classList.remove('d-flex');
         displayMapButton.classList.add('display-none');
-        mapContainer.classList.add("display-flex");
+        mapContainer.classList.add("d-block");
         mapContainer.classList.remove("display-none");
       } else {
         displayMapButton.classList.remove('display-none');
-        displayMapButton.classList.add('display-flex');
-        mapContainer.classList.remove("display-flex");
+        displayMapButton.classList.add('d-flex');
+        mapContainer.classList.remove("d-block");
         mapContainer.classList.add("display-none");
       }
     }
@@ -37,11 +37,11 @@ const toggleDashMap = () => {
 
     window.addEventListener('resize', (event) => {
       if (event.currentTarget.innerWidth > 765) {
-        displayMapButton.classList.remove('display-flex');
+        displayMapButton.classList.remove('d-flex');
         displayMapButton.classList.add('display-none');
       } else {
         displayMapButton.classList.remove('display-none');
-        displayMapButton.classList.add('display-flex');
+        displayMapButton.classList.add('d-flex');
       }
     })
 

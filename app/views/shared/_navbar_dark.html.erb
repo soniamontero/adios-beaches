@@ -17,7 +17,7 @@
     <ul class="navbar-nav mr-auto nav-items">
       <% if user_signed_in? %>
         <li class="nav-item">
-          <%= link_to "Dashboard", dashboard_path %>
+          <%= link_to "Profile", user_profile_path(current_user.github_username) %>
         </li>
         <li class="nav-item">
           <%= link_to "Account Settings", edit_registration_path(current_user) %>

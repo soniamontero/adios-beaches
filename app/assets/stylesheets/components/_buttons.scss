@@ -15,6 +15,23 @@
   }
 }
 
+.grey-transparent-button {
+  margin: auto;
+  border-color: #b6b6b6;
+  border-radius: 23px;
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+  text-align: center;
+  color: #b6b6b6;
+  background-color: #ffffff26;
+  max-width: 350px;
+  a {
+    color: #b6b6b6;
+    text-decoration: none;
+  }
+}
+
 .teal-transparent-button {
   margin: auto;
   border-color: $teal;

@@ -1,0 +1,8 @@
+<%= link_to experience_path(experience) do  %>
+  <div class="info-window-photo">
+    <%= cl_image_tag experience.photo %>
+    <div class="info-window-name">
+      <%= experience.name %>
+    </div>
+  </div>
+<% end %>

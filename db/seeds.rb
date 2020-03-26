@@ -27,6 +27,7 @@ lw_cities = [
 # Dreamland-beach Denpasar Jimbaran Pererenan Penida Lombok Sulawesi)
 
 addresses = ["Canggu", "Canggu North", "next to Canggu", "Kuta", "Amed"]
+identicons = ["https://avatars0.githubusercontent.com/u/11577265?s=460&v=4", "https://avatars2.githubusercontent.com/u/12451650?s=460&v=4", "https://avatars1.githubusercontent.com/u/26235955?s=460&v=4", "https://topcoder-prod-media.s3.amazonaws.com/member/profile/Dhirendra24-1521096232990.png"]
 
 10.times do
   faker_name = Faker::Name.first_name
@@ -43,7 +44,7 @@ addresses = ["Canggu", "Canggu North", "next to Canggu", "Kuta", "Amed"]
     uid: Faker::Omniauth.github[:uid],
     token: Faker::Omniauth.github[:credentials],
     first_login: false,
-    github_picture_url: Faker::Omniauth.github[:extra][:raw_info][:avatar_url]
+    github_picture_url: identicons.sample
   )
 p "Generated user: #{faker_name}!"
 end

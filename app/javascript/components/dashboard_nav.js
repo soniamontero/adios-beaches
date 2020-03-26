@@ -4,21 +4,21 @@ const myExperiences = document.querySelector("#my-experiences");
 
 const dashboardNav = () => {
   if (myExperiences) {
-    const donesContainer = document.querySelector("#done-container");
-    const savedContainer = document.querySelector("#saved-container");
     const myExperiencesContainer = document.querySelector("#my-experiences-container");
+    const savedContainer = document.querySelector("#saved-container");
+    const donesContainer = document.querySelector("#done-container");
 
     const toggleActive = (event) => {
-document.querySelector("#my-experiences");
-      dones.classList.remove("active-title");
-      saved.classList.remove("active-title");
-      myExperiences.classList.remove("active-title");
+      document.querySelector("#my-experiences");
+      myExperiences.classList.remove("active-icon");
+      saved.classList.remove("active-icon");
+      dones.classList.remove("active-icon");
       const id = event.currentTarget.id;
-      event.currentTarget.classList.add("active-title");
+      event.currentTarget.classList.add("active-icon");
       const container = document.querySelector(`#${id}-container`);
-      donesContainer.setAttribute("hidden", "");
-      savedContainer.setAttribute("hidden", "");
       myExperiencesContainer.setAttribute("hidden", "");
+      savedContainer.setAttribute("hidden", "");
+      donesContainer.setAttribute("hidden", "");
       container.removeAttribute("hidden", "");
     }
 
