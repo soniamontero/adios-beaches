@@ -21,13 +21,13 @@ const toggleDashMap = () => {
 
     const checksize = (event) => {
       if (window.innerWidth > 765) {
-        displayMapButton.classList.remove('d-flex');
+        displayMapButton.classList.remove('display-flex');
         displayMapButton.classList.add('display-none');
         mapContainer.classList.add("d-block");
         mapContainer.classList.remove("display-none");
       } else {
         displayMapButton.classList.remove('display-none');
-        displayMapButton.classList.add('d-flex');
+        displayMapButton.classList.add('display-flex');
         mapContainer.classList.remove("d-block");
         mapContainer.classList.add("display-none");
       }
