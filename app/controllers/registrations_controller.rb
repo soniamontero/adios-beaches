@@ -1,5 +1,13 @@
 class RegistrationsController < Devise::RegistrationsController
 
+  def update
+    if current_user.update(account_update_params) && current_user.first_login == false
+      redirect_to user_profile_path(current_user.github_username)
+    else
+      super
+    end
+  end
+
   def destroy
     if Favorite.where(experience: current_user.experiences).empty? && Done.where(experience: current_user.experiences).empty?
       super

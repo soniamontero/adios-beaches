@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     stored_location_for(resource) ||
-      if resource.is_a?(User) && resource.first_login
+      if resource.is_a?(User) && resource.first_login || resource.batch_location.nil?
         edit_profile_path
       else
         super
@@ -23,10 +23,10 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     # For additional fields in app/views/devise/registrations/new.html.erb
     devise_parameter_sanitizer.permit(:sign_up, keys:
-      [:github_username, :batch_number, :batch_location, :country, :visited_bali, :slack_username]
+      [:first_name, :github_username, :batch_number, :batch_location, :country, :visited_bali, :slack_username]
     )
 
     # For additional in app/views/devise/registrations/edit.html.erb
-    devise_parameter_sanitizer.permit(:account_update, keys: [:batch_number, :batch_location, :country, :visited_bali, :slack_username])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :batch_number, :batch_location, :country, :visited_bali, :slack_username])
   end
 end

@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    if @user.update(user_params)
+    if @user.update(user_params) && @user.first_login == true
       @user.first_login = false
       @user.save
       redirect_to root_path

@@ -24,6 +24,11 @@ class User < ApplicationRecord
   validates :visited_bali, inclusion: [ true, false ], on: :update
   validate :has_avatar, on: :create
 
+  def country_name
+    c = ISO3166::Country[self.country]
+    return c.translations[I18n.locale.to_s] || c.name
+  end
+
   def has_avatar
     identicons = ["https://avatars0.githubusercontent.com/u/11577265?s=460&v=4", "https://avatars2.githubusercontent.com/u/12451650?s=460&v=4", "https://avatars1.githubusercontent.com/u/26235955?s=460&v=4", "https://topcoder-prod-media.s3.amazonaws.com/member/profile/Dhirendra24-1521096232990.png"]
     if self.github_picture_url.nil?

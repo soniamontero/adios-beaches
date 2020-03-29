@@ -1,29 +1,36 @@
 <div class="experience-photo-container profile-container" style="background-image: <%= 'linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),' %> url(<%= asset_path('palm-leaves.jpeg') %>);">
 
   <div class="experience-light-gray-background" style="position: relative;">
-  <%= image_tag @user.github_picture_url, class: 'profile-avatar' %>
+  <div class="avatar-edit">
+    <%= image_tag @user.github_picture_url, class: 'profile-avatar' %>
+    <%= link_to "Edit profile", edit_registration_path(current_user), style: 'color: #C5C5C5; text-decoration: underline; font-size:12px' %>
+  </div>
     <div class="experience-main-container">
       <div class="experience-name">
         <%= @user.github_username %>
-        <%= image_tag "slack.png", class: "small-logo" %>
+        <%= image_tag "github-logo.png", class: "small-logo" %>
         <% if @user.first_name %>
-          (<%= @user.first_name %>)
+          <span class="profile-first-name">(<%= @user.first_name.capitalize %>)</span>
         <% end %>
       </div>
 
-      <div class="light-p">
+      <div class="medium-p pt-3 pb-2">
+        <%= image_tag "lewagon-logo-small.png", class: 'medium-logo pr-2' %>
         Student of batch <%= @user.batch_number %> in <strong><%= @user.batch_location.capitalize %></strong>
       </div>
 
-      <div class="experience-location">
-        <i class="fas fa-map-marker-alt" style="color: #6f6f6f"></i>
-        <%= @user.country %>
+
+      <div class="medium-p pb-2">
+        <i class="fas fa-map-marker-alt pr-2" style="color: #6f6f6f"></i>
+        <%= @user.country_name %> - <%= @been_to_bali %>
       </div>
 
-      <div class="experience-location">
-        <i class="fas fa-map-marker-alt" style="color: #6f6f6f"></i>
-        <%= @been_to_bali %>
-      </div>
+      <% if @user.slack_username? %>
+        <div class="medium-p pb-3">
+          <%= image_tag "slack.png", class: 'medium-logo pr-2' %>
+          <%= @user.slack_username %>
+        </div>
+      <% end %>
 
       <div class="d-flex justify-content-around">
         <div class="experience-stat">
@@ -49,10 +56,14 @@
         </div>
       </div>
 
-      <div class="toggle display-flex map-button-container ml-3 pt-4 mb-0" id="display-map-button">
-        <p class='mr-3' id='display-map-text' style="color: #c0c0c0">Display the map:</p>
+      <div class="light-p toggle display-flex map-button-container ml-3 pt-4 mb-0" id="display-map-button">
+        <p class='mr-3' id='display-map-text'>Display the map:</p>
         <input type="checkbox" id="toggle" />
         <label for="toggle"></label>
+      </div>
+
+      <div class="light-p text-center">
+
       </div>
 
     </div>
@@ -62,7 +73,7 @@
       <!-- Begining of my_experiences container -->
       <div class="experience-cards-container" id="my-experiences-container">
         <% if @my_experiences.count == 0 %>
-          <p class="no-search-results mt-5">
+          <p class="mt-5 text-center medium-p" style="font-size:14px">
             Uh oh, no experiences yet. <%= link_to "Try to add one!", new_experience_path, style:"color: #828477; text-decoration: underline" %>
           </p>
         <% end %>
@@ -187,7 +198,7 @@
       <!-- Beginning of my_favorites container -->
       <div class="experience-cards-container" hidden id="saved-container">
         <% if @my_favorites.count == 0 %>
-          <p class="no-search-results mt-5">
+          <p class="mt-5 text-center medium-p" style="font-size:14px">
             Uh oh, no experiences yet. <%= link_to "Try to add one!", experiences_path, style:"color: #828477; text-decoration: underline" %>
           </p>
         <% end %>
@@ -314,7 +325,7 @@
       <!-- Beginning of my_dones container -->
       <div class="experience-cards-container" hidden id="done-container">
         <% if @my_dones.count == 0 %>
-          <p class="no-search-results mt-5">
+          <p class="mt-5 text-center medium-p" style="font-size:14px">
             Uh oh, no experiences yet. <%= link_to "Try to add one!", experiences_path, style:"color: #828477; text-decoration: underline" %>
           </p>
         <% end %>
