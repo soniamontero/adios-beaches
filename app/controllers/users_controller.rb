@@ -27,7 +27,8 @@ class UsersController < ApplicationController
         lat: experience.latitude,
         lng: experience.longitude,
         infoWindow: render_to_string(partial: "info_window", locals: { experience: experience }),
-        image_url: helpers.asset_url('my-exp-pin.svg')
+        image_url: helpers.asset_url('my-exp-pin.svg'),
+        id: experience.id
       }
     end
     @user_favorites_markers = @my_favorites.joins(:experience).where.not(experiences: {longitude: nil, latitude: nil}).map do |favorite|
@@ -35,7 +36,8 @@ class UsersController < ApplicationController
         lat: favorite.experience.latitude,
         lng: favorite.experience.longitude,
         infoWindow: render_to_string(partial: "info_window", locals: { experience: favorite.experience }),
-        image_url: helpers.asset_url('favorite-pin.svg')
+        image_url: helpers.asset_url('favorite-pin.svg'),
+        id: favorite.experience.id
       }
     end
     @user_dones_markers = @my_dones.joins(:experience).where.not(experiences: {longitude: nil, latitude: nil}).map do |done|
@@ -43,7 +45,8 @@ class UsersController < ApplicationController
         lat: done.experience.latitude,
         lng: done.experience.longitude,
         infoWindow: render_to_string(partial: "info_window", locals: { experience: done.experience }),
-        image_url: helpers.asset_url('done-pin.svg')
+        image_url: helpers.asset_url('done-pin.svg'),
+        id: done.experience.id
       }
     end
     if @user.visited_bali

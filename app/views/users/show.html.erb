@@ -79,7 +79,7 @@
         <% end %>
         <% @my_experiences.each do |experience| %>
 
-          <div class="experience-card">
+          <div class="experience-card" data-experience-id="<%= experience.id %>">
             <%= link_to experience_path(experience) do %>
               <div class="experience-card-photo">
                 <% if experience.photo.file.nil? %>
@@ -204,7 +204,7 @@
         <% end %>
         <% @my_favorites.each do |favorite| %>
 
-          <div class="experience-card">
+          <div class="experience-card" data-experience-id="<%= favorite.experience.id %>">
             <%= link_to experience_path(favorite.experience) do %>
               <div class="experience-card-photo">
                 <% if favorite.experience.photo.file.nil? %>
@@ -331,7 +331,7 @@
         <% end %>
         <% @my_dones.each do |done| %>
 
-          <div class="experience-card">
+          <div class="experience-card" data-experience-id="<%= done.experience.id %>">
             <%= link_to experience_path(done.experience) do %>
               <div class="experience-card-photo">
                 <% if done.experience.photo.file.nil? %>
