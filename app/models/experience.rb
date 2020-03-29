@@ -29,6 +29,13 @@ class Experience < ApplicationRecord
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }
 
+  def self.sorted_by_higher_votes
+    Experience.select("experiences.*, COUNT(votes.id) vote_count")
+    .left_joins(:votes)
+    .group("experiences.id")
+    .order("vote_count DESC")
+  end
+
   def add_owner_as_done
     Done.create!(experience_id: self.id, user_id: self.user_id)
   end

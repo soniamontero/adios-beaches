@@ -85,11 +85,11 @@
     <span class="search-results-info">
       <% if @params_present %>
         <div class="mr-3 mb-3">
-          Results for '<%= @placeholder %>': <strong><%= @experiences.count %></strong>
+          Results for '<%= @placeholder %>': <strong><%= @experiences.length %></strong>
         </div>
       <% else %>
        <div class="mr-3 mb-3">
-          Search results: <strong><%= @experiences.count %></strong>
+          Search results: <strong><%= @experiences.length %></strong>
         </div>
       <% end %>
       <br>
@@ -112,7 +112,7 @@
 
   <!-- Begining of results container -->
   <div class="experience-cards-container" id="experience-cards-container">
-    <% if @experiences.count == 0 %>
+    <% if @experiences.length == 0 %>
       <p class="no-search-results mt-5">
         No results for your research. Try something else!
       </p>

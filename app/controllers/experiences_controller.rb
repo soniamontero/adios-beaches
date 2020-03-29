@@ -5,14 +5,14 @@ class ExperiencesController < ApplicationController
       @experiences = Experience.joins(:category).where(categories: {name: params[:category]})
     elsif params[:query].present?
       if params[:query] == ""
-        @experiences = Experience.all
+        @experiences = Experience.all.sort_by()
       else
         @experiences = Experience.search_by_name_and_address_and_category(params[:query])
       end
       # keyword = params[:query]
       # Experience.where("experiences.title LIKE ? OR experiences.details LIKE ?", "%#{keyword}%", "%#{keyword}%")
     else
-      @experiences = Experience.all
+      @experiences = Experience.sorted_by_higher_votes
     end
 
     # Update the placeholder of the search bar depending on serch/filter query
