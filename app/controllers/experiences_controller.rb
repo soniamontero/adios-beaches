@@ -3,11 +3,23 @@ class ExperiencesController < ApplicationController
     # Define experience if there are search or filter queries.
     if params[:category].present?
       @experiences = Experience.joins(:category).where(categories: {name: params[:category]})
+      respond_to do |format|
+        format.html { redirect_to experiences_path }
+        format.js
+      end
     elsif params[:query].present?
       if params[:query] == ""
-        @experiences = Experience.all.sort_by()
+        @experiences = Experience.sorted_by_higher_votes
+        respond_to do |format|
+          format.html { redirect_to experiences_path }
+          format.js
+        end
       else
         @experiences = Experience.search_by_name_and_address_and_category(params[:query])
+        respond_to do |format|
+          format.html { redirect_to experiences_path }
+          format.js
+        end
       end
       # keyword = params[:query]
       # Experience.where("experiences.title LIKE ? OR experiences.details LIKE ?", "%#{keyword}%", "%#{keyword}%")

@@ -7,7 +7,7 @@
     </h1>
 
     <div class="home-search-form mt-3 mb-5">
-      <%= form_tag experiences_path, method: :get do %>
+      <%= form_tag experiences_path, remote: true, method: :get do %>
         <%= text_field_tag :query,
           params[:query],
           class: "search-bar-home",
@@ -23,7 +23,7 @@
     <div class="category-icons-scroll">
       <div class="category-icons-index">
         <div>
-          <%= form_tag experiences_path, method: :get do %>
+          <%= form_tag experiences_path, method: :get, remote: true do %>
             <%= hidden_field_tag :category,
               params[:category], value: "Food", id: (1..10000).to_a.sample
             %>
@@ -32,7 +32,7 @@
         </div>
 
         <div>
-          <%= form_tag experiences_path, method: :get do %>
+          <%= form_tag experiences_path, method: :get, remote: true do %>
             <%= hidden_field_tag :category,
               params[:category], value: "Arts", id: (1..10000).to_a.sample
             %>
@@ -40,7 +40,7 @@
           <% end %>
         </div>
         <div>
-          <%= form_tag experiences_path, method: :get do %>
+          <%= form_tag experiences_path, method: :get, remote: true do %>
             <%= hidden_field_tag :category,
               params[:category], value: "Nature", id: (1..10000).to_a.sample
             %>
@@ -48,7 +48,7 @@
           <% end %>
         </div>
         <div>
-          <%= form_tag experiences_path, method: :get do %>
+          <%= form_tag experiences_path, method: :get, remote: true do %>
             <%= hidden_field_tag :category,
               params[:category], value: "Nightlife", id: (1..10000).to_a.sample
             %>
@@ -56,7 +56,7 @@
           <% end %>
         </div>
         <div>
-          <%= form_tag experiences_path, method: :get do %>
+          <%= form_tag experiences_path, method: :get, remote: true do %>
             <%= hidden_field_tag :category,
               params[:category], value: "Stays", id: (1..10000).to_a.sample
             %>
@@ -64,7 +64,7 @@
           <% end %>
         </div>
         <div>
-          <%= form_tag experiences_path, method: :get do %>
+          <%= form_tag experiences_path, method: :get, remote: true do %>
             <%= hidden_field_tag :category,
               params[:category], value: "Sports", id: (1..10000).to_a.sample
             %>
@@ -72,7 +72,7 @@
           <% end %>
         </div>
         <div>
-          <%= form_tag experiences_path, method: :get do %>
+          <%= form_tag experiences_path, method: :get, remote: true do %>
             <%= hidden_field_tag :category,
               params[:category], value: "Shopping", id: (1..10000).to_a.sample
             %>
@@ -113,7 +113,7 @@
   <!-- Begining of results container -->
   <div class="experience-cards-container" id="experience-cards-container">
     <% if @experiences.length == 0 %>
-      <p class="no-search-results mt-5">
+      <p class="no-search-results my-5">
         No results for your research. Try something else!
       </p>
     <% end %>
