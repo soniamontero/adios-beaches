@@ -119,7 +119,7 @@
     <% end %>
     <% @experiences.each do |experience| %>
 
-      <div class="experience-card">
+      <div class="experience-card" data-experience-id="<%= experience.id %>">
         <%= link_to experience_path(experience) do %>
           <div class="experience-card-photo">
             <% if experience.photo.file.nil? %>

@@ -99,7 +99,8 @@ class UsersController < ApplicationController
       :batch_number,
       :batch_location,
       :slack_username,
-      :visited_bali
+      :visited_bali,
+      :country
     )
   end
 end

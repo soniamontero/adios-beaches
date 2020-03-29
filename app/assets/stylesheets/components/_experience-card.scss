@@ -7,11 +7,12 @@
 }
 
 .experience-card {
+  transition: 0.2s ease-out;
   display: flex;
   background-color: white;
   padding: 15px;
   border-radius: 25px;
-  margin: 3px;
+  margin: 10px;
   height: 130px;
   justify-content: center;
   align-items: center;
@@ -215,5 +216,7 @@
  }
 }
 
-
+.highlight {
+  transform: scale(1.05);
+}
 

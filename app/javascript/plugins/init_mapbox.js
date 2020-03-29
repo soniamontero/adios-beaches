@@ -1,13 +1,37 @@
 import mapboxgl from 'mapbox-gl';
 
+const openInfoWindow = (markers) => {
+  // Select all cards
+  console.log(markers)
+  const cards = document.querySelectorAll('.experience-card');
+  cards.forEach((card, index) => {
+    // Put a microphone on each card listening for a mouseenter event
+    card.addEventListener('mouseenter', () => {
+      // Here we trigger the display of the corresponding marker infoWindow with the "togglePopup" function provided by mapbox-gl
+      markers[index].togglePopup();
+    });
+    // We also put a microphone listening for a mouseleave event to close the modal when user doesn't hover the card anymore
+    card.addEventListener('mouseleave', () => {
+      markers[index].togglePopup();
+    });
+  });
+}
+
+const toggleCardHighlighting = (event) => {
+  // We select the card corresponding to the marker's id
+  const card = document.querySelector(`[data-experience-id="${event.currentTarget.dataset.markerId}"]`);
+  // Then we toggle the class "highlight github" to the card
+  card.classList.toggle('highlight');
+}
+
+const fitMapToMarkers = (map, markers) => {
+  const bounds = new mapboxgl.LngLatBounds();
+  markers.forEach(marker => bounds.extend([ marker.lng, marker.lat ]));
+  map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 0 });
+};
+
 const initMapbox = () => {
   const mapElement = document.getElementById('index-map');
-
-  const fitMapToMarkers = (map, markers) => {
-    const bounds = new mapboxgl.LngLatBounds();
-    markers.forEach(marker => bounds.extend([ marker.lng, marker.lat ]));
-    map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 0 });
-  };
 
 
   if (mapElement) {
@@ -27,14 +51,20 @@ const initMapbox = () => {
 
     // Display markers on map
     const markers = JSON.parse(mapElement.dataset.markers);
+    const mapMarkers = []
     markers.forEach((marker) => {
       const popup = new mapboxgl.Popup().setHTML(marker.infoWindow);
-      new mapboxgl.Marker()
+      const newMarker = new mapboxgl.Marker()
         .setLngLat([ marker.lng, marker.lat ])
         .setPopup(popup)
         .addTo(map);
-        fitMapToMarkers(map, markers);
+      mapMarkers.push(newMarker);
+      newMarker.getElement().dataset.markerId = marker.id;
+      newMarker.getElement().addEventListener('mouseenter', (e) => toggleCardHighlighting(e) );
+      newMarker.getElement().addEventListener('mouseleave', (e) => toggleCardHighlighting(e) );
     });
+    fitMapToMarkers(map, markers);
+    openInfoWindow(mapMarkers);
   }
 };
 

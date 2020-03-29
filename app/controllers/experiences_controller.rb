@@ -33,7 +33,8 @@ class ExperiencesController < ApplicationController
       {
         lat: experience.latitude,
         lng: experience.longitude,
-        infoWindow: render_to_string(partial: "info_window", locals: { experience: experience })
+        infoWindow: render_to_string(partial: "info_window", locals: { experience: experience }),
+        id: experience.id
       }
     end
   end
