@@ -5,6 +5,7 @@
     <div class="experience-main-container">
       <div class="experience-name">
         <%= @user.github_username %>
+        <%= image_tag "slack.png", class: "small-logo" %>
         <% if @user.first_name %>
           (<%= @user.first_name %>)
         <% end %>
@@ -12,6 +13,11 @@
 
       <div class="light-p">
         Student of batch <%= @user.batch_number %> in <strong><%= @user.batch_location.capitalize %></strong>
+      </div>
+
+      <div class="experience-location">
+        <i class="fas fa-map-marker-alt" style="color: #6f6f6f"></i>
+        <%= @user.country %>
       </div>
 
       <div class="experience-location">
@@ -77,25 +83,25 @@
 
               <!-- VOTE + UPVOTE -->
               <% if current_user.has_voted?(experience) && current_user.has_upvoted?(experience) %>
-                <%= link_to vote_path(Vote.find_by_experience(current_user, experience), redirect_to: 'index'), method: :delete do %>
+                <%= link_to vote_path(Vote.find_by_experience(current_user, experience), redirect_to: ['profile', @user.github_username]), method: :delete do %>
                   <i class="fas fa-chevron-up upvote-button activated"></i>
                 <% end %>
                 <span class="vote-text <% experience.total_votes_state %>">
                   <%= experience.total_votes %>
                 </span>
-                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :put do %>
+                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), method: :put do %>
                    <i class="fas fa-chevron-down downvote-button"></i>
                 <% end %>
 
               <!-- VOTE + DOWNVOTE -->
               <% elsif current_user.has_voted?(experience) && current_user.has_downvoted?(experience) %>
-                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :put do %>
+                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), method: :put do %>
                   <i class="fas fa-chevron-up upvote-button"></i>
                 <% end %>
                 <span class="vote-text">
                   <%= experience.total_votes %>
                 </span>
-                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), method: :delete do %>
                   <i class="fas fa-chevron-down downvote-button activated"></i>
                 <% end %>
 
@@ -103,7 +109,7 @@
               <% else %>
                 <%= simple_form_for [experience, Vote.new], html: { id: (1..10000).to_a.sample} do |f| %>
                   <%= hidden_field_tag(:value, 1, id: (1..10000).to_a.sample) %>
-                  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+                  <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username] do %>
                     <i class="fas fa-chevron-up upvote-button"></i>
                   <% end %>
                 <% end %>
@@ -112,7 +118,7 @@
                 </span>
                 <%= simple_form_for [experience, Vote.new], html: { id: (1..10000).to_a.sample} do |f| %>
                   <%= hidden_field_tag(:value, -1, id: (1..10000).to_a.sample) %>
-                  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+                  <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username] do %>
                     <i class="fas fa-chevron-down downvote-button"></i>
                   <% end %>
                 <% end %>
@@ -137,18 +143,16 @@
               </div>
             </div>
 
-
-
             <div class="experience-card-buttons">
               <!-- Statement for done button on experience -->
               <div class="experience-card-done-button <%= current_user.has_done?(experience).nil? ? 'deactivated' : 'activated' %>">
                 <% if current_user.has_done?(experience) %>
-                  <%= link_to done_path(Done.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                  <%= link_to done_path(Done.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), method: :delete do %>
                       <i class="fas fa-check"></i>
                   <% end %>
                 <% else %>
                   <%= simple_form_for [experience, Done.new], html: { id: (1..10000).to_a.sample}  do |f| %>
-                    <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample do %>
+                    <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username], id: (1..10000).to_a.sample do %>
                       <i class="fas fa-check"></i>
                     <% end %>
                     <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
@@ -161,7 +165,7 @@
               <!-- Statement for favorite button on experience -->
               <div class="experience-card-favorite-button <%= current_user.has_favorite?(experience).nil? ? 'deactivated' : 'activated' %>">
                 <% if current_user.has_favorite?(experience) %>
-                  <%= link_to favorite_path(Favorite.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                  <%= link_to favorite_path(Favorite.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), method: :delete do %>
                     <i class="fas fa-heart"></i>
                   <% end %>
                 <% else %>
@@ -204,25 +208,25 @@
 
               <!-- VOTE + UPVOTE -->
               <% if current_user.has_voted?(favorite.experience) && current_user.has_upvoted?(favorite.experience) %>
-                <%= link_to vote_path(Vote.find_by_experience(current_user, favorite.experience), redirect_to: 'index'), method: :delete do %>
+                <%= link_to vote_path(Vote.find_by_experience(current_user, favorite.experience), redirect_to: ['profile', @user.github_username]), method: :delete do %>
                   <i class="fas fa-chevron-up upvote-button activated"></i>
                 <% end %>
                 <span class="vote-text <% favorite.experience.total_votes_state %>">
                   <%= favorite.experience.total_votes %>
                 </span>
-                <%= link_to vote_path(Vote.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :put do %>
+                <%= link_to vote_path(Vote.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), method: :put do %>
                    <i class="fas fa-chevron-down downvote-button"></i>
                 <% end %>
 
               <!-- VOTE + DOWNVOTE -->
               <% elsif current_user.has_voted?(favorite.experience) && current_user.has_downvoted?(favorite.experience) %>
-                <%= link_to vote_path(Vote.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :put do %>
+                <%= link_to vote_path(Vote.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), method: :put do %>
                   <i class="fas fa-chevron-up upvote-button"></i>
                 <% end %>
                 <span class="vote-text">
                   <%= favorite.experience.total_votes %>
                 </span>
-                <%= link_to vote_path(Vote.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                <%= link_to vote_path(Vote.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), method: :delete do %>
                   <i class="fas fa-chevron-down downvote-button activated"></i>
                 <% end %>
 
@@ -230,7 +234,7 @@
               <% else %>
                 <%= simple_form_for [favorite.experience, Vote.new], html: { id: (1..10000).to_a.sample} do |f| %>
                   <%= hidden_field_tag(:value, 1, id: (1..10000).to_a.sample) %>
-                  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+                  <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username] do %>
                     <i class="fas fa-chevron-up upvote-button"></i>
                   <% end %>
                 <% end %>
@@ -239,7 +243,7 @@
                 </span>
                 <%= simple_form_for [favorite.experience, Vote.new], html: { id: (1..10000).to_a.sample} do |f| %>
                   <%= hidden_field_tag(:value, -1, id: (1..10000).to_a.sample) %>
-                  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+                  <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username] do %>
                     <i class="fas fa-chevron-down downvote-button"></i>
                   <% end %>
                 <% end %>
@@ -270,12 +274,12 @@
               <!-- Statement for done button on experience -->
               <div class="experience-card-done-button <%= current_user.has_done?(favorite.experience).nil? ? 'deactivated' : 'activated' %>">
                 <% if current_user.has_done?(favorite.experience) %>
-                  <%= link_to done_path(Done.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                  <%= link_to done_path(Done.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), method: :delete do %>
                       <i class="fas fa-check"></i>
                   <% end %>
                 <% else %>
                   <%= simple_form_for [favorite.experience, Done.new], html: { id: (1..10000).to_a.sample}  do |f| %>
-                    <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample do %>
+                    <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username], id: (1..10000).to_a.sample do %>
                       <i class="fas fa-check"></i>
                     <% end %>
                     <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
@@ -288,12 +292,12 @@
               <!-- Statement for favorite button on experience -->
               <div class="experience-card-favorite-button <%= current_user.has_favorite?(favorite.experience).nil? ? 'deactivated' : 'activated' %>">
                 <% if current_user.has_favorite?(favorite.experience) %>
-                  <%= link_to favorite_path(Favorite.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                  <%= link_to favorite_path(Favorite.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), method: :delete do %>
                     <i class="fas fa-heart"></i>
                   <% end %>
                 <% else %>
                   <%= simple_form_for [favorite.experience, Favorite.new], html: { id: (1..10000).to_a.sample}  do |f| %>
-                    <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample do %>
+                    <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username], id: (1..10000).to_a.sample do %>
                       <i class="fas fa-heart"></i>
                     <% end %>
                   <% end %>
@@ -331,25 +335,25 @@
 
               <!-- VOTE + UPVOTE -->
               <% if current_user.has_voted?(done.experience) && current_user.has_upvoted?(done.experience) %>
-                <%= link_to vote_path(Vote.find_by_experience(current_user, done.experience), redirect_to: 'index'), method: :delete do %>
+                <%= link_to vote_path(Vote.find_by_experience(current_user, done.experience), redirect_to: ['profile', @user.github_username]), method: :delete do %>
                   <i class="fas fa-chevron-up upvote-button activated"></i>
                 <% end %>
                 <span class="vote-text <% done.experience.total_votes_state %>">
                   <%= done.experience.total_votes %>
                 </span>
-                <%= link_to vote_path(Vote.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :put do %>
+                <%= link_to vote_path(Vote.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), method: :put do %>
                    <i class="fas fa-chevron-down downvote-button"></i>
                 <% end %>
 
               <!-- VOTE + DOWNVOTE -->
               <% elsif current_user.has_voted?(done.experience) && current_user.has_downvoted?(done.experience) %>
-                <%= link_to vote_path(Vote.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :put do %>
+                <%= link_to vote_path(Vote.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), method: :put do %>
                   <i class="fas fa-chevron-up upvote-button"></i>
                 <% end %>
                 <span class="vote-text">
                   <%= done.experience.total_votes %>
                 </span>
-                <%= link_to vote_path(Vote.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                <%= link_to vote_path(Vote.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), method: :delete do %>
                   <i class="fas fa-chevron-down downvote-button activated"></i>
                 <% end %>
 
@@ -357,7 +361,7 @@
               <% else %>
                 <%= simple_form_for [done.experience, Vote.new], html: { id: (1..10000).to_a.sample} do |f| %>
                   <%= hidden_field_tag(:value, 1, id: (1..10000).to_a.sample) %>
-                  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+                  <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username] do %>
                     <i class="fas fa-chevron-up upvote-button"></i>
                   <% end %>
                 <% end %>
@@ -366,7 +370,7 @@
                 </span>
                 <%= simple_form_for [done.experience, Vote.new], html: { id: (1..10000).to_a.sample} do |f| %>
                   <%= hidden_field_tag(:value, -1, id: (1..10000).to_a.sample) %>
-                  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+                  <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username] do %>
                     <i class="fas fa-chevron-down downvote-button"></i>
                   <% end %>
                 <% end %>
@@ -397,12 +401,12 @@
               <!-- Statement for done button on experience -->
               <div class="experience-card-done-button <%= current_user.has_done?(done.experience).nil? ? 'deactivated' : 'activated' %>">
                 <% if current_user.has_done?(done.experience) %>
-                  <%= link_to done_path(Done.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                  <%= link_to done_path(Done.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), method: :delete do %>
                       <i class="fas fa-check"></i>
                   <% end %>
                 <% else %>
                   <%= simple_form_for [done.experience, Done.new], html: { id: (1..10000).to_a.sample}  do |f| %>
-                    <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample do %>
+                    <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username], id: (1..10000).to_a.sample do %>
                       <i class="fas fa-check"></i>
                   <% end %>
                     <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
@@ -415,12 +419,12 @@
               <!-- Statement for favorite button on experience -->
               <div class="experience-card-favorite-button <%= current_user.has_favorite?(done.experience).nil? ? 'deactivated' : 'activated' %>">
                 <% if current_user.has_favorite?(done.experience) %>
-                  <%= link_to favorite_path(Favorite.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete do %>
+                  <%= link_to favorite_path(Favorite.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), method: :delete do %>
                     <i class="fas fa-heart"></i>
                   <% end %>
                 <% else %>
                   <%= simple_form_for [done.experience, Favorite.new], html: { id: (1..10000).to_a.sample}  do |f| %>
-                    <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample do %>
+                    <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username], id: (1..10000).to_a.sample do %>
                       <i class="fas fa-heart"></i>
                     <% end %>
                   <% end %>

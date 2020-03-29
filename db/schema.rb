@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 2019_10_09_081925) do
     t.string "github_username", null: false
     t.string "slack_username"
     t.boolean "visited_bali", default: false
+    t.string "country"
     t.string "provider"
     t.string "uid"
     t.string "github_picture_url"

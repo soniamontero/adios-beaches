@@ -10,8 +10,11 @@ class VotesController < ApplicationController
       redirect_to experiences_path
     elsif @vote.save && params[:redirect_to] == 'show'
       redirect_to experience_path(experience)
+    elsif @vote.save && params[:redirect_to].include?('profile')
+      username = params[:redirect_to].split[1]
+      redirect_to user_profile_path(username)
     else
-      redirect_back(fallback_location: experiences_path)
+      redirect_back(fallback_location: root_path)
     end
   end
 
@@ -36,12 +39,15 @@ class VotesController < ApplicationController
     @vote = Vote.find(params[:id])
     experience = @vote.experience
     @vote.destroy
-    if params[:redirect_to] == 'show'
-      redirect_to experience_path(experience)
-    elsif @vote.save && params[:redirect_to] == "index"
+    if params[:redirect_to] == "index"
       redirect_to experiences_path
+    elsif params[:redirect_to] == 'show'
+      redirect_to experience_path(experience)
+    elsif params[:redirect_to][0] == 'profile'
+      username = params[:redirect_to][1]
+      redirect_to user_profile_path(username)
     else
-      redirect_back(fallback_location: experiences_path)
+      redirect_back(fallback_location: root_path)
     end
   end
 end

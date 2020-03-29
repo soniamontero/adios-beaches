@@ -6,6 +6,7 @@ class AddColumnsToUsers < ActiveRecord::Migration[5.2]
     add_column :users, :github_username, :string, null: false
     add_column :users, :slack_username, :string
     add_column :users, :visited_bali, :boolean, default: false
+    add_column :users, :country, :string
     add_column :users, :provider, :string
     add_column :users, :uid, :string
     add_column :users, :github_picture_url, :string

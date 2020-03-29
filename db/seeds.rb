@@ -36,6 +36,7 @@ identicons = ["https://avatars0.githubusercontent.com/u/11577265?s=460&v=4", "ht
     email: Faker::Internet.free_email(name: faker_name),
     password: 'password',
     first_name: faker_name,
+    country: Faker::Address.country,
     batch_number: rand(1..320),
     batch_location: lw_cities.sample,
     github_username: Faker::Omniauth.github[:info][:nickname],

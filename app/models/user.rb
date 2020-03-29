@@ -20,6 +20,7 @@ class User < ApplicationRecord
 
   validates :batch_number, presence: true, numericality: { only_integer: true }, on: :update
   validates :batch_location, presence: true, inclusion: lw_cities, on: :update
+  validates :country, presence: true, on: :update
   validates :visited_bali, inclusion: [ true, false ], on: :update
   validate :has_avatar, on: :create
 

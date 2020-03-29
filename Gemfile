@@ -9,8 +9,9 @@ gem 'puma'
 gem 'rails', '5.2.3'
 gem 'redis'
 gem 'jquery-rails'
-
+gem 'dotenv-rails', :require => 'dotenv/rails-now'
 gem 'autoprefixer-rails'
+
 gem 'font-awesome-sass', '~> 5.6.1'
 gem 'sassc-rails'
 gem 'simple_form'
@@ -19,12 +20,12 @@ gem 'webpacker'
 gem 'geocoder'
 gem 'cloudinary', '~> 1.9.1'
 gem 'carrierwave', '~> 1.2'
-
+gem 'country_select'
 gem 'omniauth-github'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 gem 'pg_search', '~> 2.3.0'
+gem 'maxminddb'
 
-gem 'dotenv-rails', :require => 'dotenv/rails-now'
 gem 'rest-client'
 
 group :development do
