@@ -5,6 +5,7 @@ class DonesController < ApplicationController
     experience = Experience.find(params[:experience_id])
     @done.experience = experience
     # TODO: AJAX
+    authorize @done
     if @done.save
       respond_to do |format|
         format.html { redirect_to experiences_path }
@@ -26,6 +27,7 @@ class DonesController < ApplicationController
   def destroy
     @done = Done.find(params[:id])
     experience = @done.experience
+    authorize @done
     @done.destroy
     respond_to do |format|
       format.html { redirect_to experiences_path }

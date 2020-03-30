@@ -1,5 +1,6 @@
 class ExperiencesController < ApplicationController
   def index
+    @experiences = policy_scope(Experience)
     # Define experience if there are search or filter queries.
     if params[:category].present?
       @experiences = Experience.joins(:category).where(categories: {name: params[:category]})
@@ -53,17 +54,20 @@ class ExperiencesController < ApplicationController
 
   def show
     @experience = Experience.find(params[:id])
+    authorize @experience
     @done = Done.new
     @favorite = Favorite.new
   end
 
   def new
     @experience = Experience.new
+    authorize @experience
   end
 
   def create
     @experience = Experience.new(experience_params)
     @experience.user = current_user
+    authorize @experience
     if @experience.save
       redirect_to experience_path(@experience)
     else
@@ -73,12 +77,13 @@ class ExperiencesController < ApplicationController
 
   def edit
     @experience = Experience.find(params[:id])
+    authorize @experience
   end
 
   def update
     @experience = Experience.find(params[:id])
-    @experience.update(experience_params)
-    if @experience.save
+    authorize @experience
+    if @experience.update(experience_params)
       redirect_to experience_path(@experience)
     else
       render :edit

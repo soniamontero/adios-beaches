@@ -24,7 +24,7 @@ gem 'country_select'
 gem 'omniauth-github'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 gem 'pg_search', '~> 2.3.0'
-gem 'maxminddb'
+gem 'pundit'
 
 gem 'rest-client'
 

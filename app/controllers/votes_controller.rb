@@ -6,6 +6,7 @@ class VotesController < ApplicationController
     experience = Experience.find(params[:experience_id])
     @vote.experience = experience
     # TODO: AJAX
+    authorize @vote
     if @vote.save
       respond_to do |format|
         format.html { redirect_to experiences_path }
@@ -27,6 +28,7 @@ class VotesController < ApplicationController
   def update
     @vote = Vote.find(params[:id])
     experience = @vote.experience
+    authorize @vote
     if @vote.value == 1
       @vote.value = -1
     elsif @vote.value == -1
@@ -50,6 +52,7 @@ class VotesController < ApplicationController
   def destroy
     @vote = Vote.find(params[:id])
     experience = @vote.experience
+    authorize @vote
     @vote.destroy
     respond_to do |format|
       format.html { redirect_to experiences_path }

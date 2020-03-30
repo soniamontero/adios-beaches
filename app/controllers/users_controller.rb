@@ -19,6 +19,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(github_username: params[:github_username])
+    authorize @user
     @user_experiences = @user.experiences
     @my_favorites = @user.favorite_experiences
     @my_dones = @user.done_experiences

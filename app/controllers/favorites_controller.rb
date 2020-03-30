@@ -4,6 +4,7 @@ class FavoritesController < ApplicationController
     @favorite.user = current_user
     experience = Experience.find(params[:experience_id])
     @favorite.experience = experience
+    authorize @favorite
     if @favorite.save
       respond_to do |format|
         format.html { redirect_to experiences_path }
@@ -25,6 +26,7 @@ class FavoritesController < ApplicationController
   def destroy
     @favorite = Favorite.find(params[:id])
     experience = @favorite.experience
+    authorize @favorite
     @favorite.destroy
     respond_to do |format|
       format.html { redirect_to experiences_path }
