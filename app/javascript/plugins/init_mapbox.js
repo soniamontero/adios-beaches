@@ -33,7 +33,6 @@ const fitMapToMarkers = (map, markers) => {
 const initMapbox = () => {
   const mapElement = document.getElementById('index-map');
 
-
   if (mapElement) {
     // Build the map
     mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;

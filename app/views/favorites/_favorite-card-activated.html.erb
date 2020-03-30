@@ -1,5 +1,11 @@
 <div class="experience-card-favorite-button activated">
+  <% if user.nil? %>
+    <%= link_to favorite_path(Favorite.where(experience_id: experience.id, user_id: current_user.id).first), remote: true, method: :delete do %>
+      <i class="fas fa-heart"></i>
+    <% end %>
+  <% else %>
     <%= link_to favorite_path(Favorite.where(experience_id: experience.id, user_id: current_user.id).first, github_username: user.github_username), remote: true, method: :delete do %>
       <i class="fas fa-heart"></i>
     <% end %>
+  <% end %>
 </div>

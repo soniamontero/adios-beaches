@@ -9,7 +9,7 @@
   </div>
     <div class="experience-main-container">
       <div class="experience-name">
-        <%= @user.github_username %>
+        <%= params[:github_username] %>
         <%= image_tag "github-logo.png", class: "small-logo" %>
         <% if @user.first_name %>
           <span class="profile-first-name">(<%= @user.first_name.capitalize %>)</span>
@@ -36,7 +36,7 @@
 
       <div class="d-flex justify-content-around" id="stats-buttons">
         <div class="experience-stat">
-          <%= link_to user_profile_path(@user.github_username, type: 'my-experiences'), remote: true do %>
+          <%= link_to user_profile_path(params[:github_username], type: 'my-experiences'), remote: true do %>
             <div class="profile-icon active-icon" id='my-experiences'>
               <%= image_tag "backpack.svg" %>
              <span class="experience-count"><%= @user.experiences.count %></span>
@@ -45,7 +45,7 @@
         </div>
 
        <div class="experience-stat">
-          <%= link_to user_profile_path(@user.github_username, type: 'saved'), remote: true  do %>
+          <%= link_to user_profile_path(params[:github_username], type: 'saved'), remote: true  do %>
             <div class="profile-icon" id='saved'>
               <%= image_tag "bookmark.svg" %>
              <span class="experience-count"><%= @user.favorites.count %></span>
@@ -55,7 +55,7 @@
 
 
         <div class="experience-stat">
-          <%= link_to user_profile_path(@user.github_username, type: 'dones'), remote: true  do %>
+          <%= link_to user_profile_path(params[:github_username], type: 'dones'), remote: true  do %>
             <div class="profile-icon" id='done'>
               <%= image_tag "tick.svg" %>
              <span class="experience-count"><%= @user.dones.count %></span>
@@ -92,31 +92,32 @@
                 <% end %>
               </div>
             <% end %>
+
             <!-- Start statement for vote button on experience -->
             <div class="experience-card-vote-buttons" data-votes-id="<%= experience.id %>">
 
               <!-- VOTE + UPVOTE -->
 
               <% if current_user.has_voted?(experience) && current_user.has_upvoted?(experience) %>
-                <%= link_to vote_path(Vote.find_by_experience(current_user, experience), github_username: @user.github_username), remote: true, method: :delete do %>
+                <%= link_to vote_path(Vote.find_by_experience(current_user, experience), github_username: params[:github_username]), remote: true, method: :delete do %>
                   <i class="fas fa-chevron-up upvote-button activated"></i>
                 <% end %>
                 <span class="vote-text <% experience.total_votes_state %>">
                   <%= experience.total_votes %>
                 </span>
-                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, github_username: @user.github_username), remote: true, method: :put do %>
+                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, github_username: params[:github_username]), remote: true, method: :put do %>
                    <i class="fas fa-chevron-down downvote-button"></i>
                 <% end %>
 
               <!-- VOTE + DOWNVOTE -->
               <% elsif current_user.has_voted?(experience) && current_user.has_downvoted?(experience) %>
-                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, github_username: @user.github_username), remote: true, method: :put do %>
+                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, github_username: params[:github_username]), remote: true, method: :put do %>
                   <i class="fas fa-chevron-up upvote-button"></i>
                 <% end %>
                 <span class="vote-text">
                   <%= experience.total_votes %>
                 </span>
-                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, github_username: @user.github_username), remote: true, method: :delete do %>
+                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, github_username: params[:github_username]), remote: true, method: :delete do %>
                   <i class="fas fa-chevron-down downvote-button activated"></i>
                 <% end %>
 
@@ -124,7 +125,7 @@
               <% else %>
                 <%= simple_form_for [experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample, type: 'upvote'} do |f| %>
                   <%= hidden_field_tag(:value, 1, id: (1..10000).to_a.sample) %>
-                  <%= button_tag type: 'submit', name: 'github_username', value: @user.github_username do %>
+                  <%= button_tag type: 'submit', name: 'github_username', value: params[:github_username] do %>
                     <i class="fas fa-chevron-up upvote-button"></i>
                   <% end %>
                 <% end %>
@@ -133,7 +134,7 @@
                 </span>
                 <%= simple_form_for [experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample, type: 'downvote'} do |f| %>
                   <%= hidden_field_tag(:value, -1, id: (1..10000).to_a.sample) %>
-                  <%= button_tag type: 'submit', name: 'github_username', value: @user.github_username do %>
+                  <%= button_tag type: 'submit', name: 'github_username', value: params[:github_username] do %>
                     <i class="fas fa-chevron-down downvote-button"></i>
                   <% end %>
                 <% end %>
@@ -165,12 +166,12 @@
               <div data-done-id="<%= experience.id %>">
                 <div class="experience-card-done-button <%= current_user.has_done?(experience).nil? ? 'deactivated' : 'activated' %>">
                   <% if current_user.has_done?(experience) %>
-                    <%= link_to done_path(Done.where(experience_id: experience.id, user_id: current_user.id).first, github_username: @user.github_username), method: :delete, remote: true do %>
+                    <%= link_to done_path(Done.where(experience_id: experience.id, user_id: current_user.id).first, github_username: params[:github_username]), method: :delete, remote: true do %>
                         <i class="fas fa-check"></i>
                     <% end %>
                   <% else %>
                     <%= simple_form_for [experience, Done.new], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
-                      <%= button_tag type: 'submit', name: 'github_username', value: @user.github_username, id: (1..10000).to_a.sample do %>
+                      <%= button_tag type: 'submit', name: 'github_username', value: params[:github_username], id: (1..10000).to_a.sample do %>
                         <i class="fas fa-check"></i>
                     <% end %>
                       <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
@@ -185,12 +186,12 @@
               <div data-favorite-id="<%= experience.id %>">
                 <div class="experience-card-favorite-button <%= current_user.has_favorite?(experience).nil? ? 'deactivated' : 'activated' %>">
                   <% if current_user.has_favorite?(experience) %>
-                    <%= link_to favorite_path(Favorite.where(experience_id: experience.id, user_id: current_user.id).first, github_username: @user.github_username), remote: true, method: :delete do %>
+                    <%= link_to favorite_path(Favorite.where(experience_id: experience.id, user_id: current_user.id).first, github_username: params[:github_username]), remote: true, method: :delete do %>
                       <i class="fas fa-heart"></i>
                     <% end %>
                   <% else %>
                     <%= simple_form_for [experience, Favorite.new], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
-                      <%= button_tag type: 'submit', name: 'github_username', value: @user.github_username, id: (1..10000).to_a.sample do %>
+                      <%= button_tag type: 'submit', name: 'github_username', value: params[:github_username], id: (1..10000).to_a.sample do %>
                         <i class="fas fa-heart"></i>
                       <% end %>
                     <% end %>

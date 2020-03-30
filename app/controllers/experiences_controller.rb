@@ -1,5 +1,6 @@
 class ExperiencesController < ApplicationController
   def index
+    @user = current_user
     @experiences = policy_scope(Experience)
     # Define experience if there are search or filter queries.
     if params[:category].present?

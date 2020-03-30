@@ -1,7 +1,15 @@
 <div class="experience-card-favorite-button deactivated">
-  <%= simple_form_for [experience, Favorite.new], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
-    <%= button_tag type: 'submit', name: 'github_username', value: user.github_username, id: (1..10000).to_a.sample do %>
-      <i class="fas fa-heart"></i>
+  <% if user.nil? %>
+    <%= simple_form_for [experience, Favorite.new], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
+      <%= button_tag type: 'submit', id: (1..10000).to_a.sample do %>
+        <i class="fas fa-heart"></i>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= simple_form_for [experience, Favorite.new], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
+      <%= button_tag type: 'submit', name: 'github_username', value: user.github_username, id: (1..10000).to_a.sample do %>
+        <i class="fas fa-heart"></i>
+      <% end %>
     <% end %>
   <% end %>
 </div>

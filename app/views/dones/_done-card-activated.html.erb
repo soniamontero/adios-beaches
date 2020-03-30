@@ -1,5 +1,11 @@
 <div class="experience-card-done-button activated">
-  <%= link_to done_path(Done.where(experience_id: experience.id, user_id: current_user.id).first, github_username: user.github_username), method: :delete, remote: true do %>
+  <% if user.nil? %>
+    <%= link_to done_path(Done.where(experience_id: experience.id, user_id: current_user.id).first), method: :delete, remote: true do %>
       <i class="fas fa-check"></i>
+    <% end %>
+  <% else %>
+    <%= link_to done_path(Done.where(experience_id: experience.id, user_id: current_user.id).first, github_username: user.github_username), method: :delete, remote: true do %>
+        <i class="fas fa-check"></i>
+    <% end %>
   <% end %>
 </div>

@@ -1,7 +1,15 @@
 var done_link = document.querySelector(`[data-done-id="<%= @done.experience.id %>"]`)
-done_link.innerHTML = "<%= j render(partial: 'done-card-activated', locals: { experience: @done.experience, user: @user }) %>";
-<% if @user != nil %>
-  console.log("hi")
-  var statsDones = document.querySelector("#done");
-  statsDones.innerHTML = "<%= j render(partial: './users/stats_done', locals: { user: @user }) %>";
-<% end %>
+var done_show_link = document.querySelector(`[data-show-done-id="<%= @done.experience.id %>"]`)
+
+if (done_link) {
+  done_link.innerHTML = "<%= j render(partial: 'done-card-activated', locals: { experience: @done.experience, user: @user }) %>";
+  <% if @user != nil %>
+    console.log("hi")
+    var statsDones = document.querySelector("#done");
+    statsDones.innerHTML = "<%= j render(partial: './users/stats_done', locals: { user: @user }) %>";
+  <% end %>
+}
+
+if (done_show_link) {
+  done_show_link.innerHTML = "<%= j render(partial: 'done-show-card', locals: { experience: @done.experience }) %>";
+}

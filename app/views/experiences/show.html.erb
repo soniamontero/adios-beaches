@@ -20,86 +20,90 @@
       </div>
 
       <!-- Statement for done button on experience -->
-      <div class="done-button <%= current_user.has_done?(@experience).nil? ? 'deactivated' : 'activated' %>">
-        <% if current_user.has_done?(@experience) %>
-          <%= link_to done_path(Done.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :delete do %>
-              <i class="fas fa-check"></i>
+      <div data-show-done-id="<%= @experience.id %>">
+        <div class="done-button <%= current_user.has_done?(@experience).nil? ? 'deactivated' : 'activated' %>">
+          <% if current_user.has_done?(@experience) %>
+            <%= link_to done_path(Done.where(experience_id: @experience.id, user_id: current_user.id).first), remote: true, method: :delete do %>
+                <i class="fas fa-check"></i>
+            <% end %>
+          <% else %>
+            <%= simple_form_for [@experience, @done], remote: true do |f| %>
+              <%= button_tag type: 'submit' do %>
+                <i class="fas fa-check"></i>
+            <% end %>
+              <%#= f.button :button, 'Done', type: 'submit' %>
+            <% end %>
           <% end %>
-        <% else %>
-          <%= simple_form_for [@experience, @done] do |f| %>
-            <%= button_tag type: 'submit', name: 'redirect_to', value: 'show' do %>
-              <i class="fas fa-check"></i>
-          <% end %>
-            <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
-          <% end %>
-        <% end %>
-        <p class="done-hint">
-          Been there?
-        </p>
+          <p class="done-hint">
+            Been there?
+          </p>
+        </div>
       </div>
       <!-- End of statement for done button on experience -->
 
 
       <!-- Statement for favorite button on experience -->
-      <div class="favorite-button <%= current_user.has_favorite?(@experience).nil? ? 'deactivated' : 'activated' %>">
-        <% if current_user.has_favorite?(@experience) %>
-          <%= link_to favorite_path(Favorite.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :delete do %>
-            <i class="fas fa-heart"></i>
-          <% end %>
-        <% else %>
-          <%= simple_form_for [@experience, @favorite] do |f| %>
-            <%= button_tag type: 'submit', name: 'redirect_to', value: 'show' do %>
+      <div data-show-favorite-id="<%= @experience.id %>">
+        <div class="favorite-button <%= current_user.has_favorite?(@experience).nil? ? 'deactivated' : 'activated' %>">
+          <% if current_user.has_favorite?(@experience) %>
+            <%= link_to favorite_path(Favorite.where(experience_id: @experience.id, user_id: current_user.id).first), remote: true, method: :delete do %>
               <i class="fas fa-heart"></i>
             <% end %>
+          <% else %>
+            <%= simple_form_for [@experience, @favorite], remote: true do |f| %>
+              <%= button_tag type: 'submit' do %>
+                <i class="fas fa-heart"></i>
+              <% end %>
+            <% end %>
           <% end %>
-        <% end %>
-        <p class="favorite-hint">
-          Add to <br> wishlist
-        </p>
+          <p class="favorite-hint">
+            Add to <br> wishlist
+          </p>
+        </div>
       </div>
       <!-- End of statement for favorite button on experience -->
 
       <!-- Start statement for vote button on experience -->
-      <div class="vote-buttons">
+      <div class="vote-buttons" data-show-vote-id="<%= @experience.id %>">
 
         <!-- VOTE + UPVOTE -->
         <% if current_user.has_voted?(@experience) && current_user.has_upvoted?(@experience) %>
-          <%= link_to vote_path(Vote.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :delete do %>
+          <%= link_to vote_path(Vote.where(experience_id: @experience.id, user_id: current_user.id).first), remote: true, method: :delete do %>
             <i class="fas fa-chevron-up upvote-button activated"></i>
           <% end %>
           <span class="vote-text <%= @experience.total_votes_state %>">
             <%= @experience.total_votes %>
           </span>
-          <%= link_to vote_path(Vote.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :put do %>
+          <%= link_to vote_path(Vote.where(experience_id: @experience.id, user_id: current_user.id).first), remote: true, method: :put do %>
              <i class="fas fa-chevron-down downvote-button"></i>
           <% end %>
 
         <!-- VOTE + DOWNVOTE -->
         <% elsif current_user.has_voted?(@experience) && current_user.has_downvoted?(@experience) %>
-          <%= link_to vote_path(Vote.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :put do %>
+          <%= link_to vote_path(Vote.where(experience_id: @experience.id, user_id: current_user.id).first), remote: true, method: :put do %>
             <i class="fas fa-chevron-up upvote-button"></i>
           <% end %>
           <span class="vote-text <%= @experience.total_votes_state %>">
             <%= @experience.total_votes %>
           </span>
-          <%= link_to vote_path(Vote.where(experience_id: @experience.id, user_id: current_user.id).first, redirect_to: 'show'), method: :delete do %>
+          <%= link_to vote_path(Vote.where(experience_id: @experience.id, user_id: current_user.id).first), remote: true, method: :delete do %>
             <i class="fas fa-chevron-down downvote-button activated"></i>
           <% end %>
 
         <!-- NO VOTE -->
         <% else %>
-          <%= simple_form_for [@experience, Vote.new] do |f| %>
+          <%= simple_form_for [@experience, Vote.new], remote: true do |f| %>
             <%= hidden_field_tag(:value, 1) %>
-            <%= button_tag type: 'submit', name: 'redirect_to', value: 'show' do %>
+            <%= button_tag type: 'submit', style: 'padding: 0' do %>
               <i class="fas fa-chevron-up upvote-button"></i>
             <% end %>
           <% end %>
           <span class="vote-text">
             <%= @experience.total_votes %>
           </span>
-          <%= simple_form_for [@experience, Vote.new] do |f| %>
+          <%= simple_form_for [@experience, Vote.new], remote: true do |f| %>
             <%= hidden_field_tag(:value, -1) %>
-            <%= button_tag type: 'submit', name: 'redirect_to', value: 'show' do %>
+            <%= button_tag type: 'submit', style: 'padding: 0' do %>
               <i class="fas fa-chevron-down downvote-button"></i>
             <% end %>
           <% end %>

@@ -1,8 +1,15 @@
 var favorite_link = document.querySelector(`[data-favorite-id="<%= @favorite.experience.id %>"]`)
-favorite_link.innerHTML = "<%= j render(partial: 'favorite-card-activated', locals: { experience: @favorite.experience, user: @user }) %>";
+var favorite_show_link = document.querySelector(`[data-show-favorite-id="<%= @favorite.experience.id %>"]`)
 
-<% if @user != nil %>
-  console.log("hi")
-  var statsSaved = document.querySelector("#saved");
-  statsSaved.innerHTML = "<%= j render(partial: './users/stats_saved', locals: { user: @user }) %>";
-<% end %>
+if (favorite_link) {
+  favorite_link.innerHTML = "<%= j render(partial: 'favorite-card-activated', locals: { experience: @favorite.experience, user: @user }) %>";
+  <% if @user != nil %>
+    console.log("hi")
+    var statsSaved = document.querySelector("#saved");
+    statsSaved.innerHTML = "<%= j render(partial: './users/stats_saved', locals: { user: @user }) %>";
+  <% end %>
+}
+
+if (favorite_show_link) {
+  favorite_show_link.innerHTML = "<%= j render(partial: 'favorite-show-card', locals: { experience: @favorite.experience }) %>";
+}

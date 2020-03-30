@@ -1,6 +1,10 @@
-var votes_card = document.querySelector(`[data-votes-id="<%= @vote.experience.id %>"]`)
-if ("<%= @vote.value %>" === "1") {
-  votes_card.innerHTML = "<%= j render(partial: 'upvote-card', locals: { experience: @vote.experience, user: @user }) %>";
-} else if ("<%= @vote.value %>" === "-1") {
-  votes_card.innerHTML = "<%= j render(partial: 'downvote-card', locals: { experience: @vote.experience, user: @user }) %>";
+var vote_card = document.querySelector(`[data-votes-id="<%= @vote.experience.id %>"]`)
+var vote_show_card = document.querySelector(`[data-show-vote-id="<%= @vote.experience.id %>"]`)
+
+if (vote_card) {
+  vote_card.innerHTML = "<%= j render(partial: 'votes-index-and-profile-card', locals: { experience: @vote.experience, user: @user }) %>";
+}
+
+if (vote_show_card) {
+  vote_show_card.innerHTML = "<%= j render(partial: 'votes-show-card', locals: { experience: @vote.experience }) %>";
 }

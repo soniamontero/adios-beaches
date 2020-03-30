@@ -1,8 +1,17 @@
 <div class="experience-card-done-button deactivated">
-  <%= simple_form_for [experience, Done.new], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
-    <%= button_tag type: 'submit', name: 'github_username', value: user.github_username, id: (1..10000).to_a.sample do %>
-      <i class="fas fa-check"></i>
+  <% if user.nil? %>
+    <%= simple_form_for [experience, Done.new], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
+      <%= button_tag type: 'submit', id: (1..10000).to_a.sample do %>
+        <i class="fas fa-check"></i>
+      <% end %>
+      <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
     <% end %>
-    <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
+  <% else %>
+    <%= simple_form_for [experience, Done.new], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
+      <%= button_tag type: 'submit', name: 'github_username', value: user.github_username, id: (1..10000).to_a.sample do %>
+        <i class="fas fa-check"></i>
+      <% end %>
+      <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
+    <% end %>
   <% end %>
 </div>
