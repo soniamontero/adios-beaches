@@ -51,6 +51,7 @@ const initMapbox = () => {
 
     // Display markers on map
     const markers = JSON.parse(mapElement.dataset.markers);
+    const test = JSON.parse(mapElement.dataset.test);
     const mapMarkers = []
     markers.forEach((marker) => {
       const popup = new mapboxgl.Popup().setHTML(marker.infoWindow);
@@ -63,8 +64,10 @@ const initMapbox = () => {
       newMarker.getElement().addEventListener('mouseenter', (e) => toggleCardHighlighting(e) );
       newMarker.getElement().addEventListener('mouseleave', (e) => toggleCardHighlighting(e) );
     });
-    fitMapToMarkers(map, markers);
-    openInfoWindow(mapMarkers);
+    if (markers.length != 0) {
+      fitMapToMarkers(map, markers);
+      openInfoWindow(mapMarkers);
+    }
   }
 };
 
