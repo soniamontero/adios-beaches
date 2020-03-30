@@ -1,9 +1,8 @@
-const mapContainer = document.querySelector("#dashboard-map");
-const experiencesContainer = document.querySelector("#experience-cards-container");
-const displayMapButtonInput = document.querySelector("#display-map-button input");
-const displayMapButton = document.querySelector("#display-map-button");
-
 const toggleDashMap = () => {
+  const mapContainer = document.querySelector("#dashboard-map");
+  const experiencesContainer = document.querySelector("#experience-cards-container");
+  const displayMapButtonInput = document.querySelector("#display-map-button input");
+  const displayMapButton = document.querySelector("#display-map-button");
   if (mapContainer) {
     displayMapButton.addEventListener("change", (event) => {
       if (displayMapButtonInput.checked) {
@@ -19,7 +18,7 @@ const toggleDashMap = () => {
       }
     })
 
-    const checksize = (event) => {
+    const checkSizeOnLoad = (event) => {
       if (window.innerWidth > 765) {
         displayMapButton.classList.remove('display-flex');
         displayMapButton.classList.add('display-none');
@@ -33,15 +32,29 @@ const toggleDashMap = () => {
       }
     }
 
-    document.addEventListener("DOMContentLoaded", checksize)
+    document.addEventListener("DOMContentLoaded", checkSizeOnLoad)
 
     window.addEventListener('resize', (event) => {
       if (event.currentTarget.innerWidth > 765) {
-        displayMapButton.classList.remove('d-flex');
+        displayMapButton.classList.remove('display-flex');
         displayMapButton.classList.add('display-none');
+        mapContainer.classList.add("d-block");
+        mapContainer.classList.remove("display-none");
+        experiencesContainer.classList.remove("display-none");
       } else {
         displayMapButton.classList.remove('display-none');
-        displayMapButton.classList.add('d-flex');
+        displayMapButton.classList.add('display-flex');
+        if (displayMapButtonInput.checked) {
+          mapContainer.classList.remove("display-none");
+          mapContainer.classList.add("d-block");
+          experiencesContainer.classList.add("display-none");
+          experiencesContainer.classList.remove("display-flex");
+        } else {
+          mapContainer.classList.remove("d-block");
+          mapContainer.classList.add("display-none");
+          experiencesContainer.classList.add("display-flex");
+          experiencesContainer.classList.remove("display-none");
+        }
       }
     })
 

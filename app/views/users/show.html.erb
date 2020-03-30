@@ -34,25 +34,31 @@
 
       <div class="d-flex justify-content-around">
         <div class="experience-stat">
-          <div class="profile-icon active-icon" id='my-experiences'>
-            <%= image_tag "backpack.svg" %>
-           <span class="experience-count"><%= @user.experiences.count %></span>
-          </div>
+          <%= link_to user_profile_path(@user.github_username, type: 'my-experiences'), remote: true do %>
+            <div class="profile-icon active-icon" id='my-experiences'>
+              <%= image_tag "backpack.svg" %>
+             <span class="experience-count"><%= @user.experiences.count %></span>
+            </div>
+          <% end %>
         </div>
 
        <div class="experience-stat">
-          <div class="profile-icon" id='saved'>
-            <%= image_tag "bookmark.svg" %>
-           <span class="experience-count"><%= @user.favorites.count %></span>
-          </div>
+          <%= link_to user_profile_path(@user.github_username, type: 'saved'), remote: true  do %>
+            <div class="profile-icon" id='saved'>
+              <%= image_tag "bookmark.svg" %>
+             <span class="experience-count"><%= @user.favorites.count %></span>
+            </div>
+          <% end %>
         </div>
 
 
         <div class="experience-stat">
-          <div class="profile-icon" id='done'>
-            <%= image_tag "tick.svg" %>
-           <span class="experience-count"><%= @user.dones.count %></span>
-          </div>
+          <%= link_to user_profile_path(@user.github_username, type: 'dones'), remote: true  do %>
+            <div class="profile-icon" id='done'>
+              <%= image_tag "tick.svg" %>
+             <span class="experience-count"><%= @user.dones.count %></span>
+            </div>
+          <% end %>
         </div>
       </div>
 
@@ -65,15 +71,14 @@
     </div>
   </div>
   <div class="cards-and-map-container">
-    <div class="all-experiences-container" id="experience-cards-container">
       <!-- Begining of my_experiences container -->
-      <div class="experience-cards-container" id="my-experiences-container">
-        <% if @my_experiences.count == 0 %>
+      <div class="experience-cards-container" id="experience-cards-container">
+        <% if @experiences.count == 0 %>
           <p class="mt-5 text-center medium-p" style="font-size:14px">
             Uh oh, no experiences yet. <%= link_to "Try to add one!", new_experience_path, style:"color: #828477; text-decoration: underline" %>
           </p>
         <% end %>
-        <% @my_experiences.each do |experience| %>
+        <% @experiences.each do |experience| %>
 
           <div class="experience-card" data-experience-id="<%= experience.id %>">
             <%= link_to experience_path(experience) do %>
@@ -86,46 +91,47 @@
               </div>
             <% end %>
             <!-- Start statement for vote button on experience -->
-            <div class="experience-card-vote-buttons">
+            <div class="experience-card-vote-buttons" data-votes-id="<%= experience.id %>">
 
               <!-- VOTE + UPVOTE -->
+
               <% if current_user.has_voted?(experience) && current_user.has_upvoted?(experience) %>
-                <%= link_to vote_path(Vote.find_by_experience(current_user, experience), redirect_to: ['profile', @user.github_username]), remote: true, method: :delete do %>
+                <%= link_to vote_path(Vote.find_by_experience(current_user, experience), redirect_to: 'index'), remote: true, method: :delete do %>
                   <i class="fas fa-chevron-up upvote-button activated"></i>
                 <% end %>
                 <span class="vote-text <% experience.total_votes_state %>">
                   <%= experience.total_votes %>
                 </span>
-                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), remote: true, method: :put do %>
+                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), remote: true, method: :put do %>
                    <i class="fas fa-chevron-down downvote-button"></i>
                 <% end %>
 
               <!-- VOTE + DOWNVOTE -->
               <% elsif current_user.has_voted?(experience) && current_user.has_downvoted?(experience) %>
-                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), remote: true, method: :put do %>
+                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), remote: true, method: :put do %>
                   <i class="fas fa-chevron-up upvote-button"></i>
                 <% end %>
                 <span class="vote-text">
                   <%= experience.total_votes %>
                 </span>
-                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), remote: true, method: :delete do %>
+                <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), remote: true, method: :delete do %>
                   <i class="fas fa-chevron-down downvote-button activated"></i>
                 <% end %>
 
               <!-- NO VOTE -->
               <% else %>
-                <%= simple_form_for [experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample} do |f| %>
+                <%= simple_form_for [experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample, type: 'upvote'} do |f| %>
                   <%= hidden_field_tag(:value, 1, id: (1..10000).to_a.sample) %>
-                  <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username] do %>
+                  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
                     <i class="fas fa-chevron-up upvote-button"></i>
                   <% end %>
                 <% end %>
                 <span class="vote-text">
                   <%= experience.total_votes %>
                 </span>
-                <%= simple_form_for [experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample} do |f| %>
+                <%= simple_form_for [experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample, type: 'downvote'} do |f| %>
                   <%= hidden_field_tag(:value, -1, id: (1..10000).to_a.sample) %>
-                  <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username] do %>
+                  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
                     <i class="fas fa-chevron-down downvote-button"></i>
                   <% end %>
                 <% end %>
@@ -150,146 +156,21 @@
               </div>
             </div>
 
+
+
             <div class="experience-card-buttons">
               <!-- Statement for done button on experience -->
-              <div class="experience-card-done-button <%= current_user.has_done?(experience).nil? ? 'deactivated' : 'activated' %>">
-                <% if current_user.has_done?(experience) %>
-                  <%= link_to done_path(Done.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), remote: true, method: :delete do %>
-                      <i class="fas fa-check"></i>
-                  <% end %>
-                <% else %>
-                  <%= simple_form_for [experience, Done.new], html: { id: (1..10000).to_a.sample}  do |f| %>
-                    <%= button_tag type: 'submit', name: 'redirect_to', remote: true, value: ['profile', @user.github_username], id: (1..10000).to_a.sample do %>
-                      <i class="fas fa-check"></i>
-                    <% end %>
-                    <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
-                  <% end %>
-                <% end %>
-              </div>
-              <!-- End of statement for done button on experience -->
-
-
-              <!-- Statement for favorite button on experience -->
-              <div class="experience-card-favorite-button <%= current_user.has_favorite?(experience).nil? ? 'deactivated' : 'activated' %>">
-                <% if current_user.has_favorite?(experience) %>
-                  <%= link_to favorite_path(Favorite.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), remote: true, method: :delete do %>
-                    <i class="fas fa-heart"></i>
-                  <% end %>
-                <% else %>
-                  <%= simple_form_for [experience, Favorite.new], html: { id: (1..10000).to_a.sample}  do |f| %>
-                    <%= button_tag type: 'submit', name: 'redirect_to', remote: true, value: 'index', id: (1..10000).to_a.sample do %>
-                      <i class="fas fa-heart"></i>
-                    <% end %>
-                  <% end %>
-                <% end %>
-              </div>
-              <!-- End of statement for favorite button on experience -->
-
-            </div>
-          </div>
-        <% end %>
-      </div>
-      <!-- End of my_experiences container -->
-
-      <!-- Beginning of my_favorites container -->
-      <div class="experience-cards-container" hidden id="saved-container">
-        <% if @my_favorites.count == 0 %>
-          <p class="mt-5 text-center medium-p" style="font-size:14px">
-            Uh oh, no experiences yet. <%= link_to "Try to add one!", experiences_path, style:"color: #828477; text-decoration: underline" %>
-          </p>
-        <% end %>
-        <% @my_favorites.each do |favorite| %>
-
-          <div class="experience-card" data-experience-id="<%= favorite.experience.id %>">
-            <%= link_to experience_path(favorite.experience) do %>
-              <div class="experience-card-photo">
-                <% if favorite.experience.photo.file.nil? %>
-                  <%= image_tag asset_path('photo-not-found.jpeg') %>
-                <% else %>
-                  <%= cl_image_tag favorite.experience.photo %>
-                <% end %>
-              </div>
-            <% end %>
-            <!-- Start statement for vote button on experience -->
-            <div class="experience-card-vote-buttons" data-votes-id="<%= favorite.experience.id %>">
-
-              <!-- VOTE + UPVOTE -->
-              <% if current_user.has_voted?(favorite.experience) && current_user.has_upvoted?(favorite.experience) %>
-                <%= link_to vote_path(Vote.find_by_experience(current_user, favorite.experience), redirect_to: ['profile', @user.github_username]), remote: true, method: :delete do %>
-                  <i class="fas fa-chevron-up upvote-button activated"></i>
-                <% end %>
-                <span class="vote-text <% favorite.experience.total_votes_state %>">
-                  <%= favorite.experience.total_votes %>
-                </span>
-                <%= link_to vote_path(Vote.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), remote: true, method: :put do %>
-                   <i class="fas fa-chevron-down downvote-button"></i>
-                <% end %>
-
-              <!-- VOTE + DOWNVOTE -->
-              <% elsif current_user.has_voted?(favorite.experience) && current_user.has_downvoted?(favorite.experience) %>
-                <%= link_to vote_path(Vote.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), remote: true, method: :put do %>
-                  <i class="fas fa-chevron-up upvote-button"></i>
-                <% end %>
-                <span class="vote-text">
-                  <%= favorite.experience.total_votes %>
-                </span>
-                <%= link_to vote_path(Vote.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), remote: true, method: :delete do %>
-                  <i class="fas fa-chevron-down downvote-button activated"></i>
-                <% end %>
-
-              <!-- NO VOTE -->
-              <% else %>
-                <%= simple_form_for [favorite.experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample} do |f| %>
-                  <%= hidden_field_tag(:value, 1, id: (1..10000).to_a.sample) %>
-                  <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username] do %>
-                    <i class="fas fa-chevron-up upvote-button"></i>
-                  <% end %>
-                <% end %>
-                <span class="vote-text">
-                  <%= favorite.experience.total_votes %>
-                </span>
-                <%= simple_form_for [favorite.experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample} do |f| %>
-                  <%= hidden_field_tag(:value, -1, id: (1..10000).to_a.sample) %>
-                  <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username] do %>
-                    <i class="fas fa-chevron-down downvote-button"></i>
-                  <% end %>
-                <% end %>
-              <% end %>
-            </div>
-            <!-- End statement for vote button on favorite.experience -->
-
-            <div class="experience-card-info">
-              <%= link_to experience_path(favorite.experience) do %>
-                <div class="experience-card-name">
-                  <%= favorite.experience.name %>
-                </div>
-              <% end %>
-              <div class="experience-card-category">
-                <%= favorite.experience.category.name %>&nbsp;&nbsp;-&nbsp;&nbsp;
-                <span class="experience-price-range">
-                  <%= favorite.experience.price_range_to_icon %>
-                </span>
-              </div>
-              <div class="experience-card-location">
-                <%= favorite.experience.address.split(',')[2] %>
-              </div>
-            </div>
-
-
-
-            <div class="experience-card-buttons">
-              <div data-done-id="<%= favorite.experience.id %>">
-                <!-- Statement for done button on experience -->
-                <div class="experience-card-done-button <%= current_user.has_done?(favorite.experience).nil? ? 'deactivated' : 'activated' %>">
-                  <% if current_user.has_done?(favorite.experience) %>
-                    <%= link_to done_path(Done.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), remote: true, method: :delete do %>
+              <div data-done-id="<%= experience.id %>">
+                <div class="experience-card-done-button <%= current_user.has_done?(experience).nil? ? 'deactivated' : 'activated' %>">
+                  <% if current_user.has_done?(experience) %>
+                    <%= link_to done_path(Done.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), method: :delete, remote: true do %>
                         <i class="fas fa-check"></i>
                     <% end %>
                   <% else %>
-                    <%= simple_form_for [favorite.experience, Done.new], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
-                      <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username], id: (1..10000).to_a.sample do %>
+                    <%= simple_form_for [experience, Done.new], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
+                      <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample do %>
                         <i class="fas fa-check"></i>
-                      <% end %>
+                    <% end %>
                       <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
                     <% end %>
                   <% end %>
@@ -299,15 +180,15 @@
 
 
               <!-- Statement for favorite button on experience -->
-              <div data-favorite-id="<%= favorite.experience.id %>">
-                <div class="experience-card-favorite-button <%= current_user.has_favorite?(favorite.experience).nil? ? 'deactivated' : 'activated' %>">
-                  <% if current_user.has_favorite?(favorite.experience) %>
-                    <%= link_to favorite_path(Favorite.where(experience_id: favorite.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), remote: true, method: :delete do %>
+              <div data-favorite-id="<%= experience.id %>">
+                <div class="experience-card-favorite-button <%= current_user.has_favorite?(experience).nil? ? 'deactivated' : 'activated' %>">
+                  <% if current_user.has_favorite?(experience) %>
+                    <%= link_to favorite_path(Favorite.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), remote: true, method: :delete do %>
                       <i class="fas fa-heart"></i>
                     <% end %>
                   <% else %>
-                    <%= simple_form_for [favorite.experience, Favorite.new], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
-                      <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username], id: (1..10000).to_a.sample do %>
+                    <%= simple_form_for [experience, Favorite.new], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
+                      <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample do %>
                         <i class="fas fa-heart"></i>
                       <% end %>
                     <% end %>
@@ -320,139 +201,7 @@
           <%#= link_to 'show', experience_path(experience.id) %>
         <% end %>
       </div>
-      <!-- End of my_favorites container -->
-
-      <!-- Beginning of my_dones container -->
-      <div class="experience-cards-container" hidden id="done-container">
-        <% if @my_dones.count == 0 %>
-          <p class="mt-5 text-center medium-p" style="font-size:14px">
-            Uh oh, no experiences yet. <%= link_to "Try to add one!", experiences_path, style:"color: #828477; text-decoration: underline" %>
-          </p>
-        <% end %>
-        <% @my_dones.each do |done| %>
-
-            <div class="experience-card" data-experience-id="<%= done.experience.id %>">
-              <%= link_to experience_path(done.experience) do %>
-                <div class="experience-card-photo">
-                  <% if done.experience.photo.file.nil? %>
-                    <%= image_tag asset_path('photo-not-found.jpeg') %>
-                  <% else %>
-                    <%= cl_image_tag done.experience.photo %>
-                  <% end %>
-                </div>
-              <% end %>
-              <!-- Start statement for vote button on experience -->
-              <div class="experience-card-vote-buttons" data-votes-id="<%= done.experience.id %>">
-
-                <!-- VOTE + UPVOTE -->
-                <% if current_user.has_voted?(done.experience) && current_user.has_upvoted?(done.experience) %>
-                  <%= link_to vote_path(Vote.find_by_experience(current_user, done.experience), redirect_to: ['profile', @user.github_username]), remote: true, method: :delete do %>
-                    <i class="fas fa-chevron-up upvote-button activated"></i>
-                  <% end %>
-                  <span class="vote-text <% done.experience.total_votes_state %>">
-                    <%= done.experience.total_votes %>
-                  </span>
-                  <%= link_to vote_path(Vote.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), remote: true, method: :put do %>
-                     <i class="fas fa-chevron-down downvote-button"></i>
-                  <% end %>
-
-                <!-- VOTE + DOWNVOTE -->
-                <% elsif current_user.has_voted?(done.experience) && current_user.has_downvoted?(done.experience) %>
-                  <%= link_to vote_path(Vote.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), remote: true, method: :put do %>
-                    <i class="fas fa-chevron-up upvote-button"></i>
-                  <% end %>
-                  <span class="vote-text">
-                    <%= done.experience.total_votes %>
-                  </span>
-                  <%= link_to vote_path(Vote.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), remote: true, method: :delete do %>
-                    <i class="fas fa-chevron-down downvote-button activated"></i>
-                  <% end %>
-
-                <!-- NO VOTE -->
-                <% else %>
-                  <%= simple_form_for [done.experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample} do |f| %>
-                    <%= hidden_field_tag(:value, 1, id: (1..10000).to_a.sample) %>
-                    <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username] do %>
-                      <i class="fas fa-chevron-up upvote-button"></i>
-                    <% end %>
-                  <% end %>
-                  <span class="vote-text">
-                    <%= done.experience.total_votes %>
-                  </span>
-                  <%= simple_form_for [done.experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample} do |f| %>
-                    <%= hidden_field_tag(:value, -1, id: (1..10000).to_a.sample) %>
-                    <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username] do %>
-                      <i class="fas fa-chevron-down downvote-button"></i>
-                    <% end %>
-                  <% end %>
-                <% end %>
-              </div>
-              <!-- End statement for vote button on done.experience -->
-
-              <div class="experience-card-info">
-                <%= link_to experience_path(done.experience) do %>
-                  <div class="experience-card-name">
-                    <%= done.experience.name %>
-                  </div>
-                <% end %>
-                <div class="experience-card-category">
-                  <%= done.experience.category.name %>&nbsp;&nbsp;-&nbsp;&nbsp;
-                  <span class="experience-price-range">
-                    <%= done.experience.price_range_to_icon %>
-                  </span>
-                </div>
-                <div class="experience-card-location">
-                  <%= done.experience.address.split(',')[2] %>
-                </div>
-              </div>
-
-
-
-              <div class="experience-card-buttons">
-                <div data-done-id="<%= done.experience.id %>">
-                  <!-- Statement for done button on experience -->
-                  <div class="experience-card-done-button <%= current_user.has_done?(done.experience).nil? ? 'deactivated' : 'activated' %>">
-                    <% if current_user.has_done?(done.experience) %>
-                      <%= link_to done_path(Done.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), remote: true, method: :delete do %>
-                          <i class="fas fa-check"></i>
-                      <% end %>
-                    <% else %>
-                      <%= simple_form_for [done.experience, Done.new], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
-                        <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username], id: (1..10000).to_a.sample do %>
-                          <i class="fas fa-check"></i>
-                      <% end %>
-                        <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
-                      <% end %>
-                    <% end %>
-                  </div>
-                </div>
-                <!-- End of statement for done button on experience -->
-
-
-                <!-- Statement for favorite button on experience -->
-                <div data-favorite-id="<%= done.experience.id %>">
-                  <div class="experience-card-favorite-button <%= current_user.has_favorite?(done.experience).nil? ? 'deactivated' : 'activated' %>">
-                    <% if current_user.has_favorite?(done.experience) %>
-                      <%= link_to favorite_path(Favorite.where(experience_id: done.experience.id, user_id: current_user.id).first, redirect_to: ['profile', @user.github_username]), remote: true, method: :delete do %>
-                        <i class="fas fa-heart"></i>
-                      <% end %>
-                    <% else %>
-                      <%= simple_form_for [done.experience, Favorite.new], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
-                        <%= button_tag type: 'submit', name: 'redirect_to', value: ['profile', @user.github_username], id: (1..10000).to_a.sample do %>
-                          <i class="fas fa-heart"></i>
-                        <% end %>
-                      <% end %>
-                    <% end %>
-                  </div>
-                </div>
-                <!-- End of statement for favorite button on experience -->
-            </div>
-          </div>
-          <%#= link_to 'show', experience_path(experience.id) %>
-        <% end %>
-      </div>
-      <!-- End of my_dones container -->
-    </div>
+      <!-- End of my_experiences container -->
 
     <!-- Beginning of map -->
     <div

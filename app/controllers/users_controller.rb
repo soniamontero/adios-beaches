@@ -19,10 +19,25 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(github_username: params[:github_username])
-    @my_favorites = @user.favorites
-    @my_experiences = @user.experiences
-    @my_dones = @user.dones
-    @user_experiences_markers = @my_experiences.where.not(longitude: nil, latitude: nil).map do |experience|
+    @user_experiences = @user.experiences
+    @my_favorites = @user.favorite_experiences
+    @my_dones = @user.done_experiences
+    @experiences = @user_experiences
+    if params[:type]
+      if params[:type] == "my_experiences"
+        @experiences = @user_experiences
+      elsif params[:type] == "saved"
+        @experiences = @my_favorites
+      elsif params[:type] == "dones"
+        @experiences = @my_dones
+      end
+      respond_to do |format|
+        format.html { redirect_to user_profile_path(@user.github_username) }
+        format.js
+      end
+    end
+
+    @user_experiences_markers = @user_experiences.where.not(longitude: nil, latitude: nil).map do |experience|
       {
         lat: experience.latitude,
         lng: experience.longitude,
@@ -31,30 +46,32 @@ class UsersController < ApplicationController
         id: experience.id
       }
     end
-    @user_favorites_markers = @my_favorites.joins(:experience).where.not(experiences: {longitude: nil, latitude: nil}).map do |favorite|
+    @user_favorites_markers = @my_favorites.where.not(longitude: nil, latitude: nil).map do |experience|
       {
-        lat: favorite.experience.latitude,
-        lng: favorite.experience.longitude,
-        infoWindow: render_to_string(partial: "info_window", locals: { experience: favorite.experience }),
+        lat: experience.latitude,
+        lng: experience.longitude,
+        infoWindow: render_to_string(partial: "info_window", locals: { experience: experience }),
         image_url: helpers.asset_url('favorite-pin.svg'),
-        id: favorite.experience.id
+        id: experience.id
       }
     end
-    @user_dones_markers = @my_dones.joins(:experience).where.not(experiences: {longitude: nil, latitude: nil}).map do |done|
+    @user_dones_markers = @my_dones.where.not(longitude: nil, latitude: nil).map do |experience|
       {
-        lat: done.experience.latitude,
-        lng: done.experience.longitude,
-        infoWindow: render_to_string(partial: "info_window", locals: { experience: done.experience }),
+        lat: experience.latitude,
+        lng: experience.longitude,
+        infoWindow: render_to_string(partial: "info_window", locals: { experience: experience }),
         image_url: helpers.asset_url('done-pin.svg'),
-        id: done.experience.id
+        id: experience.id
       }
     end
+
     if @user.visited_bali
       @been_to_bali = "Has been to Bali"
     else
       @been_to_bali = "Hasn't visited Bali yet!"
     end
     @same_batch_users = User.where(batch_number: @user.batch_number)
+
   end
 
   LW_CITIES = [

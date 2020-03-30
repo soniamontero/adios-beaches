@@ -2,6 +2,8 @@ class User < ApplicationRecord
   has_many :experiences
   has_many :dones, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :done_experiences, through: :dones, source: 'experience'
+  has_many :favorite_experiences, through: :favorites, source: 'experience'
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -22,6 +24,7 @@ class User < ApplicationRecord
   validates :batch_location, presence: true, inclusion: lw_cities, on: :update
   validates :country, presence: true, on: :update
   validates :visited_bali, inclusion: [ true, false ], on: :update
+
   validate :has_avatar, on: :create
 
   def country_name

@@ -32,23 +32,25 @@
 
 .experience-count {
   position: absolute;
-  bottom: 2px;
-  right: 0px;
+  bottom: 4px;
+  right: 4px;
   background-color: white;
   border-radius: 50%;
   padding: 5px;
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   text-align: center;
   box-shadow: 4px 3px 10px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
+  color: #828282;
   align-items: center;
+  font-size: 10px;
 }
 
 .active-icon img {
   background-color: #9ad4d0;
   transition: 0.3s ease-out;
   transform: scale(1.15);
-  box-shadow: 4px 3px 19px rgba(137, 137, 137, 0.32);
+  box-shadow: 4px 3px 19px rgba(191, 191, 191, 0.32);
 }
