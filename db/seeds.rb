@@ -29,6 +29,8 @@ lw_cities = [
 addresses = ["Canggu", "Canggu North", "next to Canggu", "Kuta", "Amed"]
 identicons = ["https://avatars0.githubusercontent.com/u/11577265?s=460&v=4", "https://avatars2.githubusercontent.com/u/12451650?s=460&v=4", "https://avatars1.githubusercontent.com/u/26235955?s=460&v=4", "https://topcoder-prod-media.s3.amazonaws.com/member/profile/Dhirendra24-1521096232990.png"]
 
+country_codes = ["FR", "GB", "DE", "ES", "NL", "IT"]
+
 10.times do
   faker_name = Faker::Name.first_name
 
@@ -36,7 +38,7 @@ identicons = ["https://avatars0.githubusercontent.com/u/11577265?s=460&v=4", "ht
     email: Faker::Internet.free_email(name: faker_name),
     password: 'password',
     first_name: faker_name,
-    country: Faker::Address.country,
+    country: country_codes.sample,
     batch_number: rand(1..320),
     batch_location: lw_cities.sample,
     github_username: Faker::Omniauth.github[:info][:nickname],

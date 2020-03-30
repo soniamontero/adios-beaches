@@ -3,11 +3,13 @@ class UsersController < ApplicationController
 
   def edit
     @user = current_user
+    authorize @user
     @lw_cities = LW_CITIES
   end
 
   def update
     @user = current_user
+    authorize @user
     if @user.update(user_params) && @user.first_login == true
       @user.first_login = false
       @user.save
@@ -19,11 +21,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(github_username: params[:github_username])
-    authorize @user
     @user_experiences = @user.experiences
     @my_favorites = @user.favorite_experiences
     @my_dones = @user.done_experiences
     @experiences = @user_experiences
+    authorize @user
     if params[:type]
       if params[:type] == "my_experiences"
         @experiences = @user_experiences

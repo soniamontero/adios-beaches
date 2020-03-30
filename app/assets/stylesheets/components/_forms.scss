@@ -13,6 +13,7 @@
   }
   input:focus, input, select:focus, select, textarea:focus, textarea {
     color: #007a6f;
+    width: 100%;
   }
   input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     color: #c6dfdc;

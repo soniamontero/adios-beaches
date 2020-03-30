@@ -4,6 +4,9 @@ class FavoritesController < ApplicationController
     @favorite.user = current_user
     experience = Experience.find(params[:experience_id])
     @favorite.experience = experience
+    if params[:github_username]
+      @user = User.find_by(github_username: params[:github_username])
+    end
     authorize @favorite
     if @favorite.save
       respond_to do |format|
@@ -26,6 +29,9 @@ class FavoritesController < ApplicationController
   def destroy
     @favorite = Favorite.find(params[:id])
     experience = @favorite.experience
+    if params[:github_username]
+      @user = User.find_by(github_username: params[:github_username])
+    end
     authorize @favorite
     @favorite.destroy
     respond_to do |format|

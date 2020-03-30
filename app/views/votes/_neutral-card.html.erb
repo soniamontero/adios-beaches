@@ -9,7 +9,7 @@
 </span>
 <%= simple_form_for [experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample} do |f| %>
   <%= hidden_field_tag(:value, -1, id: (1..10000).to_a.sample) %>
-  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+  <%= button_tag type: 'submit', name: 'github_username', value: user.github_username do %>
     <i class="fas fa-chevron-down downvote-button"></i>
   <% end %>
 <% end %>

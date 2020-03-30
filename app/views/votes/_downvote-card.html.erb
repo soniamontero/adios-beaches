@@ -1,10 +1,10 @@
 <!-- VOTE + DOWNVOTE -->
-<%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), remote: true, method: :put do %>
+<%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, github_username: user.github_username), remote: true, method: :put do %>
   <i class="fas fa-chevron-up upvote-button"></i>
 <% end %>
 <span class="vote-text">
   <%= experience.total_votes %>
 </span>
-<%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), remote: true, method: :delete do %>
+<%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, github_username: user.github_username), remote: true, method: :delete do %>
   <i class="fas fa-chevron-down downvote-button activated"></i>
 <% end %>

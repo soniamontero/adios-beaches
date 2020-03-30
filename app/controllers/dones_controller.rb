@@ -4,7 +4,9 @@ class DonesController < ApplicationController
     @done.user = current_user
     experience = Experience.find(params[:experience_id])
     @done.experience = experience
-    # TODO: AJAX
+    if params[:github_username]
+      @user = User.find_by(github_username: params[:github_username])
+    end
     authorize @done
     if @done.save
       respond_to do |format|
@@ -27,6 +29,9 @@ class DonesController < ApplicationController
   def destroy
     @done = Done.find(params[:id])
     experience = @done.experience
+    if params[:github_username]
+      @user = User.find_by(github_username: params[:github_username])
+    end
     authorize @done
     @done.destroy
     respond_to do |format|

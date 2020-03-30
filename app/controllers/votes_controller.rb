@@ -5,7 +5,9 @@ class VotesController < ApplicationController
     @vote.value = params[:value]
     experience = Experience.find(params[:experience_id])
     @vote.experience = experience
-    # TODO: AJAX
+    if params[:github_username]
+      @user = User.find_by(github_username: params[:github_username])
+    end
     authorize @vote
     if @vote.save
       respond_to do |format|
@@ -28,12 +30,15 @@ class VotesController < ApplicationController
   def update
     @vote = Vote.find(params[:id])
     experience = @vote.experience
-    authorize @vote
     if @vote.value == 1
       @vote.value = -1
     elsif @vote.value == -1
       @vote.value = 1
     end
+    if params[:github_username]
+      @user = User.find_by(github_username: params[:github_username])
+    end
+    authorize @vote
     if @vote.save
       respond_to do |format|
         format.html { redirect_to experiences_path }
@@ -52,6 +57,9 @@ class VotesController < ApplicationController
   def destroy
     @vote = Vote.find(params[:id])
     experience = @vote.experience
+    if params[:github_username]
+      @user = User.find_by(github_username: params[:github_username])
+    end
     authorize @vote
     @vote.destroy
     respond_to do |format|
