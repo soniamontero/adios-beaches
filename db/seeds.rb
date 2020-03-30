@@ -1,5 +1,4 @@
 require 'faker'
-require 'pry-byebug'
 
 Done.destroy_all
 puts 'Deleting dones...'
