@@ -1,0 +1,16 @@
+<div class="favorite-button <%= current_user.has_favorite?(experience).nil? ? 'deactivated' : 'activated' %>">
+  <% if current_user.has_favorite?(experience) %>
+    <%= link_to favorite_path(Favorite.where(experience_id: experience.id, user_id: current_user.id).first), remote: true, method: :delete do %>
+      <i class="fas fa-heart"></i>
+    <% end %>
+  <% else %>
+    <%= simple_form_for [experience, @favorite], remote: true do |f| %>
+      <%= button_tag type: 'submit' do %>
+        <i class="fas fa-heart"></i>
+      <% end %>
+    <% end %>
+  <% end %>
+  <p class="favorite-hint">
+    Add to <br> wishlist
+  </p>
+</div>

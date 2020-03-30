@@ -1,0 +1,44 @@
+<!-- VOTE + UPVOTE -->
+<% if current_user.has_voted?(experience) && current_user.has_upvoted?(experience) %>
+  <%= link_to vote_path(Vote.find_by_experience(current_user, experience), github_username: params[:github_username]), remote: true, method: :delete do %>
+    <i class="fas fa-chevron-up upvote-button activated"></i>
+  <% end %>
+  <span class="vote-text <% experience.total_votes_state %>">
+    <%= experience.total_votes %>
+  </span>
+  <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, github_username: params[:github_username]), remote: true, method: :put do %>
+     <i class="fas fa-chevron-down downvote-button"></i>
+  <% end %>
+
+<!-- VOTE + DOWNVOTE -->
+<% elsif current_user.has_voted?(experience) && current_user.has_downvoted?(experience) %>
+  <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, github_username: params[:github_username]), remote: true, method: :put do %>
+    <i class="fas fa-chevron-up upvote-button"></i>
+  <% end %>
+  <span class="vote-text">
+    <%= experience.total_votes %>
+  </span>
+  <%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, github_username: params[:github_username]), remote: true, method: :delete do %>
+    <i class="fas fa-chevron-down downvote-button activated"></i>
+  <% end %>
+
+<!-- NO VOTE -->
+<% else %>
+  <%= simple_form_for [experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample, type: 'upvote'} do |f| %>
+    <%= hidden_field_tag(:value, 1, id: (1..10000).to_a.sample) %>
+    <%= button_tag type: 'submit', name: 'github_username', value: params[:github_username] do %>
+      <i class="fas fa-chevron-up upvote-button"></i>
+    <% end %>
+  <% end %>
+  <span class="vote-text">
+    <%= experience.total_votes %>
+  </span>
+  <%= simple_form_for [experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample, type: 'downvote'} do |f| %>
+    <%= hidden_field_tag(:value, -1, id: (1..10000).to_a.sample) %>
+    <%= button_tag type: 'submit', name: 'github_username', value: params[:github_username] do %>
+      <i class="fas fa-chevron-down downvote-button"></i>
+    <% end %>
+  <% end %>
+<% end %>
+</div>
+<!-- End statement for vote button on experience -->
