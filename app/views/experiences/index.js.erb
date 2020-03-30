@@ -1,0 +1,2 @@
+var experiencesContainer = document.querySelector("#experience-cards-container");
+experiencesContainer.innerHTML = "<%= j render(partial: 'filtered-experiences', locals: { experiences: @experiences }) %>";

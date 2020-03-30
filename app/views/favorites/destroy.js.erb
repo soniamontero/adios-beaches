@@ -1,0 +1,4 @@
+var favorite_link = document.querySelector(`[data-favorite-id="<%= @favorite.experience.id %>"]`)
+favorite_link.innerHTML = "<%= j render(partial: 'favorite-card-deactivated', locals: { experience: @favorite.experience }) %>";
+
+

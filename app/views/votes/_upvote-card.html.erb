@@ -1,0 +1,9 @@
+<%= link_to vote_path(Vote.find_by_experience(current_user, experience), remote: true, redirect_to: 'index'), remote: true, method: :delete do %>
+  <i class="fas fa-chevron-up upvote-button activated"></i>
+<% end %>
+<span class="vote-text <% experience.total_votes_state %>">
+  <%= experience.total_votes %>
+</span>
+<%= link_to vote_path(Vote.where(experience_id: experience.id, user_id: current_user.id).first, redirect_to: 'index'), remote: true, method: :put do %>
+   <i class="fas fa-chevron-down downvote-button"></i>
+<% end %>

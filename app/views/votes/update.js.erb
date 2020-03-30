@@ -1,0 +1,8 @@
+var votes_card = document.querySelector(`[data-votes-id="<%= @vote.experience.id %>"]`)
+if ("<%= @vote.value %>" === "1") {
+  votes_card.innerHTML = "<%= j render(partial: 'upvote-card', locals: { experience: @vote.experience }) %>";
+} else {
+  votes_card.innerHTML = "<%= j render(partial: 'downvote-card', locals: { experience: @vote.experience }) %>";
+}
+
+

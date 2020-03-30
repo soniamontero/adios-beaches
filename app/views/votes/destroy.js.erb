@@ -1,0 +1,2 @@
+var votes_card = document.querySelector(`[data-votes-id="<%= @vote.experience.id %>"]`)
+votes_card.innerHTML = "<%= j render(partial: 'neutral-card', locals: { experience: @vote.experience }) %>";

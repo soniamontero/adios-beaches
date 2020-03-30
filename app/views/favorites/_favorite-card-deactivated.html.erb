@@ -1,0 +1,7 @@
+<div class="experience-card-favorite-button deactivated">
+  <%= simple_form_for [experience, Favorite.new], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
+    <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample do %>
+      <i class="fas fa-heart"></i>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,15 @@
+<%= simple_form_for [experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample} do |f| %>
+  <%= hidden_field_tag(:value, 1, id: (1..10000).to_a.sample) %>
+  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+    <i class="fas fa-chevron-up upvote-button"></i>
+  <% end %>
+<% end %>
+<span class="vote-text">
+  <%= experience.total_votes %>
+</span>
+<%= simple_form_for [experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample} do |f| %>
+  <%= hidden_field_tag(:value, -1, id: (1..10000).to_a.sample) %>
+  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+    <i class="fas fa-chevron-down downvote-button"></i>
+  <% end %>
+<% end %>

@@ -1,0 +1,4 @@
+var done_link = document.querySelector(`[data-done-id="<%= @done.experience.id %>"]`)
+done_link.innerHTML = "<%= j render(partial: 'done-card-activated', locals: { experience: @done.experience }) %>";
+
+
