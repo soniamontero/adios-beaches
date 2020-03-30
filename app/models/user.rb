@@ -81,7 +81,6 @@ class User < ApplicationRecord
       "Authorization" => "token #{auth.credentials.token}"
     ).read
     repositories = JSON.parse(repositories_json)
-
     # Identify all the repositories' names of the user
     user_repos = repositories.map {|repo| repo["name"]}
 
@@ -94,9 +93,10 @@ class User < ApplicationRecord
 
     user = User.find_by(provider: auth.provider, uid: auth.uid)
     user ||= User.find_by(email: auth.info.email) # User did a regular sign up in the past.
+
     if user
       user.update(user_params)
-    elsif (lw_repos & user_repos).length > 1 # Check if the user has at least one LW student repo
+    elsif (lw_repos & user_repos).length >= 1 # Check if the user has at least one LW student repo
       user = User.new(user_params)
       user.password = Devise.friendly_token[0,20]  # Fake password for validation
       user.save
