@@ -51,7 +51,6 @@ const initMapbox = () => {
 
     // Display markers on map
     const markers = JSON.parse(mapElement.dataset.markers);
-    const test = JSON.parse(mapElement.dataset.test);
     const mapMarkers = []
     markers.forEach((marker) => {
       const popup = new mapboxgl.Popup().setHTML(marker.infoWindow);
