@@ -1,9 +1,4 @@
 <div class="experience-photo-container" style="background-image: <%= 'linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),' if @experience.photo.file.nil? %> url(<%= @experience.photo.file.nil? ? asset_path('photo-not-found.jpeg') : @experience.photo %>);">
-  <div class="back-icon">
-    <%= link_to experiences_path do  %>
-      <i class="fas fa-chevron-left"></i>
-    <% end %>
-  </div>
   <% if @experience.photo.file.nil? %>
     <div class="photo-not-found-text">
       No Photo Added :(
@@ -134,7 +129,7 @@
       </div>
 
       <h6 class="small-grey-title pt-3">Who has been there?</h6>
-      <div class="people-been-there">
+      <div class="people-been-there" id="people-been-there">
         <% @experience.total_dones.each do |person| %>
           <%= link_to user_profile_path(person.github_username) do %>
             <span class="person-info">

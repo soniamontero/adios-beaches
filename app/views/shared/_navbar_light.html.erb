@@ -7,7 +7,7 @@
     <% if user_signed_in? && current_user.github_picture_url.present? %>
       <%= image_tag current_user.github_picture_url, class: "avatar" %>
     <% else %>
-      <%= image_tag "menu-dark.png", class: "toggler-icon" %>
+      <%= image_tag "menu-light.png", class: "toggler-icon" %>
     <% end %>
     <!-- <span class="navbar-toggler-icon"></span> -->
   </span>

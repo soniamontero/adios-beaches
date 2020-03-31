@@ -3,8 +3,12 @@
 
     <h1 class="main-white-title my-2 pt-5 pb-5">
       <span>Long days coding?&nbsp;</span>
-      <span>Good weekends traveling.</span>
+      <span>Time to chill around the island.</span>
     </h1>
+<!--     <p>
+      Coding all day long is tiring, we've all been there.
+      Find new experiences for the evening or for the weekend, share your spots with other LeWagon alumni who've been to Bali or who are planning to come. You can add experiences, bookmark them or mark them as done and give your opinion about it.
+    </p> -->
 
 
     <div class="white-transparent-button my-3">
@@ -15,7 +19,7 @@
 
     <div class="home-search-form mt-3 mb-5">
       <%= form_tag experiences_path, method: :get do %>
-        <%= text_field_tag :query,
+        <%= text_field_tag :home_query,
           params[:query],
           class: "search-bar-home",
           placeholder: "Try to type 'temple' or 'Ubud'"

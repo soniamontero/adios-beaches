@@ -12,4 +12,6 @@ if (done_link) {
 
 if (done_show_link) {
   done_show_link.innerHTML = "<%= j render(partial: 'done-show-card', locals: { experience: @done.experience }) %>";
+  var been_there = document.querySelector("#people-been-there");
+  been_there.innerHTML = "<%= j render(partial: 'show-people-been-there', locals: { experience: @done.experience }) %>";
 }

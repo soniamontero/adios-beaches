@@ -1,23 +1,24 @@
 class ExperiencesController < ApplicationController
   def index
     @user = current_user
-    @experiences = policy_scope(Experience)
     # Define experience if there are search or filter queries.
     if params[:category].present?
-      @experiences = Experience.joins(:category).where(categories: {name: params[:category]})
+      @experiences = policy_scope(Experience).joins(:category).where(categories: {name: params[:category]})
       respond_to do |format|
         format.html { redirect_to experiences_path }
         format.js
       end
+    elsif params[:home_query].present?
+      @experiences = policy_scope(Experience).search_by_name_and_address_and_category(params[:home_query])
     elsif params[:query].present?
       if params[:query] == ""
-        @experiences = Experience.sorted_by_higher_votes
+        @experiences = policy_scope(Experience).sorted_by_higher_votes
         respond_to do |format|
           format.html { redirect_to experiences_path }
           format.js
         end
       else
-        @experiences = Experience.search_by_name_and_address_and_category(params[:query])
+        @experiences = policy_scope(Experience).search_by_name_and_address_and_category(params[:query])
         respond_to do |format|
           format.html { redirect_to experiences_path }
           format.js
@@ -26,16 +27,19 @@ class ExperiencesController < ApplicationController
       # keyword = params[:query]
       # Experience.where("experiences.title LIKE ? OR experiences.details LIKE ?", "%#{keyword}%", "%#{keyword}%")
     else
-      @experiences = Experience.sorted_by_higher_votes
+      @experiences = policy_scope(Experience).sorted_by_higher_votes
     end
 
     # Update the placeholder of the search bar depending on serch/filter query
+    params_home_query = (params[:home_query] == "" || params[:home_query] == nil) ? false : true
     params_query = (params[:query] == "" || params[:query] == nil) ? false : true
     params_category = (params[:category] == "" || params[:category] == nil) ? false : true
     @params_present = params_query || params_category ? true : false
 
     if params_query
       @placeholder = params[:query]
+    elsif params_home_query
+      @placeholder = params[:home_query]
     elsif params_category
       @placeholder = params[:category]
     else

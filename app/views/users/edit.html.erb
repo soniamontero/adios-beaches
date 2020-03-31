@@ -7,7 +7,7 @@
     <%= simple_form_for @user, url: patch_profile_path, method: :patch do |f| %>
       <%= f.input :batch_number %>
       <%= f.input :batch_location, collection: @lw_cities %>
-      <%= f.input :slack_username %>
+      <%= f.input :slack_username, label: "Your LeWagon alumni slack username" %>
       <%= f.input :country, placeholder: "Where are you now?", label: "Country" %>
       <%= f.input :visited_bali, label: "Have you already visited Bali?" %>
       <%= f.submit "Submit", class: "btn btn-primary" %>

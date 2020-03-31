@@ -9,12 +9,12 @@ const toggleDashMap = () => {
         mapContainer.classList.add("d-block");
         mapContainer.classList.remove("display-none");
         experiencesContainer.classList.add("display-none");
-        experiencesContainer.classList.remove("d-block");
+        experiencesContainer.classList.remove("d-flex");
       } else {
         mapContainer.classList.remove("d-block");
         mapContainer.classList.add("display-none");
         experiencesContainer.classList.remove("display-none");
-        experiencesContainer.classList.add("d-block");
+        experiencesContainer.classList.add("d-flex");
       }
     })
 

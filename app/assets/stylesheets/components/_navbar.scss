@@ -36,6 +36,19 @@
   a, a:active, a:visited {
     color: white;
   }
+  &.show-page {
+    background-color: white;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 2px;
+    a {
+      color:$teal;
+    }
+  }
 }
 
 .back-navbar-icon-dark {

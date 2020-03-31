@@ -1,5 +1,5 @@
 <div class="navbar main-navbar navbar-light navbar-backbutton">
-  <div class="back-navbar-icon-light">
+  <div class="back-navbar-icon-light <%= "show-page" if action_name == "show" && controller_name == "experiences" %>">
     <%= link_to root_path do  %>
       <i class="fas fa-chevron-left"></i>
     <% end %>
