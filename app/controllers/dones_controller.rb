@@ -37,7 +37,11 @@ class DonesController < ApplicationController
   end
 
   def user_not_authorized(exception)
-    policy_name = exception.policy.class.to_s.underscore
-    render js: "alert('Sorry, you cannot delete your own experience.')"
+    @error = true
+    # render js: "alert('Sorry, you cannot delete your own experience.')"
+    respond_to do |format|
+        format.html {}
+        format.js { render text: 'ici' }
+      end
   end
 end

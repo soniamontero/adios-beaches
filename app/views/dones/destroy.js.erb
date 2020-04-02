@@ -1,22 +1,26 @@
-var done_link = document.querySelector(`[data-done-id="<%= @done.experience.id %>"]`)
-var done_show_link = document.querySelector(`[data-show-done-id="<%= @done.experience.id %>"]`);
-console.log('hi')
-if (done_link) {
-  done_link.innerHTML = "<%= j render(partial: 'done-card-deactivated', locals: { experience: @done.experience, user: @user }) %>";
-  <% if @user != nil %>
-    console.log("hi")
-    var statsDones = document.querySelector("#done");
-    statsDones.innerHTML = "<%= j render(partial: './users/stats_done', locals: { user: @user }) %>";
-  <% end %>
-}
+<% if @error == true %> // Check if the done destroy action has been unauthorized by Pundit
+  var btn = document.querySelector("#sweet-alert-unauthorized");
+  btn.click()
+  console.log("I love you ❤️");
+<% else %>
+  var done_link = document.querySelector(`[data-done-id="<%= @done.experience.id %>"]`)
+  var done_show_link = document.querySelector(`[data-show-done-id="<%= @done.experience.id %>"]`);
 
-if (done_show_link) {
-  done_show_link.innerHTML = "<%= j render(partial: 'done-show-card', locals: { experience: @done.experience }) %>";
-  var been_there = document.querySelector("#people-been-there");
-  been_there.innerHTML = "<%= j render(partial: 'show-people-been-there', locals: { experience: @done.experience }) %>";
-  var commentsShow = document.querySelector('#comments-show');
-  commentsShow.innerHTML = '<%= j render "./comments/all-comments", experience: @experience %> ';
-}
+  // Checks if page is experience index/user show page to render the right content
+  if (done_link) {
+    done_link.innerHTML = "<%= j render(partial: 'done-card-deactivated', locals: { experience: @done.experience, user: @user }) %>";
+    <% if @user != nil %>
+      var statsDones = document.querySelector("#done");
+      statsDones.innerHTML = "<%= j render(partial: './users/stats_done', locals: { user: @user }) %>";
+    <% end %>
+  }
 
-var body = document.querySelector("body");
-body.insertAdjacentHTML('afterbegin', '<%= j render "./shared/flashes" %> ';)
+  // Checks if page is experience show page to render the right content
+  if (done_show_link) {
+    done_show_link.innerHTML = "<%= j render(partial: 'done-show-card', locals: { experience: @done.experience }) %>";
+    var been_there = document.querySelector("#people-been-there");
+    been_there.innerHTML = "<%= j render(partial: 'show-people-been-there', locals: { experience: @done.experience }) %>";
+    var commentsShow = document.querySelector('#comments-show');
+    commentsShow.innerHTML = '<%= j render "./comments/all-comments", experience: @experience %> ';
+  }
+<% end %>

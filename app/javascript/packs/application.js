@@ -13,6 +13,7 @@ import { photoPreview } from './photo_preview.js';
 import { toggleMap } from '../components/toggleMap.js';
 import { toggleDashMap } from '../components/toggleDashMap.js';
 import { updateCharactersLeft } from '../components/update_characters_left';
+import { initSweetalert } from '../plugins/sweet_alert';
 
 initMapbox();
 initMapboxDash();
@@ -22,4 +23,16 @@ toggleMap();
 toggleDashMap();
 dashboardNav();
 updateCharactersLeft();
+// Sweet alert srtup options
+initSweetalert('#sweet-alert-unauthorized', {
+  title: "You can't delete that check",
+  text: "Your experiences are automatically labelled as done.",
+  icon: "info",
+  button: {
+    text: "Ok",
+  },
+  timer: 2500
+});
+
+
 
