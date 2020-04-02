@@ -50,7 +50,7 @@
 .favorite-button.deactivated button {
   color: #e4baba;
   border: none;
-  background-color: white;
+  background-color: transparent;
   transition: 0.1s ease-out;
   width: 30px;
 }
@@ -58,7 +58,7 @@
 .favorite-button.deactivated button:hover {
   color: #e4baba;
   border: none;
-  background-color: white;
+  background-color: transparent;
   font-size: 18px;
 }
 
@@ -92,7 +92,7 @@
 .done-button.deactivated button {
   color: #c7c7c7;
   border: none;
-  background-color: white;
+  background-color: transparent;
   transition: 0.1s ease-out;
   width: 30px;
 }
@@ -100,7 +100,7 @@
 .done-button.deactivated button:hover {
   color: #c7c7c7;
   border: none;
-  background-color: white;
+  background-color: transparent;
   font-size: 18px;
 }
 
