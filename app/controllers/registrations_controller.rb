@@ -1,5 +1,10 @@
 class RegistrationsController < Devise::RegistrationsController
 
+  def edit
+    @lw_cities = LW_CITIES
+    super
+  end
+
   def update
     if current_user.update(account_update_params) && current_user.first_login == false
       redirect_to user_profile_path(current_user.github_username)
@@ -23,4 +28,41 @@ class RegistrationsController < Devise::RegistrationsController
     resource.update_without_password(params)
   end
 
+  LW_CITIES = [
+    "Bordeaux",
+    "Lille",
+    "Lyon",
+    "Marseille",
+    "Nantes",
+    "Paris",
+    "Rennes",
+    "Amsterdam",
+    "Barcelona",
+    "Berlin",
+    "Brussels",
+    "Copenhagen",
+    "Lausanne",
+    "Lisbon",
+    "London",
+    "Madrid",
+    "Milan",
+    "Oslo",
+    "Rome",
+    "Bali",
+    "Chengdu",
+    "Kyoto",
+    "Melbourne",
+    "Shanghai",
+    "Shenzhen",
+    "Singapore",
+    "Tokyo",
+    "Belo horizonte",
+    "Buenos aires",
+    "Mexico",
+    "Montreal",
+    "Rio de janeiro",
+    "São paulo",
+    "Casablanca",
+    "Tel aviv"
+  ].sort!
 end

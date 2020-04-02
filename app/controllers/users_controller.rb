@@ -113,7 +113,7 @@ class UsersController < ApplicationController
     "São paulo",
     "Casablanca",
     "Tel aviv"
-  ]
+  ].sort!
 
   private
 
