@@ -160,7 +160,7 @@
           <% else %>
             <%= simple_form_for [experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample, type: 'upvote'} do |f| %>
               <%= hidden_field_tag(:value, 1, id: (1..10000).to_a.sample) %>
-              <%= button_tag type: 'submit', data: {toggle: "modal", target: "#newComment"} do %>
+              <%= button_tag type: 'submit' do %>
                 <i class="fas fa-chevron-up upvote-button"></i>
               <% end %>
             <% end %>
@@ -169,7 +169,7 @@
             </span>
             <%= simple_form_for [experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample, type: 'downvote'} do |f| %>
               <%= hidden_field_tag(:value, -1, id: (1..10000).to_a.sample) %>
-              <%= button_tag type: 'submit', data: {toggle: "modal", target: "#newComment"} do %>
+              <%= button_tag type: 'submit' do %>
                 <i class="fas fa-chevron-down downvote-button"></i>
               <% end %>
             <% end %>
