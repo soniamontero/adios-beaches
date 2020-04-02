@@ -47,7 +47,7 @@
        <div class="experience-stat">
           <%= link_to user_profile_path(params[:github_username], type: 'saved'), remote: true  do %>
             <div class="profile-icon" id='saved'>
-              <%= image_tag "bookmark.svg" %>
+              <%= image_tag "heart.png" %>
              <span class="experience-count"><%= @user.favorites.count %></span>
             </div>
           <% end %>
