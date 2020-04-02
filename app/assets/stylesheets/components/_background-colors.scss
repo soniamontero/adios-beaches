@@ -21,6 +21,10 @@
   background-color: #ececec;
 }
 
+.white-background-color {
+  background-color: #fff;
+}
+
 .login-background-color {
   background: no-repeat center center fixed;
   background-image: linear-gradient(rgba(125, 125, 125, 0.38), rgba(0, 0, 0, 0.06)), url(optimized-new-experience.jpg);
@@ -36,8 +40,8 @@
   padding: 12px 28px 28px 28px;
 }
 
-.experience-light-gray-background {
-  background-color: #f7f7f7;
+.experience-white-background {
+  background-color: #fff;
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
   margin-top: -20px;

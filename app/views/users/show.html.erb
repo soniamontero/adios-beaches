@@ -1,6 +1,6 @@
 <div class="experience-photo-container profile-container" style="background-image: <%= 'linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),' %> url(<%= asset_path('optimized-palm-leaves.jpeg') %>);">
 
-  <div class="experience-light-gray-background" style="position: relative;">
+  <div class="experience-white-background" style="position: relative;">
   <div class="avatar-edit">
     <%= image_tag @user.github_picture_url, class: 'profile-avatar' %>
     <% if policy(@user).edit? %>
