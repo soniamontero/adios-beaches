@@ -133,7 +133,6 @@
         <div class="experience-card-vote-buttons" data-votes-id="<%= experience.id %>">
 
           <!-- VOTE + UPVOTE -->
-
           <% if current_user.has_voted?(experience) && current_user.has_upvoted?(experience) %>
             <%= link_to vote_path(Vote.find_by_experience(current_user, experience), redirect_to: 'index'), remote: true, method: :delete do %>
               <i class="fas fa-chevron-up upvote-button activated"></i>
@@ -191,7 +190,8 @@
             </span>
           </div>
           <div class="experience-card-location">
-            <%= experience.address.split(',')[2] %>
+            <%= experience.address.split(',')[2][0..16]%>
+            <%= "..." if experience.address.split(',')[2].length > 16 %>
           </div>
         </div>
 
@@ -214,6 +214,7 @@
                 <% end %>
               <% end %>
             </div>
+            <span class="button-description">Done</span>
           </div>
           <!-- End of statement for done button on experience -->
 
@@ -233,6 +234,7 @@
                 <% end %>
               <% end %>
             </div>
+            <span class="button-description save">Save</span>
           </div>
           <!-- End of statement for favorite button on experience -->
         </div>

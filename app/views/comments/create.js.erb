@@ -8,7 +8,6 @@ function closeModal() {
   // document.querySelector("#newComment .close").click() // doesn't fucking work
 }
 
-
 var commentsShow = document.querySelector('#comments-show');
 <% if @comment.errors.any? %>
   refreshForm('<%= j render "comment-form", done: @comment.done, comment: @comment %>');

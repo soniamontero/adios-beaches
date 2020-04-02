@@ -18,7 +18,7 @@
       <div data-show-done-id="<%= @experience.id %>">
         <div class="done-button <%= current_user.has_done?(@experience).nil? ? 'deactivated' : 'activated' %>">
           <% if current_user.has_done?(@experience) %>
-            <%= link_to done_path(Done.where(experience_id: @experience.id, user_id: current_user.id).first), remote: true, method: :delete do %>
+            <%= link_to done_path(Done.where(experience_id: @experience.id, user_id: current_user.id).first), remote: true, method: :delete, id:"sweet-alert-remove" do %>
                 <i class="fas fa-check"></i>
             <% end %>
           <% else %>
@@ -155,7 +155,6 @@
   </div>
 <% end %>
 </div>
-
 
 <div id="commentModal">
   <div class="modal fade" id="newComment" tabindex="-1" role="dialog" aria-labelledby="newCommentLabel" aria-hidden="true">
