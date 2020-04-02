@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :redirect
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   include Pundit
 
   # Pundit: white-list approach.
@@ -14,6 +16,13 @@ class ApplicationController < ActionController::Base
   # def user_not_authorized
   #   flash[:alert] = "You are not authorized to perform this action."
   #   redirect_to(root_path)
+  # end
+
+  # def user_not_authorized(exception)
+  #   if exception.query == 'destroy?' && exception.policy.class.to_s.underscore == 'done_policy'
+  #     flash[:error] = exception.policy.try(:error_message) || "Default error message"
+  #     byebug
+  #   end
   # end
 
   # Force the user to stay on edit_profile if profile info not completed

@@ -5,7 +5,7 @@
     <% end %>
   <% else %>
     <%= simple_form_for [experience, Done.new], remote: true do |f| %>
-      <%= button_tag type: 'submit' do %>
+      <%= button_tag type: 'submit', data: {toggle: "modal", target: "#newComment"} do %>
         <i class="fas fa-check"></i>
     <% end %>
       <%#= f.button :button, 'Done', type: 'submit' %>
@@ -15,3 +15,4 @@
     Been there?
   </p>
 </div>
+

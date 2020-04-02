@@ -10,6 +10,9 @@ class DonePolicy < ApplicationPolicy
   end
 
   def destroy?
-    record.user == user && record.experience.user != user
+    unless record.user == user && record.experience.user != user
+      @error_message = "This is your own experience, you can't delete it."
+      false
+    end
   end
 end

@@ -16,7 +16,12 @@ Rails.application.routes.draw do
     resources :votes, only: [:create]
   end
 
-  resources :dones, only: [:destroy]
+  resources :dones, only: [:destroy] do
+    resources :comments, only: [:create, :destroy, :update]
+  end
+
+  resources :comments, only: [:edit]
+
   resources :favorites, only: [:destroy]
   resources :votes, only: [:update, :destroy]
 

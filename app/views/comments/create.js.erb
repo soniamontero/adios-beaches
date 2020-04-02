@@ -1,0 +1,21 @@
+function refreshForm(innerHTML) {
+  var newCommentForm = document.getElementById('commentForm');
+  newCommentForm.innerHTML = innerHTML;
+}
+
+function closeModal() {
+  $("#newComment .close").click();
+  // document.querySelector("#newComment .close").click() // doesn't fucking work
+}
+
+
+var commentsShow = document.querySelector('#comments-show');
+<% if @comment.errors.any? %>
+  refreshForm('<%= j render "comment-form", done: @comment.done, comment: @comment %>');
+<% else %>
+  closeModal()
+  if (commentsShow) {
+    console.log('hi')
+    commentsShow.innerHTML = '<%= j render "all-comments", experience: @comment.experience %> ';
+  }
+<% end %>

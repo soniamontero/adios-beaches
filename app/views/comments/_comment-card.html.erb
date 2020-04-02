@@ -1,0 +1,23 @@
+  <div class="experience-card comment-card" data-experience-id="<%= comment.experience.id %>">
+    <div class="experience-card-photo comment-card">
+      <%= link_to user_profile_path(comment.user.github_username) do %>
+        <span class="person-info">
+          <%= image_tag comment.user.github_picture_url, class: "person-avatar #{'owner' if comment.user.id == experience.user_id} comment-card" %>
+        </span>
+      <% end %>
+    </div>
+
+    <div class="experience-details comment-card">
+     <strong><%= comment.user.github_username %></strong>&nbsp;<%= comment.description %>
+    </div>
+    <div class="comment-date">
+      <% if comment.created_at.year == Date.today.year %>
+        <%= comment.created_at.strftime("%e %b") %>
+      <% else %>
+        <%= comment.created_at.strftime("%e %b %Y") %>
+      <% end %>
+
+      <%= link_to 'Edit', edit_comment_path(comment), data: {toggle: "modal", target: "#newComment"}, remote: true, class: 'edit-comment'  %>
+            <%#= link_to "Edit", comment_path, method: :put, remote: :true  %>
+    </div>
+  </div>

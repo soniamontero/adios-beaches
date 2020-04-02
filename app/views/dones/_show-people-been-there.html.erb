@@ -1,8 +1,10 @@
-<% experience.total_dones.each do |person| %>
-  <%= link_to user_profile_path(person.github_username) do %>
-    <span class="person-info">
-        <%= image_tag person.github_picture_url, class: "person_avatar #{'owner' if person.id == experience.user_id}" %>
-        <%= person.github_username %>
-    </span>
+<% if experience.total_dones != "None one has been there yet." %>
+  <% experience.total_dones.each do |person| %>
+    <%= link_to user_profile_path(person.github_username) do %>
+      <span class="person-info">
+          <%= image_tag person.github_picture_url, class: "person-avatar #{'owner' if person.id == experience.user_id}" %>
+          <%= person.github_username %>
+      </span>
+    <% end %>
   <% end %>
 <% end %>

@@ -1,0 +1,6 @@
+<div class="minimal-form">
+  <%= simple_form_for [done, comment], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
+    <%= f.input :description, label: "What did you think of that experience?" %>
+    <%= f.submit 'Submit', style: "border-radius: 10px;" %>
+  <% end %>
+</div>

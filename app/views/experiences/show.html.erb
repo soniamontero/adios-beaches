@@ -23,7 +23,7 @@
             <% end %>
           <% else %>
             <%= simple_form_for [@experience, @done], remote: true do |f| %>
-              <%= button_tag type: 'submit' do %>
+              <%= button_tag type: 'submit', data: {toggle: "modal", target: "#newComment"} do %>
                 <i class="fas fa-check"></i>
             <% end %>
               <%#= f.button :button, 'Done', type: 'submit' %>
@@ -133,18 +133,49 @@
         <% @experience.total_dones.each do |person| %>
           <%= link_to user_profile_path(person.github_username) do %>
             <span class="person-info">
-                <%= image_tag person.github_picture_url, class: "person_avatar #{'owner' if person.id == @experience.user_id}" %>
+                <%= image_tag person.github_picture_url, class: "person-avatar #{'owner' if person.id == @experience.user_id}" %>
                 <%= person.github_username %>
             </span>
           <% end %>
         <% end %>
       </div>
-      <% if policy(@experience).edit? %>
-        <div class="teal-transparent-button my-4">
-          <%= link_to 'Edit your experience', edit_experience_path(@experience)  %>
+
+      <h6 class="small-grey-title pt-4 pb-2"> What they think about this place</h6>
+      <div class="people-been-there" id="comments-show">
+        <%= render "./comments/all-comments", experience: @experience %>
+        <% if current_user.has_done?(@experience).comment.nil? %>
+          <%= render './comments/new-comment', experience: @experience %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% if policy(@experience).edit? %>
+  <div class="teal-transparent-button my-4">
+    <%= link_to 'Edit your experience', edit_experience_path(@experience)  %>
+  </div>
+<% end %>
+</div>
+
+
+<div id="commentModal">
+  <div class="modal fade" id="newComment" tabindex="-1" role="dialog" aria-labelledby="newCommentLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content modal-new-comment">
+        <div class="modal-header">
+          <div class="experience-name">
+          Oh, you've been there!
         </div>
-      <% end %>
-      <%#= link_to 'Back', experiences_path %>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="commentForm">
+        </div>
+        <div class="modal-footer" hidden>
+          <button type="button" class="btn btn-secondary" id="modal-close-button" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

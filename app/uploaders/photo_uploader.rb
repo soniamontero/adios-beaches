@@ -7,4 +7,8 @@ class PhotoUploader < CarrierWave::Uploader::Base
     # and so that it will hit the 100 px width first
     process :resize_to_limit => [10000, 1000]
   end
+
+  version :exp_card do
+    process :resize_to_limit => [130, 130]
+  end
 end

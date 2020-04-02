@@ -1,6 +1,6 @@
 var done_link = document.querySelector(`[data-done-id="<%= @done.experience.id %>"]`)
-var done_show_link = document.querySelector(`[data-show-done-id="<%= @done.experience.id %>"]`)
-
+var done_show_link = document.querySelector(`[data-show-done-id="<%= @done.experience.id %>"]`);
+console.log('hi')
 if (done_link) {
   done_link.innerHTML = "<%= j render(partial: 'done-card-deactivated', locals: { experience: @done.experience, user: @user }) %>";
   <% if @user != nil %>
@@ -14,4 +14,9 @@ if (done_show_link) {
   done_show_link.innerHTML = "<%= j render(partial: 'done-show-card', locals: { experience: @done.experience }) %>";
   var been_there = document.querySelector("#people-been-there");
   been_there.innerHTML = "<%= j render(partial: 'show-people-been-there', locals: { experience: @done.experience }) %>";
+  var commentsShow = document.querySelector('#comments-show');
+  commentsShow.innerHTML = '<%= j render "./comments/all-comments", experience: @experience %> ';
 }
+
+var body = document.querySelector("body");
+body.insertAdjacentHTML('afterbegin', '<%= j render "./shared/flashes" %> ';)

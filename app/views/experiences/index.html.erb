@@ -125,7 +125,7 @@
             <% if experience.photo.file.nil? %>
               <%= image_tag asset_path('photo-not-found.jpeg') %>
             <% else %>
-              <%= cl_image_tag experience.photo %>
+              <%= cl_image_tag experience.photo, class: "index-photo" %>
             <% end %>
           </div>
         <% end %>
@@ -161,7 +161,7 @@
           <% else %>
             <%= simple_form_for [experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample, type: 'upvote'} do |f| %>
               <%= hidden_field_tag(:value, 1, id: (1..10000).to_a.sample) %>
-              <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+              <%= button_tag type: 'submit', data: {toggle: "modal", target: "#newComment"} do %>
                 <i class="fas fa-chevron-up upvote-button"></i>
               <% end %>
             <% end %>
@@ -170,7 +170,7 @@
             </span>
             <%= simple_form_for [experience, Vote.new], remote: true, html: { id: (1..10000).to_a.sample, type: 'downvote'} do |f| %>
               <%= hidden_field_tag(:value, -1, id: (1..10000).to_a.sample) %>
-              <%= button_tag type: 'submit', name: 'redirect_to', value: 'index' do %>
+              <%= button_tag type: 'submit', data: {toggle: "modal", target: "#newComment"} do %>
                 <i class="fas fa-chevron-down downvote-button"></i>
               <% end %>
             <% end %>
@@ -206,8 +206,8 @@
                     <i class="fas fa-check"></i>
                 <% end %>
               <% else %>
-                <%= simple_form_for [experience, Done.new], remote: true, html: { id: (1..10000).to_a.sample}  do |f| %>
-                  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample do %>
+                <%= simple_form_for [experience, Done.new], remote: true, html: { id: (1..10000).to_a.sample} do |f| %>
+                  <%= button_tag type: 'submit', name: 'redirect_to', value: 'index', id: (1..10000).to_a.sample, data: {toggle: "modal", target: "#newComment"} do %>
                     <i class="fas fa-check"></i>
                 <% end %>
                   <%#= f.button :button, 'Done', type: 'submit', name: 'redirect_to', value: 'show' %>
@@ -258,5 +258,25 @@
   <!-- End of map -->
 </div>
 
-
-
+<div id="commentModal">
+  <div class="modal fade" id="newComment" tabindex="-1" role="dialog" aria-labelledby="newCommentLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content modal-new-comment">
+        <div class="modal-header">
+          <div class="experience-name">
+          Oh, you've been there!
+        </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="commentForm">
+        </div>
+        <div class="modal-footer" hidden>
+          <button type="button" class="btn btn-secondary" id="modal-close-button" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

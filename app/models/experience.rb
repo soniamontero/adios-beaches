@@ -4,6 +4,7 @@ class Experience < ApplicationRecord
   has_many :dones
   has_many :votes
   has_many :favorites
+  has_many :comments, through: :dones
 
   enum price_range: [:low, :medium, :high]
 

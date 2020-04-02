@@ -1,0 +1,4 @@
+var insideModal = document.querySelector("#commentForm");
+insideModal.innerHTML = "<%= j render(partial: "comment-form", locals: { done: @comment.done, comment: @comment }) %>";
+$('#newComment').modal('show');
+console.log("I love you ❤️");

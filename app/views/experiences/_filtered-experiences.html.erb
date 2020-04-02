@@ -11,7 +11,7 @@
             <% if experience.photo.file.nil? %>
               <%= image_tag asset_path('photo-not-found.jpeg') %>
             <% else %>
-              <%= cl_image_tag experience.photo %>
+              <%= cl_image_tag experience.photo, class: "index-photo" %>
             <% end %>
           </div>
         <% end %>

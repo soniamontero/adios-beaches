@@ -1,5 +1,6 @@
 class DonesController < ApplicationController
   def create
+    @comment = Comment.new
     @done = Done.new
     @done.user = current_user
     experience = Experience.find(params[:experience_id])
@@ -14,46 +15,29 @@ class DonesController < ApplicationController
         format.js
       end
     end
-    # if @done.save && params[:redirect_to] == "index"
-    #   redirect_to experiences_path
-    # elsif @done.save && params[:redirect_to] == 'show'
-    #   redirect_to experience_path(experience)
-    # elsif @done.save && params[:redirect_to].include?('profile')
-    #   username = params[:redirect_to].split[1]
-    #   redirect_to user_profile_path(username)
-    # else
-    #   redirect_back(fallback_location: root_path)
-    # end
   end
 
   def destroy
     @done = Done.find(params[:id])
-    experience = @done.experience
+    @experience = @done.experience
     if params[:github_username]
       @user = User.find_by(github_username: params[:github_username])
     end
     authorize @done
-    @done.destroy
-    respond_to do |format|
-      format.html { redirect_to experiences_path }
-      format.js
+    if @done.destroy
+      respond_to do |format|
+        format.html { redirect_to experiences_path }
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.js
+      end
     end
-
-    # if params[:redirect_to] == "index"
-    #   redirect_to experiences_path
-    # elsif params[:redirect_to] == 'show'
-    #   redirect_to experience_path(experience)
-    # elsif params[:redirect_to][0] == 'profile'
-    #   username = params[:redirect_to][1]
-    #   redirect_to user_profile_path(username)
-    # else
-    #   redirect_back(fallback_location: root_path)
-    # end
   end
 
-  private
-
-  # def done_params
-  #   params.require(:done).permit(:user_id, :redirect_to)
-  # end
+  def user_not_authorized(exception)
+    policy_name = exception.policy.class.to_s.underscore
+    render js: "alert('Sorry, you cannot delete your own experience.')"
+  end
 end

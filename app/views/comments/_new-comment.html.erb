@@ -1,0 +1,10 @@
+<div class="experience-card comment-card" data-experience-id="<%= experience.id %>">
+  <div class="experience-card-photo comment-card">
+    <%= link_to user_profile_path(current_user.github_username) do %>
+      <span class="person-info">
+        <%= image_tag current_user.github_picture_url, class: "person-avatar #{'owner' if current_user.id == experience.user_id} comment-card" %>
+      </span>
+    <% end %>
+  </div>
+  <%= render './comments/comment-form', done: current_user.has_done?(experience) ,comment: Comment.new(experience: experience)  %>
+</div>
