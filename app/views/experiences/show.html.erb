@@ -143,8 +143,10 @@
       <h6 class="small-grey-title pt-4 pb-2"> What they think about this place</h6>
       <div class="people-been-there" id="comments-show">
         <%= render "./comments/all-comments", experience: @experience %>
-        <% if current_user.has_done?(@experience).comment.nil? %>
-          <%= render './comments/new-comment', experience: @experience %>
+        <% if current_user.has_done?(@experience) %>
+          <% if current_user.has_done?(@experience).comment.nil? %>
+            <%= render './comments/new-comment', experience: @experience %>
+          <% end %>
         <% end %>
       </div>
     </div>

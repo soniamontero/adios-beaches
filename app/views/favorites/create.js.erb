@@ -4,8 +4,8 @@ var favorite_show_link = document.querySelector(`[data-show-favorite-id="<%= @fa
 if (favorite_link) {
   favorite_link.innerHTML = "<%= j render(partial: 'favorite-card-activated', locals: { experience: @favorite.experience, user: @user }) %>";
   <% if @user != nil %>
-    console.log("hi")
     var statsSaved = document.querySelector("#saved");
+    console.log(statsSaved)
     statsSaved.innerHTML = "<%= j render(partial: './users/stats_saved', locals: { user: @user }) %>";
   <% end %>
 }

@@ -123,7 +123,7 @@
         <%= link_to experience_path(experience) do %>
           <div class="experience-card-photo">
             <% if experience.photo.file.nil? %>
-              <%= image_tag asset_path('photo-not-found.jpeg') %>
+              <%= image_tag asset_path('photo-not-found.jpeg'), class: "index-photo" %>
             <% else %>
               <%= cl_image_tag experience.photo, class: "index-photo" %>
             <% end %>

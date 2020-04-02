@@ -1,6 +1,5 @@
 var cardsContainer = document.querySelector(".experience-cards-container");
-cardsContainer.innerHTML = "<%= j render(partial: 'show_experiences', locals: { experiences: @experiences, user: @user }) %>";
-
+cardsContainer.innerHTML = "<%= j render(partial: './experiences/filtered-experiences', locals: { experiences: @experiences, user: @user }) %>";
 var statsDones = document.querySelector("#done");
 statsDones.innerHTML = "<%= j render(partial: 'stats_done', locals: { user: @user }) %>";
 

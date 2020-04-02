@@ -259,6 +259,9 @@
 }
 
 @media only screen and (max-width: 500px) {
+  .experience-card-buttons {
+    bottom: 3px;
+  }
   .experience-card-name {
     font-size: 11px;
   }
