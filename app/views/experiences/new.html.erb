@@ -1,22 +1,23 @@
 <div class="form-container">
   <div class="minimal-form">
     <%= simple_form_for @experience do |f| %>
-    <div class="photo-input" id="photo_input">
-      <label class="photo-uploader" id="DefaultImagePreview">
-        <i class='fas fa-camera-retro pb-2'></i>
-        Add a photo
-        <span style='display: none'>
-          <%= f.input :photo %>
-        </span>
-      </label>
-    </div>
       <%= f.input :photo_cache, as: :hidden %>
       <%= f.association :category, label_method: :name, selected: 'Food' %>
       <%= f.input :name, placeholder: "ex: Diving at Penida with Dive Concepts", label: 'Spot short description' %>
       <%= f.input :address, placeholder: "Try to type 'The Lawn'", label: "Name of the point of interest (or address)" %>
-      <%= f.input :price_range, as: :radio_buttons, collection: Experience.price_ranges.keys.map {|key| [key.humanize, key]} %>
+      <%= f.input :price_range, as: :radio_buttons, collection: Experience.price_ranges.keys.map.with_index {|key, index| p '€' * (index + 1)} %>
+
       <%= f.input :price, placeholder: 'In IDR (optional)', label: "Average Price" %>
       <%= f.input :details, input_html: {rows: 5}, placeholder: "How was your experience? What did you most enjoy? Would you recommend it? Summarize your visit or highlight an interesting detail." %>
+      <div class="photo-input pt-2 pb-4" id="photo_input">
+        <label class="photo-uploader" id="DefaultImagePreview">
+          <i class='fas fa-camera-retro pb-2'></i>
+          Add a photo
+          <span style='display: none'>
+            <%= f.input :photo %>
+          </span>
+        </label>
+      </div>
       <%= f.submit "Submit", class: "btn btn-primary" %>
     <% end %>
   </div>

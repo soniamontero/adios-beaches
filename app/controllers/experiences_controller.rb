@@ -70,7 +70,9 @@ class ExperiencesController < ApplicationController
   end
 
   def create
-    @experience = Experience.new(experience_params)
+    create_params = experience_params
+    create_params[:price_range] = convert_to_price_range(create_params)
+    @experience = Experience.new(create_params)
     @experience.user = current_user
     authorize @experience
     if @experience.save
@@ -88,7 +90,9 @@ class ExperiencesController < ApplicationController
   def update
     @experience = Experience.find(params[:id])
     authorize @experience
-    if @experience.update(experience_params)
+    update_params = experience_params
+    update_params[:price_range] = convert_to_price_range(update_params)
+    if @experience.update(update_params)
       redirect_to experience_path(@experience)
     else
       render :edit
@@ -96,6 +100,16 @@ class ExperiencesController < ApplicationController
   end
 
   def delete
+  end
+
+  def convert_to_price_range(params)
+    if params[:price_range] === '€'
+      'low'
+    elsif params[:price_range] === '€€'
+      'medium'
+    elsif params[:price_range] === '€€€'
+      'high'
+    end
   end
 
   private

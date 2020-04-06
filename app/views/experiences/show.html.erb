@@ -121,11 +121,16 @@
       <h6 class="small-grey-title">Price range</h6>
       <div class="experience-price-range">
         <%= @experience.price_range_to_icon %>
+
       </div>
 
       <h6 class="small-grey-title pt-3">Details</h6>
       <div class="experience-details">
-        <%= @experience.details %>
+        <% if @experience.details.empty? %>
+          Sorry, the user didn't add any details.
+        <% else %>
+          <%= @experience.details %>
+        <% end %>
       </div>
 
       <h6 class="small-grey-title pt-3">Who has been there?</h6>

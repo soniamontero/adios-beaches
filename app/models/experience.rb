@@ -12,6 +12,7 @@ class Experience < ApplicationRecord
   validates :address, presence: true
   validates :price, numericality: { only_integer: true }, allow_nil: true
   validates :price_range, presence: true, inclusion: { in: price_ranges.keys }
+  validates :details, presence: true
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
