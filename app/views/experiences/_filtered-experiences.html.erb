@@ -9,7 +9,7 @@
     <%= link_to experience_path(experience) do %>
       <div class="experience-card-photo">
         <% if experience.photo.file.nil? %>
-          <%= image_tag asset_path('photo-not-found.jpeg') %>
+          <%= image_tag asset_path('photo-not-found.jpeg'), class: "index-photo"  %>
         <% else %>
           <%= cl_image_tag experience.photo, class: "index-photo" %>
         <% end %>
@@ -70,7 +70,10 @@
         </div>
       <% end %>
       <div class="experience-card-category">
-        <%= experience.category.name %>&nbsp;&nbsp;-&nbsp;&nbsp;
+        <% experience.categories.each do |category| %>
+          <%= category.name %>
+        <% end %>
+        &nbsp;&nbsp;-&nbsp;&nbsp;
         <span class="experience-price-range">
           <%= experience.price_range_to_icon %>
         </span>

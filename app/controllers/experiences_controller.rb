@@ -24,8 +24,6 @@ class ExperiencesController < ApplicationController
           format.js
         end
       end
-      # keyword = params[:query]
-      # Experience.where("experiences.title LIKE ? OR experiences.details LIKE ?", "%#{keyword}%", "%#{keyword}%")
     else
       @experiences = policy_scope(Experience).sorted_by_higher_votes
     end
@@ -70,12 +68,21 @@ class ExperiencesController < ApplicationController
   end
 
   def create
-    create_params = experience_params
-    create_params[:price_range] = convert_to_price_range(create_params)
-    @experience = Experience.new(create_params)
+    @experience = Experience.new(experience_params)
     @experience.user = current_user
+
     authorize @experience
-    if @experience.save
+
+    categories_array = params[:experience][:selected_categories].first.split(' ')
+
+    @empty_categories = true if categories_array.empty?
+    @too_many_categories = true if categories_array.length > 3
+
+    if !@empty_categories && @experience.save
+      categories_array.each do |category_name|
+        category = Category.find_by(name: category_name)
+        ExperienceCategory.create!(experience: @experience, category: category)
+      end
       redirect_to experience_path(@experience)
     else
       render :new
@@ -90,9 +97,21 @@ class ExperiencesController < ApplicationController
   def update
     @experience = Experience.find(params[:id])
     authorize @experience
-    update_params = experience_params
-    update_params[:price_range] = convert_to_price_range(update_params)
-    if @experience.update(update_params)
+    categories_array = params[:experience][:selected_categories].first.split(' ')
+    @empty_categories = true if categories_array.empty?
+    @too_many_categories = true if categories_array.length > 3
+    if !@empty_categories && categories_array.length <= 3 && @experience.update(experience_params)
+      old_categories = ExperienceCategory.where(experience: @experience)
+      new_categories = []
+
+      categories_array.each do |category_name|
+        category = Category.find_by(name: category_name)
+        new_categories << ExperienceCategory.find_or_create_by!(experience: @experience, category: category)
+      end
+      # Filter the unselected categories and delete them from db
+      cat_to_remove = (old_categories + new_categories - (old_categories & new_categories))
+
+      cat_to_remove.each {|e| e.destroy } unless cat_to_remove.empty?
       redirect_to experience_path(@experience)
     else
       render :edit
@@ -100,16 +119,6 @@ class ExperiencesController < ApplicationController
   end
 
   def delete
-  end
-
-  def convert_to_price_range(params)
-    if params[:price_range] === '€'
-      'low'
-    elsif params[:price_range] === '€€'
-      'medium'
-    elsif params[:price_range] === '€€€'
-      'high'
-    end
   end
 
   private

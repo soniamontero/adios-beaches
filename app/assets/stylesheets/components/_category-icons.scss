@@ -1,10 +1,33 @@
+.category-tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.category-tag {
+  font-size: 12px;
+  padding: 6px;
+  margin: 2px;
+  border-radius: 5px;
+  color: #f4f4f4;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #b5d9d5;
+  &:hover {
+    background-color: #b5d9d5 !important;
+  }
+  &.active {
+    background-color: #249186 !important;
+  }
+}
+
 .category-icons {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
-
 
 .category-icons-scroll {
   // display: flex;

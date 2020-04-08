@@ -1,6 +1,8 @@
 class Experience < ApplicationRecord
-  belongs_to :category
   belongs_to :user
+  has_many :experience_categories, inverse_of: :experience
+  accepts_nested_attributes_for :experience_categories
+  has_many :categories, through: :experience_categories
   has_many :dones
   has_many :votes
   has_many :favorites

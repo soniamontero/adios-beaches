@@ -183,7 +183,10 @@
             </div>
           <% end %>
           <div class="experience-card-category">
-            <%= experience.category.name %>&nbsp;&nbsp;-&nbsp;&nbsp;
+            <% experience.categories.each do |category| %>
+              <%= category.name %>
+            <% end %>
+            &nbsp;&nbsp;-&nbsp;&nbsp;
             <span class="experience-price-range">
               <%= experience.price_range_to_icon %>
             </span>

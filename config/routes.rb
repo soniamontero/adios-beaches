@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :dones, only: [:create]
     resources :favorites, only: [:create]
     resources :votes, only: [:create]
+    resources :experience_categories, only: [:create]
   end
 
   resources :dones, only: [:destroy] do

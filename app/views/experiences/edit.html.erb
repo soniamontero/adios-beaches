@@ -1,23 +1,51 @@
 <div class="form-container">
   <div class="minimal-form">
     <%= simple_form_for @experience do |f| %>
-    <div class="photo-input" id="photo_input">
-      <label class="photo-uploader" id="DefaultImagePreview">
-        <i class='fas fa-camera-retro pb-2'></i>
-        Add a photo
-        <span style='display: none'>
-          <%= f.input :photo %>
-        </span>
-      </label>
-    </div>
-    <!-- <div id="DefaultImagePreview"></div> -->
       <%= f.input :photo_cache, as: :hidden %>
-      <%= f.association :category, label_method: :name, selected: 'Food' %>
       <%= f.input :name, placeholder: "ex: Diving at Penida with Dive Concepts" %>
       <%= f.input :address, placeholder: "ex: Canggu" %>
-      <%= f.input :price_range, as: :radio_buttons, collection: Experience.price_ranges.keys.map.with_index {|key, index| p '€' * (index + 1)} %>
+
+      <%= f.input :price_range,
+        :collection => [["€","low"], ["€€", "medium"], ["€€€", "high"]],
+        :label_method => :first,
+        :value_method => :last,
+        :as => :radio_buttons
+      %>
       <%= f.input :price, placeholder: 'In IDR (optional)', label: "Average Price" %>
+
+      <%= f.hidden_field :selected_categories, :multiple => true, :value => [] %>
+      <div class="form-group">
+        <label>Select categories:</label>
+        <div class="category-tags">
+          <% Category.all.each do |category| %>
+            <span class= "category-tag <%= 'active' if @experience.categories.include?(category) %>">
+              <%= category.name %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+
+      <% if @empty_categories %>
+        <div class="invalid-feedback d-block">
+          You need to add minimum one category to your experience.
+        </div>
+      <% end %>
+      <% if @too_many_categories %>
+        <div class="invalid-feedback d-block">
+          You can select maximum 3 categories.
+        </div>
+      <% end %>
+
       <%= f.input :details, input_html: {rows: 5}, placeholder: "How was your experience? What did you most enjoy? Would you recommend it? Summarize your visit or highlight an interesting detail." %>
+      <div class="photo-input" id="photo_input">
+        <label class="photo-uploader" id="DefaultImagePreview">
+          <i class='fas fa-camera-retro pb-2'></i>
+          Add a photo
+          <span style='display: none'>
+            <%= f.input :photo %>
+          </span>
+        </label>
+      </div>
       <%= f.submit "Submit", class: "btn btn-primary" %>
     <% end %>
   </div>

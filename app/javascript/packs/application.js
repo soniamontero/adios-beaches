@@ -15,6 +15,7 @@ import { toggleDashMap } from '../components/toggleDashMap.js';
 import { updateCharactersLeft } from '../components/update_characters_left';
 import { initSweetalert } from '../plugins/sweet_alert';
 import { activeIconIndex } from '../components/active_icon_index';
+import { newExperienceCategories } from '../components/new_experience_categories';
 
 initMapbox();
 initMapboxDash();
@@ -25,6 +26,8 @@ toggleDashMap();
 dashboardNav();
 updateCharactersLeft();
 activeIconIndex();
+newExperienceCategories();
+
 // Sweet alert srtup options
 initSweetalert('#sweet-alert-unauthorized', {
   title: "You can't delete that check",

@@ -1,7 +1,7 @@
-<div class="experience-photo-container" style="background-image: <%= 'linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),' if @experience.photo.file.nil? %> url(<%= @experience.photo.file.nil? ? asset_path('photo-not-found.jpeg') : @experience.photo %>);">
+<div class="experience-photo-container" style="background-image: <%= 'linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),' if @experience.photo.file.nil? %> url(<%= @experience.photo.file.nil? ? asset_path('photo-not-found.jpeg') : @experience.photo %>);">
   <% if @experience.photo.file.nil? %>
     <div class="photo-not-found-text">
-      No Photo Added :(
+
     </div>
   <% end %>
   <!-- BEFOREEEEE -->
@@ -107,7 +107,11 @@
       <!-- End statement for vote button on experience -->
 
       <div class="experience-category">
-        <%= @experience.category.name %>
+        <% @experience.categories.each do |category| %>
+        <span class='category-tag'>
+          <%= category.name %>
+        </span>
+        <% end %>
       </div>
 
       <div class="experience-location">
