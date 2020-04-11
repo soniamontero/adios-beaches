@@ -11,6 +11,7 @@ gem 'redis'
 gem 'jquery-rails'
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
 gem 'autoprefixer-rails'
+gem 'serviceworker-rails'
 
 gem 'font-awesome-sass', '~> 5.6.1'
 gem 'sassc-rails'

@@ -221,6 +221,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    serviceworker-rails (0.6.0)
+      railties (>= 3.1)
     simple_form (5.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -292,6 +294,7 @@ DEPENDENCIES
   redis
   rest-client
   sassc-rails
+  serviceworker-rails
   simple_form
   spring
   spring-watcher-listen (~> 2.0.0)
