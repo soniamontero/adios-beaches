@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
   end
 
   def store_back_paths
-    session[:back_path] ||= root_path
+    session[:back_path] ||= [root_path, root_path]
     if request.referer
       session[:back_path] << request.referer unless (request.referer.include?("edit") || request.referer.include?("new"))
     end
