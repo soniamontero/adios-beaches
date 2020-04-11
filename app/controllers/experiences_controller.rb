@@ -3,7 +3,7 @@ class ExperiencesController < ApplicationController
     @user = current_user
     # Define experience if there are search or filter queries.
     if params[:category].present?
-      @experiences = policy_scope(Experience).joins(:category).where(categories: {name: params[:category]})
+      @experiences = policy_scope(Experience).joins(experience_categories: :category).where(categories: {name: 'Food'})
       respond_to do |format|
         format.html { redirect_to experiences_path }
         format.js

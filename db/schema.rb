@@ -57,12 +57,10 @@ ActiveRecord::Schema.define(version: 2020_04_06_082325) do
     t.bigint "price"
     t.integer "price_range"
     t.text "details"
-    t.bigint "category_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "photo"
-    t.index ["category_id"], name: "index_experiences_on_category_id"
     t.index ["user_id"], name: "index_experiences_on_user_id"
   end
 
@@ -115,7 +113,6 @@ ActiveRecord::Schema.define(version: 2020_04_06_082325) do
   add_foreign_key "dones", "users"
   add_foreign_key "experience_categories", "categories"
   add_foreign_key "experience_categories", "experiences"
-  add_foreign_key "experiences", "categories"
   add_foreign_key "experiences", "users"
   add_foreign_key "favorites", "experiences"
   add_foreign_key "favorites", "users"

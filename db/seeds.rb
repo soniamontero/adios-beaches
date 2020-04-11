@@ -52,13 +52,14 @@ p "Generated user: #{faker_name}!"
 end
 
 
-Category.create(name: "Food")
-Category.create(name: "Stays")
-Category.create(name: "Nature")
-Category.create(name: "Arts")
-Category.create(name: "Nightlife")
-Category.create(name: "Sports")
-Category.create(name: "Shopping")
+food = Category.create(name: "Food")
+drinks = Category.create(name: "Drinks")
+stays = Category.create(name: "Stays")
+nature = Category.create(name: "Nature")
+arts = Category.create(name: "Arts")
+nightlife = Category.create(name: "Nightlife")
+sports = Category.create(name: "Sports")
+shopping = Category.create(name: "Shopping")
 # Category.create(name: "workshops")
 puts "Categories generated!"
 
@@ -71,10 +72,13 @@ exp = Experience.create!(
     price: 150000,
     price_range: 2,
     details: "Cool place, good cocktails. Expensive but worth a visit!",
-    category_id: Category.find_by(name: "Food").id,
     user_id: User.all.pluck(:id).sample,
     remote_photo_url: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"
   )
+ExperienceCategory.create!(experience: exp, category: food)
+ExperienceCategory.create!(experience: exp, category: drinks)
+ExperienceCategory.create!(experience: exp, category: nightlife)
+
 p "Generated one more amazing experience: #{exp.name}..."
 
 exp = Experience.create!(
@@ -83,10 +87,11 @@ exp = Experience.create!(
     price: 150000,
     price_range: 2,
     details: "Cool place, good cocktails. Expensive but worth a visit!",
-    category_id: Category.find_by(name: "Food").id,
     user_id: User.all.pluck(:id).sample,
     remote_photo_url: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1334&q=80"
   )
+ExperienceCategory.create!(experience: exp, category: food)
+
 p "Generated one more amazing experience: #{exp.name}..."
 
 exp = Experience.create!(
@@ -95,10 +100,11 @@ exp = Experience.create!(
     price: 500000000,
     price_range: 2,
     details: "Super experienced divers, the teacher was great. Ask for great, he was nice, professional and super patient. And the prce of te open water is pretty cheap compared to competition. Highly recommanded to anyone! ",
-    category_id: Category.find_by(name: "Sports").id,
     user_id: User.all.pluck(:id).sample,
     remote_photo_url: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80"
   )
+ExperienceCategory.create!(experience: exp, category: sports)
+
 p "Generated one more amazing experience: #{exp.name}..."
 
 exp = Experience.create!(
@@ -107,10 +113,11 @@ exp = Experience.create!(
     price: 30000,
     price_range: 1,
     details: "Fresh beers with the best view on the rice field behing the restaurants. Good for sunset!",
-    category_id: Category.find_by(name: "Food").id,
     user_id: User.all.pluck(:id).sample,
     remote_photo_url: "https://images.unsplash.com/photo-1532160515895-a97adb75c4f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
   )
+ExperienceCategory.create!(experience: exp, category: food)
+
 p "Generated one more amazing experience: #{exp.name}..."
 
 exp = Experience.create!(
@@ -119,10 +126,12 @@ exp = Experience.create!(
     price: 80000,
     price_range: 1,
     details: "Cool pizza with DJ and dancefloor in the back. Beers and cocktails, a lot of people. They have a deal on Ponday as well, worth going! And LW student shave a discount there :) ",
-    category_id: Category.find_by(name: "Food").id,
     user_id: User.all.pluck(:id).sample,
     remote_photo_url: "https://images.unsplash.com/photo-1520201163981-8cc95007dd2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=2468&q=80"
   )
+ExperienceCategory.create!(experience: exp, category: food)
+ExperienceCategory.create!(experience: exp, category: nightlife)
+
 p "Generated one more amazing experience: #{exp.name}..."
 
 exp = Experience.create!(
@@ -131,10 +140,11 @@ exp = Experience.create!(
     price: 42000,
     price_range: 1,
     details: "Fresh warung, cheap and close to Frii, perfect to eat fast!",
-    category_id: Category.find_by(name: "Food").id,
     user_id: User.all.pluck(:id).sample,
     remote_photo_url: "https://images.unsplash.com/photo-1559603739-f9d7d50360a2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2500&q=80"
   )
+ExperienceCategory.create!(experience: exp, category: food)
+
 p "Generated one more amazing experience: #{exp.name}..."
 
 exp = Experience.create!(
@@ -143,10 +153,11 @@ exp = Experience.create!(
     price: 50000,
     price_range: 1,
     details: "Monkeys in Bali are so cool. Just go there, bring or buy some bananas, and feed the babies. Cutest little things on earth. No, just kidding, they will try to steal your stuff and maybe even bite you. But still worth it somehow!",
-    category_id: Category.find_by(name: "Nature").id,
     user_id: User.all.pluck(:id).sample,
     remote_photo_url: "https://images.unsplash.com/photo-1430462773665-fd261133b47f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1510&q=80"
   )
+ExperienceCategory.create!(experience: exp, category: nature)
+
 p "Generated one more amazing experience: #{exp.name}..."
 
 exp = Experience.create!(
@@ -155,10 +166,13 @@ exp = Experience.create!(
     price: 42000,
     price_range: 1,
     details: "Starts at 5am I think, finishes at 7am. But u can find all the veggies ever there, only locals.",
-    category_id: Category.find_by(name: "Food").id,
     user_id: User.all.pluck(:id).sample,
     remote_photo_url: "https://images.unsplash.com/photo-1555876484-a71a693b161b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2468&q=80"
   )
+ExperienceCategory.create!(experience: exp, category: food)
+ExperienceCategory.create!(experience: exp, category: shopping)
+ExperienceCategory.create!(experience: exp, category: arts)
+
 p "Generated one more amazing experience: #{exp.name}..."
 
 exp = Experience.create!(
@@ -167,33 +181,13 @@ exp = Experience.create!(
     price: 800000,
     price_range: 2,
     details: "Lot of jewellery, silver and gold plated. Also lingerie!",
-    category_id: Category.find_by(name: "Stays").id,
     user_id: User.all.pluck(:id).sample,
     remote_photo_url: "https://images.unsplash.com/photo-1536502829567-baf877a670b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"
   )
+ExperienceCategory.create!(experience: exp, category: arts)
+ExperienceCategory.create!(experience: exp, category: shopping)
+
 p "Generated one more amazing experience: #{exp.name}..."
 
 
 puts "TROPIC LIKE IT'S HOOOOT!"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

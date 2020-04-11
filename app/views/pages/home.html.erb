@@ -39,11 +39,18 @@
         <%= image_submit_tag("food.png", class: 'category-icon food', alt: 'Food') %>
       <% end %>
 
+       <%= form_tag experiences_path, method: :get do %>
+        <%= hidden_field_tag :category,
+          params[:category], value: "Drinks"
+        %>
+        <%= image_submit_tag("drinks.png", class: 'category-icon drinks', alt: 'Drinks') %>
+      <% end %>
+
       <%= form_tag experiences_path, method: :get do %>
         <%= hidden_field_tag :category,
-          params[:category], value: "Arts"
+          params[:category], value: "Nightlife"
         %>
-        <%= image_submit_tag("arts.png", class: 'category-icon arts', alt: 'Arts') %>
+        <%= image_submit_tag("nightlife.png", class: 'category-icon nightlife', alt: 'Nightlife') %>
       <% end %>
 
       <%= form_tag experiences_path, method: :get do %>
@@ -55,13 +62,6 @@
     </div>
 
     <div class="category-icons">
-      <%= form_tag experiences_path, method: :get do %>
-        <%= hidden_field_tag :category,
-          params[:category], value: "Nightlife"
-        %>
-        <%= image_submit_tag("nightlife.png", class: 'category-icon nightlife', alt: 'Nightlife') %>
-      <% end %>
-
       <%= form_tag experiences_path, method: :get do %>
         <%= hidden_field_tag :category,
           params[:category], value: "Stays"
@@ -81,6 +81,13 @@
           params[:category], value: "Shopping"
         %>
         <%= image_submit_tag("shopping.png", class: 'category-icon shopping', alt: 'Shopping') %>
+      <% end %>
+
+      <%= form_tag experiences_path, method: :get do %>
+        <%= hidden_field_tag :category,
+          params[:category], value: "Arts"
+        %>
+        <%= image_submit_tag("arts.png", class: 'category-icon arts', alt: 'Arts') %>
       <% end %>
     </div>
 

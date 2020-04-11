@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action :store_back_paths
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -51,6 +52,14 @@ class ApplicationController < ActionController::Base
 
     # For additional in app/views/devise/registrations/edit.html.erb
     devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :batch_number, :batch_location, :country, :visited_bali, :slack_username])
+  end
+
+  def store_back_paths
+    session[:back_path] ||= root_path
+    if request.referer
+      session[:back_path] << request.referer unless (request.referer.include?("edit") || request.referer.include?("new"))
+    end
+    session[:back_path].shift while session[:back_path].count > 5
   end
 
   private

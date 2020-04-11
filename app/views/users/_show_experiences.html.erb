@@ -71,15 +71,22 @@
       <% end %>
       <div class="experience-card-category">
         <% experience.categories.each do |category| %>
-          <%= category.name %>
+          <span class="category-tag small">
+            <%= category.name %>
+          </span>
         <% end %>
-        &nbsp;&nbsp;-&nbsp;&nbsp;
+        &nbsp;&nbsp;
         <span class="experience-price-range">
           <%= experience.price_range_to_icon %>
         </span>
       </div>
       <div class="experience-card-location">
-        <%= experience.address.split(',')[2] %>
+        <% if experience.address.split(',').length == 1 %>
+          <%= experience.address %>
+        <% else %>
+          <%= experience.address.split(',')[0]  %>
+          <%= "..." if experience.address.split(',')[0].length > 16 %>
+        <% end %>
       </div>
     </div>
 

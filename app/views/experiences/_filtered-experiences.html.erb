@@ -79,7 +79,11 @@
         </span>
       </div>
       <div class="experience-card-location">
-        <%= experience.address.split(',')[2] %>
+        <% if experience.address.split(',').length == 1 %>
+          <%= experience.address %>
+        <% else %>
+            <%= experience.address.split(',')[0]  %>
+        <% end %>
       </div>
     </div>
 

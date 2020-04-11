@@ -1,6 +1,7 @@
 <div class="navbar main-navbar navbar-dark navbar-backbutton">
   <div class="back-navbar-icon-dark">
-    <%= link_to 'javascript:history.back()' do  %>
+
+    <%= redirect_to session[:back_path].pop do  %>
       <i class="fas fa-chevron-left"></i>
     <% end %>
   </div>
