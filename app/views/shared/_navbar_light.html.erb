@@ -7,7 +7,6 @@
     <% if user_signed_in? && current_user.github_picture_url.present? %>
       <%= image_tag current_user.github_picture_url, class: "avatar" %>
     <% else %>
-    hello
       <picture>
         <source class='toggler-icon' media="(max-width: 420px)" srcset="../assets/menu-dark.png">
         <source class='toggler-icon' media="(min-width: 420px)" srcset="../assets/menu-light.png">
