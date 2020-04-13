@@ -31,7 +31,10 @@
 
 .back-navbar-icon-light {
   font-size: 23px;
-  a, a:active, a:visited {
+  a {
+    color: white;
+  }
+  a:active, a:visited, a:hover {
     color: white;
   }
   &.show-page {
@@ -51,8 +54,11 @@
 
 .back-navbar-icon-dark {
   font-size: 23px;
-  a, a:active, a:visited {
+  a {
     color: $dark-green
+  }
+  a:active, a:visited, a:hover {
+    color: white;
   }
 }
 
@@ -95,6 +101,74 @@
   padding-right: 8vw;
 }
 
+
+// Arrow animation for back button
+.arrow {
+  $size: 15px;
+  $width: 2px;
+
+  cursor: pointer;
+  display: block;
+  width: $size / 1.414;
+  height: $size / 1.414 * 2;
+  position: relative;
+
+  & span,
+  &:before,
+  &:after {
+    background: #fff;
+    content: '';
+    display: block;
+    width: $size;
+    height: $width;
+    position: absolute;
+    top: calc(50% - (#{$width} / 2));
+  }
+
+  &:before {
+    transform: rotate(-45deg);
+  }
+  &:after {
+    transform: rotate(45deg);
+  }
+
+  & span {
+    width: 0;
+  }
+  &:hover span {
+    width: $size * 1.414;
+  }
+
+  @each $direction in 'left' 'right' {
+    &.arrow--#{$direction} {
+      & span,
+      &:before,
+      &:after {
+        #{$direction}: 0;
+        transform-origin: #{$direction} 50%;
+      }
+
+      &:before,
+      &:after {
+        transition: #{$direction} 0.3s 0.05s;
+      }
+
+      & span {
+        transition: width 0.3s, #{$direction} 0.3s 0.05s;
+      }
+
+      &:hover {
+        & span,
+        &:before,
+        &:after {
+          #{$direction}: $size / 1.414 * -1;
+        }
+      }
+    }
+  }
+}
+
+
 @media only screen and (max-width: 420px) {
   .navbar-light {
     background-color: white;
@@ -117,15 +191,25 @@
     .nav-item {
       padding-right: 2vw;
     }
+    .logo img {
+      height: 37px;
+      margin-top: 0px;
+    }
   }
   .back-navbar-icon-light {
-    a, a:active, a:visited {
+    a, a:visited {
     color: #71b3ae;
+    }
+     a:active {
+      color: blue;
     }
   }
   .back-navbar-icon-dark {
-    a, a:active, a:visited {
+    a, a:visited {
       color: #71b3ae;
+    }
+    a:active {
+      color: blue;
     }
   }
 
@@ -139,8 +223,17 @@
     width: 100%;
     border-bottom: 1px solid #f0f0f0;
     z-index: 9999;
+    padding-left: 25px;
   }
 
+  // Arrow navigation color change when ios navbar
+  .arrow {
+    & span,
+    &:before,
+    &:after {
+      background: #71b3ae;
+    }
+  }
   // Responsiveness container adjustements when ios navbar is activated
   .experiences-index-container {
     padding-top: 24vh !important;
@@ -156,5 +249,12 @@
   }
   .navbar-toggler {
     padding: 0;
+  }
+  .banner {
+    padding: 6vh 10vw;
+    margin-top: 14px;
+  }
+  .login-content {
+    margin-top: 25vh;
   }
 }

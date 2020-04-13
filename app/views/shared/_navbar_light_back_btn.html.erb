@@ -2,11 +2,15 @@
   <div class="back-navbar-icon-light <%= "show-page" if action_name == "show" && controller_name == "experiences" %>">
     <% if controller_name == 'experiences' && action_name == 'index' %>
       <%= link_to root_path do %>
-        <i class="fas fa-chevron-left"></i>
+        <div class="arrow arrow--left">
+          <span></span>
+        </div>
       <% end %>
     <% else %>
       <%= link_to experiences_path do %>
-        <i class="fas fa-chevron-left"></i>
+        <div class="arrow arrow--left">
+          <span></span>
+        </div>
       <% end %>
     <% end %>
   </div>

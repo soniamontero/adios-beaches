@@ -1,13 +1,18 @@
 <div class="navbar main-navbar navbar-light navbar-ios">
   <%= link_to root_path, class: "logo" do %>
-    <%= image_tag "AB logo white.png" %>
+    <%= image_tag "adios-beaches.png" %>
   <% end %>
 
   <span class="navbar-toggler"  data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <% if user_signed_in? && current_user.github_picture_url.present? %>
       <%= image_tag current_user.github_picture_url, class: "avatar" %>
     <% else %>
-      <%= image_tag "menu-light.png", class: "toggler-icon" %>
+    hello
+      <picture>
+        <source class='toggler-icon' media="(max-width: 420px)" srcset="../assets/menu-dark.png">
+        <source class='toggler-icon' media="(min-width: 420px)" srcset="../assets/menu-light.png">
+        <img class='toggler-icon' src="../assets/menu-light.png">
+      </picture>
     <% end %>
     <!-- <span class="navbar-toggler-icon"></span> -->
   </span>
