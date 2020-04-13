@@ -1,9 +1,9 @@
-<h3 class="second-blue-title p-2 pt-5 px-4">
-  A few more info to complete your profile...
-</h3>
 
 <div class="form-container">
   <div class="minimal-form">
+    <h3 class="second-blue-title p-2 pb-5 px-4">
+      A few more info to complete your profile...
+    </h3>
     <%= simple_form_for @user, url: patch_profile_path, method: :patch do |f| %>
       <%= f.input :batch_number %>
       <%= f.input :batch_location, collection: @lw_cities %>

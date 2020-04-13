@@ -11,7 +11,7 @@
       <div class="experience-name">
         <%= params[:github_username] %>
         <%= image_tag "github-logo.png", class: "small-logo" %>
-        <% unless @user.first_name.empty? %>
+        <% if @user.first_name && !@user.first_name.empty? %>
           <span class="profile-first-name">(<%= @user.first_name.capitalize %>)</span>
         <% end %>
       </div>
