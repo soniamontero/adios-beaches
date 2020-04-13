@@ -1,5 +1,6 @@
 module BackgroundColorsHelper
   def define_background_color
+    # God, to simplify.
     if controller_name == "registrations" && action_name == "edit"
       'white-background-color'
     elsif controller_name == 'registrations' && action_name == 'new'

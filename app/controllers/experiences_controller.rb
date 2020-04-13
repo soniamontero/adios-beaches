@@ -97,21 +97,29 @@ class ExperiencesController < ApplicationController
   def update
     @experience = Experience.find(params[:id])
     authorize @experience
+
+    # grabs category strings populated by JS
     categories_array = params[:experience][:selected_categories].first.split(' ')
+
+    # Define error messages in case of rerender of the edit form
     @empty_categories = true if categories_array.empty?
     @too_many_categories = true if categories_array.length > 3
+
+    # User can select max 3 categories & min 1. Params must be ok.
     if !@empty_categories && categories_array.length <= 3 && @experience.update(experience_params)
       old_categories = ExperienceCategory.where(experience: @experience)
       new_categories = []
 
       categories_array.each do |category_name|
         category = Category.find_by(name: category_name)
+        # Create new categories for experience if not already present.
         new_categories << ExperienceCategory.find_or_create_by!(experience: @experience, category: category)
       end
+
       # Filter the unselected categories and delete them from db
       cat_to_remove = (old_categories + new_categories - (old_categories & new_categories))
-
       cat_to_remove.each {|e| e.destroy } unless cat_to_remove.empty?
+
       redirect_to experience_path(@experience)
     else
       render :edit

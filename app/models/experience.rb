@@ -1,7 +1,6 @@
 class Experience < ApplicationRecord
   belongs_to :user
-  has_many :experience_categories, inverse_of: :experience
-  accepts_nested_attributes_for :experience_categories
+  has_many :experience_categories
   has_many :categories, through: :experience_categories
   has_many :dones
   has_many :votes
@@ -40,10 +39,12 @@ class Experience < ApplicationRecord
     .order("vote_count DESC")
   end
 
+  # User who created exp has automatically a done assigned.
   def add_owner_as_done
     Done.create!(experience_id: self.id, user_id: self.user_id)
   end
 
+  # Calculate sum of votes for experience.
   def total_votes
     if self.votes.empty?
       0
@@ -52,6 +53,7 @@ class Experience < ApplicationRecord
     end
   end
 
+  # Use number of vote to define css class.
   def total_votes_state
     if self.total_votes == 0
       state = "neutral"
@@ -65,6 +67,8 @@ class Experience < ApplicationRecord
     end
   end
 
+
+  # Calculate sum of dones for experience.
   def total_dones
     if self.dones.length == 0
       "None one has been there yet."
@@ -73,6 +77,7 @@ class Experience < ApplicationRecord
     end
   end
 
+  # Improve display of price with currency symbols.
   def price_range_to_icon
     if self.price_range == 'high'
       string = '<i class="fas fa-euro-sign"></i>' * 3

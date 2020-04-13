@@ -1,11 +1,13 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def edit
+    # Need lw cities for display on edit registration select collection.
     @lw_cities = LW_CITIES
     super
   end
 
   def update
+    # Need lw cities for display on edit registration select collection for rerender.
     @lw_cities = LW_CITIES
     if current_user.update(account_update_params) && current_user.first_login == false
       redirect_to user_profile_path(current_user.github_username)
@@ -18,6 +20,7 @@ class RegistrationsController < Devise::RegistrationsController
     if Favorite.where(experience: current_user.experiences).empty? && Done.where(experience: current_user.experiences).empty?
       super
     else
+      # Can't destroy account if some experiences are in use by other users. who cares.
       flash[:notice] = "At least one of your experiences has been saved by another user. You can't delete your account. You are stuck here forever (or you can contact the admin)."
       redirect_back fallback_location: edit_profile_path
     end
@@ -29,6 +32,7 @@ class RegistrationsController < Devise::RegistrationsController
     resource.update_without_password(params)
   end
 
+  # This code is disgusting, needs to be improved.
   LW_CITIES = [
     "Bordeaux",
     "Lille",

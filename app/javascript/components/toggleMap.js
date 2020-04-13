@@ -1,3 +1,6 @@
+// Handle the map and its button depending on index exp window's size + click.
+// To clean.
+
 const toggleMap = () => {
   const mapContainer = document.querySelector("#index-map");
   const experiencesContainer = document.querySelector("#experience-cards-container");

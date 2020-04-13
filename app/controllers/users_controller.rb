@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   def edit
     @user = current_user
     authorize @user
+    # Need lw cities for display on edit registration select collection.
     @lw_cities = LW_CITIES
   end
 
@@ -11,6 +12,7 @@ class UsersController < ApplicationController
     @user = current_user
     authorize @user
     if @user.update(user_params) && @user.first_login == true
+      # first_login column ensure the user has completed its profile.
       @user.first_login = false
       @user.save
       redirect_to root_path
@@ -26,6 +28,8 @@ class UsersController < ApplicationController
     @my_dones = @user.done_experiences
     @experiences = @user_experiences
     authorize @user
+
+    # Isn't this supposed to be ajaxed?????
     if params[:type]
       if params[:type] == "my_experiences"
         @experiences = @user_experiences
@@ -68,15 +72,16 @@ class UsersController < ApplicationController
       }
     end
 
+    # Clean this later.
     if @user.visited_bali
       @been_to_bali = "Has been to Bali"
     else
       @been_to_bali = "Hasn't visited Bali yet!"
     end
     @same_batch_users = User.where(batch_number: @user.batch_number)
-
   end
 
+  # Same.
   LW_CITIES = [
     "Bordeaux",
     "Lille",

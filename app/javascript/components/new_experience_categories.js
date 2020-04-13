@@ -1,3 +1,6 @@
+// Handle the addition/removal of categories for a new/edit experience page.
+// Should be cleaned by translating to checkboxes.
+
 const newExperienceCategories = () => {
   const array = document.querySelector("#experience_selected_categories");
   if (array) {
@@ -25,7 +28,6 @@ const newExperienceCategories = () => {
       } else {
         array.value += (tag + ' ');
       }
-      console.log(array.value);
     }
 
     categories.forEach((category) => {

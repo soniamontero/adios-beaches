@@ -1,3 +1,4 @@
+// Handle active classes of the user show navigation.
 const dashboardNav = () => {
   const dones = document.querySelector("#done");
   const saved = document.querySelector("#saved");

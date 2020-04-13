@@ -1,3 +1,5 @@
+// Handle the info message number of characters when filling new exp form.
+
 const nameInput = document.querySelector("#experience_name");
 
 const updateNumber = (event) => {

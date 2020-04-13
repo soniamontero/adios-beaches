@@ -1,3 +1,6 @@
+// Handle the map and its button depending on window's size + click.
+// To clean.
+
 const toggleDashMap = () => {
   const mapContainer = document.querySelector("#dashboard-map");
   const experiencesContainer = document.querySelector("#experience-cards-container");

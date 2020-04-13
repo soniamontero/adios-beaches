@@ -1,5 +1,6 @@
 module NavbarsHelper
   def define_navbar_to_render
+    # To simplify.
     if controller_name == "pages" && action_name == "home"
       return render 'shared/navbar_light'
     elsif controller_name == "pages" && action_name == "dashboard"

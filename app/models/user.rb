@@ -4,11 +4,10 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :done_experiences, through: :dones, source: 'experience'
   has_many :favorite_experiences, through: :favorites, source: 'experience'
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   devise :omniauthable, omniauth_providers: [:github]
+  # :confirmable, :lockable, :timeoutable, :trackable
 
   lw_cities = [
     "bordeaux", "lille", "lyon", "marseille", "nantes", "paris", "rennes",
@@ -27,18 +26,25 @@ class User < ApplicationRecord
 
   validate :has_avatar, on: :create
 
+  # Use of this shitty gem country thing.
   def country_name
     c = ISO3166::Country[self.country]
     return c.translations[I18n.locale.to_s] || c.name
   end
 
+  # Displays default avatar is user has none. To improve.
   def has_avatar
-    identicons = ["https://avatars0.githubusercontent.com/u/11577265?s=460&v=4", "https://avatars2.githubusercontent.com/u/12451650?s=460&v=4", "https://avatars1.githubusercontent.com/u/26235955?s=460&v=4", "https://topcoder-prod-media.s3.amazonaws.com/member/profile/Dhirendra24-1521096232990.png"]
+    identicons = ["https://avatars0.githubusercontent.com/u/11577265?s=460&v=4",
+      "https://avatars2.githubusercontent.com/u/12451650?s=460&v=4",
+      "https://avatars1.githubusercontent.com/u/26235955?s=460&v=4",
+      "https://topcoder-prod-media.s3.amazonaws.com/member/profile/Dhirendra24-1521096232990.png"]
     if self.github_picture_url.nil?
       self.github_picture_url = identicons.sample
     end
   end
 
+  # Following methods insure the right links/forms are displayed to
+  # create/delete done/favorite/votes.
   def has_done?(experience)
     Done.where(experience_id: experience.id, user_id: self.id).first
   end
@@ -57,17 +63,18 @@ class User < ApplicationRecord
     end
   end
 
-
   def has_downvoted?(experience)
     if has_voted?(experience)
       Vote.where(experience_id: experience.id, user_id: self.id).first.value == -1
     end
   end
 
+  # Cleaning before save to db
   def batch_location_to_lowercase
     self.batch_location = self.batch_location.downcase unless self.batch_location.nil?
   end
 
+  # Github omniauth logic
   def self.find_for_github_oauth(auth)
     user_params = auth.slice("provider", "uid")
     user_params.merge! auth.info.slice("email", "first_name")
@@ -76,15 +83,17 @@ class User < ApplicationRecord
     user_params[:token] = auth.credentials.token
     user_params = user_params.to_h
 
+    # Gets all the repositories of the user
     repositories_json = open(auth.extra.raw_info.repos_url,
       "Accept" => "application/vnd.github.v3+json",
       "Authorization" => "token #{auth.credentials.token}"
     ).read
     repositories = JSON.parse(repositories_json)
-    # Identify all the repositories' names of the user
+    # Identify all the repositories' **names** of the user
     user_repos = repositories.map {|repo| repo["name"]}
 
-    # Array containing all the repositories of a LW students
+    # Array containing default repositories of LW student
+    # This logic IS NOT bulletproof.
     lw_repos = [
       "fullstack-challenges", "rails-stupid-coaching", "dotfiles",
       "rails-longest-word-game", "rails-mister-cocktail", "rails-task-manager",

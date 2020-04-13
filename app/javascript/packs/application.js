@@ -1,9 +1,5 @@
-// import $ from 'jquery';
-// global.$ = $;
-// global.jQuery = $;
-
 import "bootstrap";
-import 'mapbox-gl/dist/mapbox-gl.css'; // <-- you need to uncomment the stylesheet_pack_tag in the layout!
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 import { initMapbox } from '../plugins/init_mapbox';
 import { initMapboxDash } from '../plugins/init_mapbox_dashboard';
@@ -28,7 +24,7 @@ updateCharactersLeft();
 activeIconIndex();
 newExperienceCategories();
 
-// Sweet alert srtup options
+// Sweet alert options (handle the comment form + unauthorized action undone)
 initSweetalert('#sweet-alert-unauthorized', {
   title: "You can't delete that check",
   text: "Your experiences are automatically labelled as done.",

@@ -5,6 +5,7 @@ class DonesController < ApplicationController
     @done.user = current_user
     experience = Experience.find(params[:experience_id])
     @done.experience = experience
+    # params[:github_username] are found only on user show page
     if params[:github_username]
       @user = User.find_by(github_username: params[:github_username])
     end
@@ -20,6 +21,7 @@ class DonesController < ApplicationController
   def destroy
     @done = Done.find(params[:id])
     @experience = @done.experience
+    # params[:github_username] are found only on user show page
     if params[:github_username]
       @user = User.find_by(github_username: params[:github_username])
     end
@@ -36,9 +38,9 @@ class DonesController < ApplicationController
     end
   end
 
+  # Method not used for now - to update.
   def user_not_authorized(exception)
     @error = true
-    # render js: "alert('Sorry, you cannot delete your own experience.')"
     respond_to do |format|
         format.html {}
         format.js { render text: 'ici' }

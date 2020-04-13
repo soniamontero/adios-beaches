@@ -9,6 +9,7 @@ class DonePolicy < ApplicationPolicy
     true
   end
 
+  # Ensure that user doesn't destroy the done of their own experience.
   def destroy?
     record.user == user && record.experience.user != user
   end
