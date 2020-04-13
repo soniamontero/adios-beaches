@@ -43,6 +43,10 @@
   color: $teal;
   background-color: #ffffff26;
   max-width: 350px;
+  transition: 0.7s ease-out;
+  &:active {
+    transform: scale(0.9);
+  }
   a {
     color: $teal;
     text-decoration: none;
@@ -67,6 +71,10 @@
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 4px;
+  transition: 0.5s ease-out;
+  &:active {
+    font-size: 13px;
+  }
   span {
     font-size: 20px;
   }
@@ -74,4 +82,5 @@
     text-decoration: none;
     color: #829992;
   }
+
 }

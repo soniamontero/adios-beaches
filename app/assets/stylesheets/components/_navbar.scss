@@ -76,6 +76,10 @@
 
 .toggler-icon {
   height: 30px;
+  transition: 0.7s ease-out;
+  &:active {
+    transform: scale(0.8);
+  }
 }
 
 
@@ -184,10 +188,16 @@
     position: relative;
     z-index: 3;
   }
+  .navbar-light .nav-items a:active {
+    font-weight: 500;
+  }
 
   .main-navbar {
     justify-content: space-between;
     background: white;
+    .nav-items {
+      transition: 0.7s ease-out;
+    }
     .nav-item {
       padding-right: 2vw;
     }

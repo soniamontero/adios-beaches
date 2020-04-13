@@ -79,6 +79,10 @@
   font-weight: bold;
   color: #6b6b6b;
   margin-right: 18px;
+  transition: 0.5s ease-out;
+  &:active {
+    transform: scale(0.9);
+  }
 }
 
 .experience-card-location {
@@ -131,6 +135,10 @@
   background-color: #ffffff00;
   font-size: 15px;
   margin-left: 10px;
+  transition: 0.7s ease-out;
+  &:active {
+    transform: scale(0.4);
+  }
    *:focus, *:hover {
     outline: none;
     color: #f16d6d;
@@ -174,11 +182,11 @@
     background-color: #ffffff00;
     color: #919191;
   }
-  .upvote-button:hover {
+  .upvote-button:hover, .upvote-button:active {
     color: #00EAA1;
     transition: 0.8s ease-out;
   }
-  .downvote-button:hover {
+  .downvote-button:hover, .downvote-button:active {
     color: #F16D6D;
     transition: 0.8s ease-out;
   }
@@ -205,6 +213,10 @@
   border-radius: 25px;
   box-shadow: 1px 1px 5px 0px rgba(156, 156, 156, 0.44);
   background-color: #ffffff;
+  transition: 0.5s ease-out;
+  &:active {
+    transform: scale(0.4);
+  }
   *:focus, *:hover {
     outline: none;
     transition: 0.8s ease-out;
