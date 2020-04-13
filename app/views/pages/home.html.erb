@@ -39,7 +39,7 @@
         <%= image_submit_tag("food.png", class: 'category-icon food', alt: 'Food') %>
       <% end %>
 
-       <%= form_tag experiences_path, method: :get do %>
+      <%= form_tag experiences_path, method: :get do %>
         <%= hidden_field_tag :category,
           params[:category], value: "Drinks"
         %>

@@ -3,6 +3,10 @@
 // Add a background image only on home page (see application.html.erb for body line)
 // see background_color.scss and BackgroundColors Helper
 
+body {
+  background-color: #FFFFFF;
+}
+
 .home-content {
   margin-top: 10vh;
 }

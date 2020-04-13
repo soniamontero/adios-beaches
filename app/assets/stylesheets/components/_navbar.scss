@@ -3,7 +3,6 @@
 .navbar-dark {
   .nav-items {
     a {
-
       color: $dark-green;
     }
   }
@@ -19,7 +18,6 @@
     }
   }
 }
-
 
 // NEUTRAL
 
@@ -97,3 +95,66 @@
   padding-right: 8vw;
 }
 
+@media only screen and (max-width: 420px) {
+  .navbar-light {
+    background-color: white;
+  }
+  .navbar-dark {
+    background-color: white;
+  }
+
+  .navbar-backbutton {
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    position: relative;
+    z-index: 3;
+  }
+
+  .main-navbar {
+    justify-content: space-between;
+    background: white;
+    .nav-item {
+      padding-right: 2vw;
+    }
+  }
+  .back-navbar-icon-light {
+    a, a:active, a:visited {
+    color: #71b3ae;
+    }
+  }
+  .back-navbar-icon-dark {
+    a, a:active, a:visited {
+      color: #71b3ae;
+    }
+  }
+
+  .navbar-light .nav-items a {
+    color: #71b3ae;
+  }
+
+  .navbar-ios {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    z-index: 9999;
+  }
+
+  // Responsiveness container adjustements when ios navbar is activated
+  .experiences-index-container {
+    padding-top: 24vh !important;
+  }
+  .form-container {
+    margin-top: 65px;
+  }
+  .profile-container {
+    margin-top: -130px !important;
+  }
+  .experience-photo-container {
+    margin-top: 0px !important;
+  }
+  .navbar-toggler {
+    padding: 0;
+  }
+}
