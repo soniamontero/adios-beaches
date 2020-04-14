@@ -44,10 +44,10 @@
   background-color: white;
   transition: 0.7s ease-out;
   &:active {
-    transform: scale(0.4);
+    transform: scale(0.95);
   }
   &:hover {
-    transform: scale(0.4);
+    transform: scale(0.95);
   }
    *:focus, *:hover {
     outline: none;
@@ -92,10 +92,10 @@
   background-color: white;
   transition: 0.7s ease-out;
   &:active {
-    transform: scale(0.4);
+    transform: scale(0.95);
   }
   &:hover {
-    transform: scale(0.4);
+    transform: scale(0.95);
   }
   *:focus, *:hover {
     outline: none;
@@ -264,10 +264,10 @@
   border-color: #81adb0;
   transition: 0.7s ease-out;
   &:active {
-    transform: scale(0.7);
+    transform: scale(0.9);
   }
   &:hover {
-    transform: scale(0.7);
+    transform: scale(0.9);
   }
   &.comment-card {
     height: 35px;

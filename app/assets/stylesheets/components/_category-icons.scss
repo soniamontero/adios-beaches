@@ -74,10 +74,10 @@
   margin-left: 4vw;
   transition: 0.5s ease-out;
   &:active {
-    transform: scale(0.7);
+    transform: scale(0.85);
   }
   &:hover {
-    transform: scale(0.7);
+    transform: scale(0.85);
   }
   &:active:focus {
     outline: none;
