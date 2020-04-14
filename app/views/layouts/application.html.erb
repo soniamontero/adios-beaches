@@ -16,7 +16,7 @@
     <%= render 'shared/ios_pwa_links' %>
   <link rel="manifest" href="/manifest.json" />
 <meta name="apple-mobile-web-app-capable" content="yes"></head>
-  <body class="<%= define_background_color %>">
+  <body ontouchstart=”” class="<%= define_background_color %>">
     <%= define_navbar_to_render %>
     <%= render 'shared/flashes' %>
     <%= yield %>

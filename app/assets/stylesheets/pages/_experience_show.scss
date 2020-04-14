@@ -46,6 +46,9 @@
   &:active {
     transform: scale(0.4);
   }
+  &:hover {
+    transform: scale(0.4);
+  }
    *:focus, *:hover {
     outline: none;
   }
@@ -89,6 +92,9 @@
   background-color: white;
   transition: 0.7s ease-out;
   &:active {
+    transform: scale(0.4);
+  }
+  &:hover {
     transform: scale(0.4);
   }
   *:focus, *:hover {
@@ -258,6 +264,9 @@
   border-color: #81adb0;
   transition: 0.7s ease-out;
   &:active {
+    transform: scale(0.7);
+  }
+  &:hover {
     transform: scale(0.7);
   }
   &.comment-card {

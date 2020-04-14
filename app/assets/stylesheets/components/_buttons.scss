@@ -9,6 +9,13 @@
   color: white;
   background-color: #ffffff26;
   max-width: 350px;
+  transition: 0.5s ease-out;
+  &:active {
+    transform: scale(0.9);
+  }
+  &:hover {
+    transform: scale(0.9);
+  }
   a {
     color: white;
     text-decoration: none;
@@ -47,6 +54,9 @@
   &:active {
     transform: scale(0.9);
   }
+  &:hover {
+    transform: scale(0.9);
+  }
   a {
     color: $teal;
     text-decoration: none;
@@ -73,6 +83,9 @@
   letter-spacing: 4px;
   transition: 0.5s ease-out;
   &:active {
+    font-size: 13px;
+  }
+  &:hover {
     font-size: 13px;
   }
   span {

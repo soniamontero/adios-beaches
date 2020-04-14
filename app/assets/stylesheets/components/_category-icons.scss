@@ -76,6 +76,9 @@
   &:active {
     transform: scale(0.7);
   }
+  &:hover {
+    transform: scale(0.7);
+  }
   &:active:focus {
     outline: none;
   }
